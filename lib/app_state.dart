@@ -152,21 +152,6 @@ class FFAppState extends ChangeNotifier {
   void clearItemsCacheKey(String? uniqueKey) =>
       _itemsManager.clearRequest(uniqueKey);
 
-  final _stylesManager = FutureRequestManager<List<StylesRecord>>();
-  Future<List<StylesRecord>> styles({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Future<List<StylesRecord>> Function() requestFn,
-  }) =>
-      _stylesManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearStylesCache() => _stylesManager.clear();
-  void clearStylesCacheKey(String? uniqueKey) =>
-      _stylesManager.clearRequest(uniqueKey);
-
   final _stylePrefManager = StreamRequestManager<List<StylesRecord>>();
   Stream<List<StylesRecord>> stylePref({
     String? uniqueQueryKey,

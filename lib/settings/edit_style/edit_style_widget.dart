@@ -93,7 +93,7 @@ class _EditStyleWidgetState extends State<EditStyleWidget> {
                   ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 1.0,
+                  height: MediaQuery.of(context).size.height * 0.75,
                   decoration: BoxDecoration(),
                   child: Padding(
                     padding:

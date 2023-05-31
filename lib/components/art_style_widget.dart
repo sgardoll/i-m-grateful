@@ -95,7 +95,7 @@ class _ArtStyleWidgetState extends State<ArtStyleWidget> {
                     ),
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height * 1.0,
+                    height: MediaQuery.of(context).size.height * 0.75,
                     decoration: BoxDecoration(),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
