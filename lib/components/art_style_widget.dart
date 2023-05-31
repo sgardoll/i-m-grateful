@@ -69,8 +69,9 @@ class _ArtStyleWidgetState extends State<ArtStyleWidget> {
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
             child: SingleChildScrollView(
+              primary: false,
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
                     padding:

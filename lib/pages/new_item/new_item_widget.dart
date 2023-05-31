@@ -383,8 +383,6 @@ class _NewItemWidgetState extends State<NewItemWidget> {
                             logFirebaseEvent('IconButton_bottom_sheet');
                             showModalBottomSheet(
                               isScrollControlled: true,
-                              backgroundColor: FFAppState().primary,
-                              barrierColor: FFAppState().contrasting,
                               context: context,
                               builder: (bottomSheetContext) {
                                 return Padding(
