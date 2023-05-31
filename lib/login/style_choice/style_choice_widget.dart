@@ -124,7 +124,7 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                       Flexible(
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 8.0),
+                              0.0, 24.0, 0.0, 8.0),
                           child: Text(
                             'Please select an art style for your entries to be represented in',
                             textAlign: TextAlign.center,
@@ -142,11 +142,11 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                   ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.75,
+                  height: MediaQuery.of(context).size.height * 0.6,
                   decoration: BoxDecoration(),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 24.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 24.0),
                     child: AuthUserStreamWidget(
                       builder: (context) => StreamBuilder<List<StylesRecord>>(
                         stream: FFAppState().stylePref(
@@ -191,8 +191,6 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                                 width: 100.0,
                                 height: 125.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
                                   borderRadius: BorderRadius.circular(25.0),
                                 ),
                                 child: Column(
@@ -227,88 +225,77 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                                         tag: gridViewStylesRecord.image,
                                         transitionOnUserGestures: true,
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(0.0),
-                                            bottomRight: Radius.circular(0.0),
-                                            topLeft: Radius.circular(25.0),
-                                            topRight: Radius.circular(25.0),
-                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(25.0),
                                           child: Image.network(
                                             gridViewStylesRecord.image,
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
                                                 1.0,
-                                            height: 186.0,
+                                            height: 162.0,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
                                     ),
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(0.0, 0.85),
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          logFirebaseEvent(
-                                              'STYLE_CHOICE_PAGE_LOGIN_BTN_ON_TAP');
-                                          logFirebaseEvent(
-                                              'Button_backend_call');
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        logFirebaseEvent(
+                                            'STYLE_CHOICE_PAGE_LOGIN_BTN_ON_TAP');
+                                        logFirebaseEvent('Button_backend_call');
 
-                                          final usersUpdateData =
-                                              createUsersRecordData(
-                                            style: gridViewStylesRecord.style,
-                                          );
-                                          await currentUserReference!
-                                              .update(usersUpdateData);
-                                          logFirebaseEvent(
-                                              'Button_show_snack_bar');
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                'Style preference changed to ${valueOrDefault(currentUserDocument?.style, '')}',
-                                                style: GoogleFonts.getFont(
-                                                  'Outfit',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .accent3,
-                                                ),
+                                        final usersUpdateData =
+                                            createUsersRecordData(
+                                          style: gridViewStylesRecord.style,
+                                        );
+                                        await currentUserReference!
+                                            .update(usersUpdateData);
+                                        logFirebaseEvent(
+                                            'Button_show_snack_bar');
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Style preference changed to ${valueOrDefault(currentUserDocument?.style, '')}',
+                                              style: GoogleFonts.getFont(
+                                                'Outfit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent3,
                                               ),
-                                              duration:
-                                                  Duration(milliseconds: 4000),
-                                              backgroundColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
                                             ),
-                                          );
-                                          logFirebaseEvent(
-                                              'Button_navigate_back');
-                                          Navigator.pop(context);
-                                        },
-                                        text: gridViewStylesRecord.style,
-                                        options: FFButtonOptions(
-                                          width: 200.0,
-                                          height: 30.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium,
-                                          elevation: 2.0,
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(25.0),
+                                        );
+                                        logFirebaseEvent(
+                                            'Button_navigate_back');
+                                        Navigator.pop(context);
+                                      },
+                                      text: gridViewStylesRecord.style,
+                                      options: FFButtonOptions(
+                                        width: 200.0,
+                                        height: 30.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium,
+                                        elevation: 2.0,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
                                         ),
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
                                       ),
                                     ),
                                   ],
