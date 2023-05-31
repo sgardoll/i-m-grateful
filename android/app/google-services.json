@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "253994998931",
+    "firebase_url": "https://i-m-grateful.firebaseio.com",
+    "project_id": "i-m-grateful",
+    "storage_bucket": "i-m-grateful.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253994998931:android:c6b55b02f2c25ff0b64166",
+        "android_client_info": {
+          "package_name": "com.connectio.imgrateful"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253994998931-0pf50iucr50revrhjosfenam3hd7id5q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.connectio.imgrateful",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "253994998931-vrudnh9bmteck5e83k365p9hd44ial1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoD56KLKIqFj8efX3QVDpUxMOCg1pqSC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "253994998931-455qqvf6iajap7t5ejon0n4onmnko29k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "253994998931-c57shhtg47efebv5fk3k0cv7go5fpk6b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.connectio.imgrateful"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
