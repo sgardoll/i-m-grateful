@@ -55,6 +55,8 @@ class _ArtStyleWidgetState extends State<ArtStyleWidget> {
           sigmaY: 2.0,
         ),
         child: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height * 1.0,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
             borderRadius: BorderRadius.only(
@@ -91,192 +93,183 @@ class _ArtStyleWidgetState extends State<ArtStyleWidget> {
                       ),
                     ),
                   ),
-                  Flexible(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 1.0,
-                      decoration: BoxDecoration(),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 16.0, 16.0, 24.0),
-                        child: AuthUserStreamWidget(
-                          builder: (context) =>
-                              StreamBuilder<List<StylesRecord>>(
-                            stream: FFAppState().stylePref(
-                              uniqueQueryKey: valueOrDefault(
-                                  currentUserDocument?.style, ''),
-                              requestFn: () => queryStylesRecord(
-                                queryBuilder: (stylesRecord) =>
-                                    stylesRecord.orderBy('style'),
-                              ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 1.0,
+                    decoration: BoxDecoration(),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          16.0, 16.0, 16.0, 24.0),
+                      child: AuthUserStreamWidget(
+                        builder: (context) => StreamBuilder<List<StylesRecord>>(
+                          stream: FFAppState().stylePref(
+                            uniqueQueryKey:
+                                valueOrDefault(currentUserDocument?.style, ''),
+                            requestFn: () => queryStylesRecord(
+                              queryBuilder: (stylesRecord) =>
+                                  stylesRecord.orderBy('style'),
                             ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: SpinKitRipple(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      size: 50.0,
-                                    ),
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: SpinKitRipple(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    size: 50.0,
                                   ),
-                                );
-                              }
-                              List<StylesRecord> gridViewStylesRecordList =
-                                  snapshot.data!;
-                              return GridView.builder(
-                                padding: EdgeInsets.zero,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  crossAxisSpacing: 8.0,
-                                  mainAxisSpacing: 16.0,
-                                  childAspectRatio: 0.55,
                                 ),
-                                scrollDirection: Axis.vertical,
-                                itemCount: gridViewStylesRecordList.length,
-                                itemBuilder: (context, gridViewIndex) {
-                                  final gridViewStylesRecord =
-                                      gridViewStylesRecordList[gridViewIndex];
-                                  return Container(
-                                    width: 100.0,
-                                    height: 150.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(25.0),
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            logFirebaseEvent(
-                                                'ART_STYLE_COMP_Image_vz1sy0np_ON_TAP');
-                                            logFirebaseEvent(
-                                                'Image_expand_image');
-                                            await Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType.fade,
-                                                child:
-                                                    FlutterFlowExpandedImageView(
-                                                  image: Image.network(
-                                                    gridViewStylesRecord.image,
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                  allowRotation: false,
-                                                  tag: gridViewStylesRecord
-                                                      .image,
-                                                  useHeroAnimation: true,
+                              );
+                            }
+                            List<StylesRecord> gridViewStylesRecordList =
+                                snapshot.data!;
+                            return GridView.builder(
+                              padding: EdgeInsets.zero,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 8.0,
+                                mainAxisSpacing: 16.0,
+                                childAspectRatio: 0.55,
+                              ),
+                              scrollDirection: Axis.vertical,
+                              itemCount: gridViewStylesRecordList.length,
+                              itemBuilder: (context, gridViewIndex) {
+                                final gridViewStylesRecord =
+                                    gridViewStylesRecordList[gridViewIndex];
+                                return Container(
+                                  width: 100.0,
+                                  height: 125.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.circular(25.0),
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          logFirebaseEvent(
+                                              'ART_STYLE_COMP_Image_vz1sy0np_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Image_expand_image');
+                                          await Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child:
+                                                  FlutterFlowExpandedImageView(
+                                                image: Image.network(
+                                                  gridViewStylesRecord.image,
+                                                  fit: BoxFit.contain,
                                                 ),
+                                                allowRotation: false,
+                                                tag: gridViewStylesRecord.image,
+                                                useHeroAnimation: true,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Hero(
+                                          tag: gridViewStylesRecord.image,
+                                          transitionOnUserGestures: true,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(0.0),
+                                              bottomRight: Radius.circular(0.0),
+                                              topLeft: Radius.circular(25.0),
+                                              topRight: Radius.circular(25.0),
+                                            ),
+                                            child: Image.network(
+                                              gridViewStylesRecord.image,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  1.0,
+                                              height: 150.0,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.85),
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            logFirebaseEvent(
+                                                'ART_STYLE_COMP_LOGIN_BTN_ON_TAP');
+                                            logFirebaseEvent(
+                                                'Button_backend_call');
+
+                                            final usersUpdateData =
+                                                createUsersRecordData(
+                                              style: gridViewStylesRecord.style,
+                                            );
+                                            await currentUserReference!
+                                                .update(usersUpdateData);
+                                            logFirebaseEvent(
+                                                'Button_show_snack_bar');
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Style preference changed to ${valueOrDefault(currentUserDocument?.style, '')}',
+                                                  style: GoogleFonts.getFont(
+                                                    'Outfit',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .accent3,
+                                                  ),
+                                                ),
+                                                duration: Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
                                               ),
                                             );
+                                            logFirebaseEvent(
+                                                'Button_navigate_back');
+                                            Navigator.pop(context);
                                           },
-                                          child: Hero(
-                                            tag: gridViewStylesRecord.image,
-                                            transitionOnUserGestures: true,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(0.0),
-                                                bottomRight:
-                                                    Radius.circular(0.0),
-                                                topLeft: Radius.circular(25.0),
-                                                topRight: Radius.circular(25.0),
-                                              ),
-                                              child: Image.network(
-                                                gridViewStylesRecord.image,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    1.0,
-                                                height: 150.0,
-                                                fit: BoxFit.cover,
-                                              ),
+                                          text: gridViewStylesRecord.style,
+                                          options: FFButtonOptions(
+                                            width: 200.0,
+                                            height: 30.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium,
+                                            elevation: 2.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
                                             ),
+                                            borderRadius:
+                                                BorderRadius.circular(25.0),
                                           ),
                                         ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(0.0, 0.85),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              logFirebaseEvent(
-                                                  'ART_STYLE_COMP_LOGIN_BTN_ON_TAP');
-                                              logFirebaseEvent(
-                                                  'Button_backend_call');
-
-                                              final usersUpdateData =
-                                                  createUsersRecordData(
-                                                style:
-                                                    gridViewStylesRecord.style,
-                                              );
-                                              await currentUserReference!
-                                                  .update(usersUpdateData);
-                                              logFirebaseEvent(
-                                                  'Button_show_snack_bar');
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Style preference changed to ${valueOrDefault(currentUserDocument?.style, '')}',
-                                                    style: GoogleFonts.getFont(
-                                                      'Outfit',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .accent3,
-                                                    ),
-                                                  ),
-                                                  duration: Duration(
-                                                      milliseconds: 4000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                ),
-                                              );
-                                              logFirebaseEvent(
-                                                  'Button_navigate_back');
-                                              Navigator.pop(context);
-                                            },
-                                            text: gridViewStylesRecord.style,
-                                            options: FFButtonOptions(
-                                              width: 200.0,
-                                              height: 30.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium,
-                                              elevation: 2.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
                         ),
                       ),
                     ),
