@@ -95,6 +95,33 @@ class ItemRecord extends FirestoreRecord {
   String get gender => _gender ?? '';
   bool hasGender() => _gender != null;
 
+  // "replicateSelfieEdgeOfRealismV20Img2Img" field.
+  List<String>? _replicateSelfieEdgeOfRealismV20Img2Img;
+  List<String> get replicateSelfieEdgeOfRealismV20Img2Img =>
+      _replicateSelfieEdgeOfRealismV20Img2Img ?? const [];
+  bool hasReplicateSelfieEdgeOfRealismV20Img2Img() =>
+      _replicateSelfieEdgeOfRealismV20Img2Img != null;
+
+  // "edge-of-realism-v20-img2img" field.
+  String? _edgeOfRealismV20Img2img;
+  String get edgeOfRealismV20Img2img => _edgeOfRealismV20Img2img ?? '';
+  bool hasEdgeOfRealismV20Img2img() => _edgeOfRealismV20Img2img != null;
+
+  // "replicateNoBgCreate" field.
+  String? _replicateNoBgCreate;
+  String get replicateNoBgCreate => _replicateNoBgCreate ?? '';
+  bool hasReplicateNoBgCreate() => _replicateNoBgCreate != null;
+
+  // "instructPix2Pix" field.
+  String? _instructPix2Pix;
+  String get instructPix2Pix => _instructPix2Pix ?? '';
+  bool hasInstructPix2Pix() => _instructPix2Pix != null;
+
+  // "stableImg2Img" field.
+  String? _stableImg2Img;
+  String get stableImg2Img => _stableImg2Img ?? '';
+  bool hasStableImg2Img() => _stableImg2Img != null;
+
   void _initializeFields() {
     _itemText = snapshotData['itemText'] as String?;
     _moreText = snapshotData['moreText'] as String?;
@@ -113,6 +140,13 @@ class ItemRecord extends FirestoreRecord {
     _uploadedImages =
         UploadedImageUrlsStruct.maybeFromMap(snapshotData['uploadedImages']);
     _gender = snapshotData['gender'] as String?;
+    _replicateSelfieEdgeOfRealismV20Img2Img =
+        getDataList(snapshotData['replicateSelfieEdgeOfRealismV20Img2Img']);
+    _edgeOfRealismV20Img2img =
+        snapshotData['edge-of-realism-v20-img2img'] as String?;
+    _replicateNoBgCreate = snapshotData['replicateNoBgCreate'] as String?;
+    _instructPix2Pix = snapshotData['instructPix2Pix'] as String?;
+    _stableImg2Img = snapshotData['stableImg2Img'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -138,6 +172,14 @@ class ItemRecord extends FirestoreRecord {
   @override
   String toString() =>
       'ItemRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is ItemRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createItemRecordData({
@@ -157,6 +199,10 @@ Map<String, dynamic> createItemRecordData({
   String? status,
   UploadedImageUrlsStruct? uploadedImages,
   String? gender,
+  String? edgeOfRealismV20Img2img,
+  String? replicateNoBgCreate,
+  String? instructPix2Pix,
+  String? stableImg2Img,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -176,6 +222,10 @@ Map<String, dynamic> createItemRecordData({
       'status': status,
       'uploadedImages': UploadedImageUrlsStruct().toMap(),
       'gender': gender,
+      'edge-of-realism-v20-img2img': edgeOfRealismV20Img2img,
+      'replicateNoBgCreate': replicateNoBgCreate,
+      'instructPix2Pix': instructPix2Pix,
+      'stableImg2Img': stableImg2Img,
     }.withoutNulls,
   );
 

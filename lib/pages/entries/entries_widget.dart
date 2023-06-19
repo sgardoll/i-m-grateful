@@ -1,25 +1,20 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/empty_list/empty_list_widget.dart';
-import '/components/feedback_dropdown/feedback_dropdown_widget.dart';
+import '/components/empty_list_no_bg/empty_list_no_bg_widget.dart';
 import '/components/more_dropdown_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/pages/pages_sub/details/details_widget.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/custom_code/actions/index.dart' as actions;
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'entries_model.dart';
 export 'entries_model.dart';
 
@@ -30,26 +25,10 @@ class EntriesWidget extends StatefulWidget {
   _EntriesWidgetState createState() => _EntriesWidgetState();
 }
 
-class _EntriesWidgetState extends State<EntriesWidget>
-    with TickerProviderStateMixin {
+class _EntriesWidgetState extends State<EntriesWidget> {
   late EntriesModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final animationsMap = {
-    'iconOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        RotateEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 30000.ms,
-          begin: 0.0,
-          end: -3.0,
-        ),
-      ],
-    ),
-  };
 
   @override
   void initState() {
@@ -57,6 +36,7 @@ class _EntriesWidgetState extends State<EntriesWidget>
     _model = createModel(context, () => EntriesModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Entries'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -81,13 +61,16 @@ class _EntriesWidgetState extends State<EntriesWidget>
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: SpinKitRipple(
-                color: FlutterFlowTheme.of(context).primary,
-                size: 50.0,
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: SpinKitRipple(
+                  color: FlutterFlowTheme.of(context).primary,
+                  size: 50.0,
+                ),
               ),
             ),
           );
@@ -129,14 +112,27 @@ class _EntriesWidgetState extends State<EntriesWidget>
                       ),
                     ),
                   ),
-                  if (entriesItemRecordList
-                          .where((e) => e.status != 'Success')
-                          .toList()
-                          .length >=
-                      1)
+                  if (valueOrDefault<bool>(
+                    entriesItemRecordList
+                            .where((e) => valueOrDefault<bool>(
+                                  valueOrDefault<bool>(
+                                        e.status == 'Started',
+                                        false,
+                                      ) ||
+                                      valueOrDefault<bool>(
+                                        e.status == '',
+                                        false,
+                                      ),
+                                  false,
+                                ))
+                            .toList()
+                            .length >=
+                        1,
+                    false,
+                  ))
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 8.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
                       child: Card(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -144,73 +140,276 @@ class _EntriesWidgetState extends State<EntriesWidget>
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 1.0,
-                              height: 38.0,
-                              decoration: BoxDecoration(
-                                color: valueOrDefault<Color>(
-                                  FFAppState().primary,
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(0.0),
-                                  bottomRight: Radius.circular(0.0),
-                                  topLeft: Radius.circular(8.0),
-                                  topRight: Radius.circular(8.0),
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 8.0, 0.0, 0.0),
-                                  child: Icon(
-                                    Icons.sync_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    size: 24.0,
-                                  ).animateOnPageLoad(animationsMap[
-                                      'iconOnPageLoadAnimation']!),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      4.0, 8.0, 0.0, 0.0),
-                                  child: Text(
-                                    valueOrDefault<String>(
-                                      'Generating ${valueOrDefault<String>(
-                                        entriesItemRecordList
-                                            .where((e) => e.status != 'Success')
-                                            .toList()
-                                            .length
-                                            .toString(),
-                                        '0',
-                                      )}${valueOrDefault<int>(
-                                            entriesItemRecordList
-                                                .where((e) =>
-                                                    e.status != 'Success')
-                                                .toList()
-                                                .length,
-                                            0,
-                                          ) == 1 ? ' image' : ' images'}',
-                                      'Generating images',
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Raleway',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                        child: Align(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          child: Stack(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 1.0,
+                                height: 38.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  border: Border.all(
+                                    color: FFAppState().primary,
+                                    width: 2.0,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(-1.0, 0.0),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.asset(
+                                          'assets/images/3face8da2a6c3dcd27cb4a1aaa32c926_w200.gif',
+                                          width: 24.0,
+                                          height: 24.0,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 0.0, 0.0, 0.0),
+                                          child: Text(
+                                            'Generating ${valueOrDefault<int>(
+                                                  entriesItemRecordList
+                                                      .where((e) =>
+                                                          e.status != 'Success')
+                                                      .toList()
+                                                      .length,
+                                                  0,
+                                                ) == 1 ? 'image' : 'images'} for ${entriesItemRecordList.where((e) => valueOrDefault<bool>(
+                                                  valueOrDefault<bool>(
+                                                        e.status == 'Started',
+                                                        false,
+                                                      ) ||
+                                                      valueOrDefault<bool>(
+                                                        e.status == '',
+                                                        false,
+                                                      ),
+                                                  false,
+                                                )).toList().length.toString()}${valueOrDefault<int>(
+                                                  entriesItemRecordList
+                                                      .where((e) =>
+                                                          e.status != 'Success')
+                                                      .toList()
+                                                      .length,
+                                                  0,
+                                                ) == 1 ? 'entry' : 'entries'}',
+                                            maxLines: 3,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Raleway',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (valueOrDefault<bool>(
+                    entriesItemRecordList
+                            .where((e) => valueOrDefault<bool>(
+                                  e.status == 'Error',
+                                  false,
+                                ))
+                            .toList()
+                            .length >=
+                        1,
+                    false,
+                  ))
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
+                      child: Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        elevation: 4.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Align(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          child: Stack(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 1.0,
+                                height: 38.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(-1.0, 0.0),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Icon(
+                                        Icons.error_outline_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        size: 24.0,
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 0.0, 8.0, 0.0),
+                                          child: Text(
+                                            '${valueOrDefault<String>(
+                                              entriesItemRecordList
+                                                  .where((e) =>
+                                                      e.status == 'Error')
+                                                  .toList()
+                                                  .length
+                                                  .toString(),
+                                              '0',
+                                            )}${entriesItemRecordList.where((e) => valueOrDefault<bool>(
+                                                  valueOrDefault<bool>(
+                                                        e.status == 'Started',
+                                                        false,
+                                                      ) ||
+                                                      valueOrDefault<bool>(
+                                                        e.status == '',
+                                                        false,
+                                                      ),
+                                                  false,
+                                                )).toList().length == 1 ? ' entry' : ' entries'} returned an error',
+                                            maxLines: 3,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Raleway',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                      FFButtonWidget(
+                                        onPressed: () async {
+                                          logFirebaseEvent(
+                                              'ENTRIES_PAGE_RETRY_BTN_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Button_update_widget_state');
+                                          _model.itemText =
+                                              entriesItemRecordList
+                                                  .where((e) =>
+                                                      e.status == 'Error')
+                                                  .toList()
+                                                  .map((e) => e.itemText)
+                                                  .toList()
+                                                  .cast<String>();
+                                          _model.itemRefs =
+                                              entriesItemRecordList
+                                                  .where((e) =>
+                                                      e.status == 'Error')
+                                                  .toList()
+                                                  .map((e) => e.reference)
+                                                  .toList()
+                                                  .cast<DocumentReference>();
+                                          logFirebaseEvent(
+                                              'Button_backend_call');
+
+                                          final itemUpdateData1 = {
+                                            'itemText': FieldValue.delete(),
+                                            'status': FieldValue.delete(),
+                                          };
+                                          await entriesItemRecordList
+                                              .where((e) =>
+                                                  e.reference ==
+                                                  _model.itemRefs.first)
+                                              .toList()
+                                              .first
+                                              .reference
+                                              .update(itemUpdateData1);
+                                          logFirebaseEvent(
+                                              'Button_backend_call');
+
+                                          final itemUpdateData2 =
+                                              createItemRecordData(
+                                            itemText: entriesItemRecordList
+                                                .where((e) =>
+                                                    e.reference ==
+                                                    _model.itemRefs.first)
+                                                .toList()
+                                                .first
+                                                .itemText,
+                                          );
+                                          await entriesItemRecordList
+                                              .where((e) =>
+                                                  e.reference ==
+                                                  _model.itemRefs.first)
+                                              .toList()
+                                              .first
+                                              .reference
+                                              .update(itemUpdateData2);
+                                        },
+                                        text: 'Retry',
+                                        options: FFButtonOptions(
+                                          width: 80.0,
+                                          height: 24.0,
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                fontFamily: 'Outfit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                          elevation: 2.0,
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(25.0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -226,7 +425,7 @@ class _EntriesWidgetState extends State<EntriesWidget>
                           return Center(
                             child: Container(
                               height: MediaQuery.of(context).size.height * 1.0,
-                              child: EmptyListWidget(),
+                              child: EmptyListNoBgWidget(),
                             ),
                           );
                         }
@@ -248,24 +447,34 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                   logFirebaseEvent(
                                       'ENTRIES_PAGE_Card_t0rihpmj_ON_TAP');
                                   logFirebaseEvent('Card_navigate_to');
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailsWidget(
-                                        itemRef: itemsItem.reference,
-                                        primary: colorFromCssString(
+
+                                  context.pushNamed(
+                                    'Details',
+                                    queryParameters: {
+                                      'itemRef': serializeParam(
+                                        itemsItem.reference,
+                                        ParamType.DocumentReference,
+                                      ),
+                                      'primary': serializeParam(
+                                        colorFromCssString(
                                           itemsItem.primaryColor,
                                           defaultColor:
                                               FlutterFlowTheme.of(context)
                                                   .primary,
                                         ),
-                                        contrasting: colorFromCssString(
+                                        ParamType.Color,
+                                      ),
+                                      'contrasting': serializeParam(
+                                        colorFromCssString(
                                           itemsItem.contrastingColor,
                                           defaultColor:
                                               FlutterFlowTheme.of(context)
                                                   .secondary,
                                         ),
-                                        text: Theme.of(context).brightness ==
+                                        ParamType.Color,
+                                      ),
+                                      'text': serializeParam(
+                                        Theme.of(context).brightness ==
                                                 Brightness.light
                                             ? colorFromCssString(
                                                 itemsItem.lightVibrant,
@@ -279,8 +488,9 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .primaryBackground,
                                               ),
+                                        ParamType.Color,
                                       ),
-                                    ),
+                                    }.withoutNulls,
                                   );
                                 },
                                 child: Card(
@@ -332,68 +542,106 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
-                                                    if (valueOrDefault<bool>(
-                                                      itemsItem
-                                                              .stable
-                                                              .colorPalettes
-                                                              .primaryColor ==
-                                                          null,
-                                                      false,
-                                                    ))
-                                                      Material(
-                                                        color:
-                                                            Colors.transparent,
-                                                        elevation: 2.0,
-                                                        shape:
-                                                            RoundedRectangleBorder(
+                                                    Material(
+                                                      color: Colors.transparent,
+                                                      elevation: 2.0,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                      child: Container(
+                                                        width: 60.0,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            1.0,
+                                                        constraints:
+                                                            BoxConstraints(
+                                                          maxHeight: 100.0,
+                                                        ),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
                                                                       8.0),
+                                                          shape: BoxShape
+                                                              .rectangle,
                                                         ),
-                                                        child: Container(
-                                                          width: 60.0,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              1.0,
-                                                          constraints:
-                                                              BoxConstraints(
-                                                            maxHeight: 100.0,
-                                                          ),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryBackground,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  CachedNetworkImageProvider(
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0.0, 0.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          child:
+                                                              CachedNetworkImage(
+                                                            imageUrl:
                                                                 valueOrDefault<
                                                                     String>(
-                                                                  itemsItem
-                                                                      .stable
-                                                                      .imageUrls
-                                                                      .first,
-                                                                  '0',
-                                                                ),
-                                                              ),
+                                                              () {
+                                                                if (itemsItem
+                                                                            .instructPix2Pix !=
+                                                                        null &&
+                                                                    itemsItem
+                                                                            .instructPix2Pix !=
+                                                                        '') {
+                                                                  return itemsItem
+                                                                      .instructPix2Pix;
+                                                                } else if (itemsItem
+                                                                            .stableImg2Img !=
+                                                                        null &&
+                                                                    itemsItem
+                                                                            .stableImg2Img !=
+                                                                        '') {
+                                                                  return valueOrDefault<
+                                                                      String>(
+                                                                    itemsItem
+                                                                        .stableImg2Img,
+                                                                    '0',
+                                                                  );
+                                                                } else if ((itemsItem.stableImg2Img ==
+                                                                            null ||
+                                                                        itemsItem.stableImg2Img ==
+                                                                            '') &&
+                                                                    (itemsItem
+                                                                            .stable
+                                                                            .imageUrls
+                                                                            .length >=
+                                                                        1) &&
+                                                                    (itemsItem.instructPix2Pix ==
+                                                                            null ||
+                                                                        itemsItem.instructPix2Pix ==
+                                                                            '')) {
+                                                                  return valueOrDefault<
+                                                                      String>(
+                                                                    itemsItem
+                                                                        .stable
+                                                                        .imageUrls
+                                                                        .first,
+                                                                    '0',
+                                                                  );
+                                                                } else {
+                                                                  return 'https://www.connectio.com.au/grateful/loading.png';
+                                                                }
+                                                              }(),
+                                                              'https://www.connectio.com.au/grateful/loading.png',
                                                             ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                            shape: BoxShape
-                                                                .rectangle,
+                                                            width: 300.0,
+                                                            height: 200.0,
+                                                            fit: BoxFit.cover,
                                                           ),
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  0.0, 0.0),
                                                         ),
                                                       ),
+                                                    ),
                                                   ],
                                                 ),
                                                 Expanded(
@@ -445,19 +693,11 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                                         .calendar_today_rounded,
                                                                     color: valueOrDefault<
                                                                         Color>(
-                                                                      Theme.of(context).brightness ==
-                                                                              Brightness.dark
-                                                                          ? colorFromCssString(
-                                                                              itemsItem.darkVibrant,
-                                                                              defaultColor: FlutterFlowTheme.of(context).secondaryText,
-                                                                            )
-                                                                          : colorFromCssString(
-                                                                              itemsItem.lightVibrant,
-                                                                              defaultColor: FlutterFlowTheme.of(context).secondaryText,
-                                                                            ),
+                                                                      FFAppState()
+                                                                          .contrasting,
                                                                       FlutterFlowTheme.of(
                                                                               context)
-                                                                          .secondaryText,
+                                                                          .primaryText,
                                                                     ),
                                                                     size: 20.0,
                                                                   ),
@@ -475,17 +715,10 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                                             'Outfit',
                                                                         color: valueOrDefault<
                                                                             Color>(
-                                                                          Theme.of(context).brightness == Brightness.dark
-                                                                              ? colorFromCssString(
-                                                                                  itemsItem.darkVibrant,
-                                                                                  defaultColor: FlutterFlowTheme.of(context).secondaryText,
-                                                                                )
-                                                                              : colorFromCssString(
-                                                                                  itemsItem.lightVibrant,
-                                                                                  defaultColor: FlutterFlowTheme.of(context).secondaryText,
-                                                                                ),
+                                                                          FFAppState()
+                                                                              .contrasting,
                                                                           FlutterFlowTheme.of(context)
-                                                                              .secondaryText,
+                                                                              .primaryText,
                                                                         ),
                                                                         fontSize:
                                                                             12.0,
@@ -513,16 +746,8 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                                               'Outfit',
                                                                           color:
                                                                               valueOrDefault<Color>(
-                                                                            Theme.of(context).brightness == Brightness.dark
-                                                                                ? colorFromCssString(
-                                                                                    itemsItem.darkVibrant,
-                                                                                    defaultColor: FlutterFlowTheme.of(context).secondaryText,
-                                                                                  )
-                                                                                : colorFromCssString(
-                                                                                    itemsItem.lightVibrant,
-                                                                                    defaultColor: FlutterFlowTheme.of(context).secondaryText,
-                                                                                  ),
-                                                                            FlutterFlowTheme.of(context).secondaryText,
+                                                                            FFAppState().contrasting,
+                                                                            FlutterFlowTheme.of(context).primaryText,
                                                                           ),
                                                                           fontSize:
                                                                               10.0,
@@ -537,25 +762,11 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                               color:
                                                                   valueOrDefault<
                                                                       Color>(
-                                                                Theme.of(context)
-                                                                            .brightness ==
-                                                                        Brightness
-                                                                            .dark
-                                                                    ? colorFromCssString(
-                                                                        itemsItem
-                                                                            .darkVibrant,
-                                                                        defaultColor:
-                                                                            FlutterFlowTheme.of(context).secondaryText,
-                                                                      )
-                                                                    : colorFromCssString(
-                                                                        itemsItem
-                                                                            .lightVibrant,
-                                                                        defaultColor:
-                                                                            FlutterFlowTheme.of(context).secondaryText,
-                                                                      ),
+                                                                FFAppState()
+                                                                    .contrasting,
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryText,
+                                                                    .primaryText,
                                                               ),
                                                               size: 24.0,
                                                             ),
@@ -607,36 +818,6 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                                                 0.0,
                                                                           ),
                                                                     ),
-                                                                    if (valueOrDefault<
-                                                                        bool>(
-                                                                      itemsItem.moreText !=
-                                                                              null &&
-                                                                          itemsItem.moreText !=
-                                                                              '',
-                                                                      false,
-                                                                    ))
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            4.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            AutoSizeText(
-                                                                          itemsItem
-                                                                              .moreText,
-                                                                          maxLines:
-                                                                              10,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .labelSmall
-                                                                              .override(
-                                                                                fontFamily: 'Roboto Condensed',
-                                                                                color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                fontSize: 12.0,
-                                                                                fontWeight: FontWeight.normal,
-                                                                              ),
-                                                                        ),
-                                                                      ),
                                                                   ],
                                                                 ),
                                                               ),
@@ -671,11 +852,11 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                                               valueOrDefault<Color>(
                                                                             Theme.of(context).brightness == Brightness.dark
                                                                                 ? colorFromCssString(
-                                                                                    itemsItem.darkVibrant,
+                                                                                    itemsItem.lightVibrant,
                                                                                     defaultColor: FlutterFlowTheme.of(context).secondaryText,
                                                                                   )
                                                                                 : colorFromCssString(
-                                                                                    itemsItem.lightVibrant,
+                                                                                    itemsItem.darkVibrant,
                                                                                     defaultColor: FlutterFlowTheme.of(context).secondaryText,
                                                                                   ),
                                                                             FlutterFlowTheme.of(context).secondaryText,
@@ -686,9 +867,9 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                                       ),
                                                                     if (valueOrDefault<
                                                                         bool>(
-                                                                      itemsItem.photo !=
+                                                                      itemsItem.uploadedImages.image !=
                                                                               null &&
-                                                                          itemsItem.photo !=
+                                                                          itemsItem.uploadedImages.image !=
                                                                               '',
                                                                       false,
                                                                     ))
@@ -706,11 +887,11 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                                               valueOrDefault<Color>(
                                                                             Theme.of(context).brightness == Brightness.dark
                                                                                 ? colorFromCssString(
-                                                                                    itemsItem.darkVibrant,
+                                                                                    itemsItem.lightVibrant,
                                                                                     defaultColor: FlutterFlowTheme.of(context).secondaryText,
                                                                                   )
                                                                                 : colorFromCssString(
-                                                                                    itemsItem.lightVibrant,
+                                                                                    itemsItem.darkVibrant,
                                                                                     defaultColor: FlutterFlowTheme.of(context).secondaryText,
                                                                                   ),
                                                                             FlutterFlowTheme.of(context).secondaryText,
@@ -721,9 +902,9 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                                       ),
                                                                     if (valueOrDefault<
                                                                         bool>(
-                                                                      itemsItem.selfie !=
+                                                                      itemsItem.uploadedImages.selfie !=
                                                                               null &&
-                                                                          itemsItem.selfie !=
+                                                                          itemsItem.uploadedImages.selfie !=
                                                                               '',
                                                                       false,
                                                                     ))
@@ -741,11 +922,11 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                                               valueOrDefault<Color>(
                                                                             Theme.of(context).brightness == Brightness.dark
                                                                                 ? colorFromCssString(
-                                                                                    itemsItem.darkVibrant,
+                                                                                    itemsItem.lightVibrant,
                                                                                     defaultColor: FlutterFlowTheme.of(context).secondaryText,
                                                                                   )
                                                                                 : colorFromCssString(
-                                                                                    itemsItem.lightVibrant,
+                                                                                    itemsItem.darkVibrant,
                                                                                     defaultColor: FlutterFlowTheme.of(context).secondaryText,
                                                                                   ),
                                                                             FlutterFlowTheme.of(context).secondaryText,
@@ -817,6 +998,76 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                         ),
                                                     elevation: 2.0,
                                                     borderSide: BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25.0),
+                                                  ),
+                                                ),
+                                                FFButtonWidget(
+                                                  onPressed: () async {
+                                                    logFirebaseEvent(
+                                                        'ENTRIES_PAGE_SHARE_BTN_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Button_custom_action');
+                                                    await actions
+                                                        .shareFirebaseImage(
+                                                      valueOrDefault<String>(
+                                                        itemsItem.stableImg2Img !=
+                                                                    null &&
+                                                                itemsItem
+                                                                        .stableImg2Img !=
+                                                                    ''
+                                                            ? itemsItem
+                                                                .stableImg2Img
+                                                            : valueOrDefault<
+                                                                String>(
+                                                                itemsItem
+                                                                    .stable
+                                                                    .imageUrls
+                                                                    .first,
+                                                                '0',
+                                                              ),
+                                                        '#',
+                                                      ),
+                                                      itemsItem.itemText,
+                                                    );
+                                                  },
+                                                  text: 'Share',
+                                                  icon: Icon(
+                                                    Icons.share_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    size: 24.0,
+                                                  ),
+                                                  options: FFButtonOptions(
+                                                    height: 40.0,
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                12.0, 0.0),
+                                                    iconPadding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryBackground,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily: 'Outfit',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                        ),
+                                                    elevation: 2.0,
+                                                    borderSide: BorderSide(
+                                                      color: Colors.transparent,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -829,174 +1080,27 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                       FFButtonWidget(
                                                     onPressed: () async {
                                                       logFirebaseEvent(
-                                                          'ENTRIES_PAGE_SHARE_BTN_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Button_share');
-                                                      await Share.share(
-                                                        functions
-                                                            .getImageStringFromPath(
-                                                                valueOrDefault<
-                                                                    String>(
-                                                          itemsItem.stable
-                                                              .imageUrls.first,
-                                                          '0',
-                                                        )),
-                                                        sharePositionOrigin:
-                                                            getWidgetBoundingBox(
-                                                                context),
-                                                      );
-                                                    },
-                                                    text: 'Share',
-                                                    icon: Icon(
-                                                      Icons.share_rounded,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      size: 24.0,
-                                                    ),
-                                                    options: FFButtonOptions(
-                                                      height: 40.0,
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  12.0,
-                                                                  0.0,
-                                                                  12.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                              ),
-                                                      elevation: 2.0,
-                                                      borderSide: BorderSide(
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              25.0),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Builder(
-                                                  builder: (context) =>
-                                                      FFButtonWidget(
-                                                    onPressed: () async {
-                                                      logFirebaseEvent(
                                                           'ENTRIES_PAGE__BTN_ON_TAP');
                                                       logFirebaseEvent(
                                                           'Button_alert_dialog');
-                                                      await showAlignedDialog(
+                                                      showAlignedDialog(
                                                         barrierColor:
-                                                            FFAppState()
-                                                                .bodyTextColor,
+                                                            Color(0x7F000000),
                                                         context: context,
                                                         isGlobal: false,
                                                         avoidOverflow: true,
                                                         targetAnchor:
-                                                            Alignment(0.0, 0.0),
+                                                            AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
                                                         followerAnchor:
-                                                            Alignment(0.0, 0.0),
-                                                        builder:
-                                                            (dialogContext) {
-                                                          return Material(
-                                                            color: Colors
-                                                                .transparent,
-                                                            child:
-                                                                FeedbackDropdownWidget(
-                                                              itemRef: itemsItem
-                                                                  .reference,
-                                                            ),
-                                                          );
-                                                        },
-                                                      ).then((value) =>
-                                                          setState(() {}));
-                                                    },
-                                                    text: '',
-                                                    icon: Icon(
-                                                      Icons.feedback_outlined,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      size: 24.0,
-                                                    ),
-                                                    options: FFButtonOptions(
-                                                      height: 40.0,
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  8.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                              ),
-                                                      elevation: 2.0,
-                                                      borderSide: BorderSide(
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              25.0),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Builder(
-                                                  builder: (context) =>
-                                                      FFButtonWidget(
-                                                    onPressed: () async {
-                                                      logFirebaseEvent(
-                                                          'ENTRIES_PAGE__BTN_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Button_alert_dialog');
-                                                      await showAlignedDialog(
-                                                        barrierColor:
-                                                            FFAppState()
-                                                                .bodyTextColor,
-                                                        context: context,
-                                                        isGlobal: false,
-                                                        avoidOverflow: true,
-                                                        targetAnchor:
-                                                            Alignment(0.0, 0.0),
-                                                        followerAnchor:
-                                                            Alignment(0.0, 0.0),
+                                                            AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
                                                         builder:
                                                             (dialogContext) {
                                                           return Material(
@@ -1052,6 +1156,8 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                                               ),
                                                       elevation: 2.0,
                                                       borderSide: BorderSide(
+                                                        color:
+                                                            Colors.transparent,
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:

@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/login/login/login_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +30,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'DeleteAccount'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -62,7 +62,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
           onPressed: () async {
             logFirebaseEvent('DELETE_ACCOUNT_chevron_left_rounded_ICN_');
             logFirebaseEvent('IconButton_navigate_back');
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         title: Text(
@@ -149,12 +149,8 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                                       logFirebaseEvent('Button_auth');
                                       await authManager.deleteUser(context);
                                       logFirebaseEvent('Button_navigate_to');
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => LoginWidget(),
-                                        ),
-                                      );
+
+                                      context.pushNamed('Login');
                                     },
                                     text: 'Delete Account',
                                     options: FFButtonOptions(

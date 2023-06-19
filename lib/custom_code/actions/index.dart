@@ -1,2 +1,2 @@
 export 'speech_to_text.dart' show speechToText;
-export 'create_chat_gpt_input.dart' show createChatGptInput;
+export 'share_firebase_image.dart' show shareFirebaseImage;

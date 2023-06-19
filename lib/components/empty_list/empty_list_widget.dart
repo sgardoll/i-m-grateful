@@ -1,6 +1,5 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/new_item/new_item_widget.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -29,6 +28,8 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => EmptyListModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -125,12 +126,8 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
                         logFirebaseEvent(
                             'EMPTY_LIST_COMP_Icon_r8er4fna_ON_TAP');
                         logFirebaseEvent('Icon_navigate_to');
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NewItemWidget(),
-                          ),
-                        );
+
+                        context.pushNamed('NewItem');
                       },
                       child: Icon(
                         Icons.add_circle,

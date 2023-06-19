@@ -44,12 +44,43 @@ class TextPromptsStruct extends FFFirebaseStruct {
       }.withoutNulls;
 
   @override
-  Map<String, dynamic> toSerializableMap() => toMap();
+  Map<String, dynamic> toSerializableMap() => {
+        'text': serializeParam(
+          _text,
+          ParamType.String,
+        ),
+        'weight': serializeParam(
+          _weight,
+          ParamType.double,
+        ),
+      }.withoutNulls;
+
   static TextPromptsStruct fromSerializableMap(Map<String, dynamic> data) =>
-      fromMap(data);
+      TextPromptsStruct(
+        text: deserializeParam(
+          data['text'],
+          ParamType.String,
+          false,
+        ),
+        weight: deserializeParam(
+          data['weight'],
+          ParamType.double,
+          false,
+        ),
+      );
 
   @override
   String toString() => 'TextPromptsStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    return other is TextPromptsStruct &&
+        text == other.text &&
+        weight == other.weight;
+  }
+
+  @override
+  int get hashCode => const ListEquality().hash([text, weight]);
 }
 
 TextPromptsStruct createTextPromptsStruct({

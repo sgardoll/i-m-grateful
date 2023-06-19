@@ -1,7 +1,10 @@
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/infinity/infinity_feature/infinity_feature_widget.dart';
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +29,35 @@ class _ExploreWidgetState extends State<ExploreWidget> {
     _model = createModel(context, () => ExploreModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Explore'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('EXPLORE_PAGE_Explore_ON_INIT_STATE');
+      logFirebaseEvent('Explore_revenue_cat');
+      final isEntitled = await revenue_cat.isEntitled('Unlimited');
+      if (isEntitled == null) {
+        return;
+      } else if (!isEntitled) {
+        await revenue_cat.loadOfferings();
+      }
+
+      if (!isEntitled) {
+        logFirebaseEvent('Explore_bottom_sheet');
+        await showModalBottomSheet(
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          enableDrag: false,
+          context: context,
+          builder: (context) {
+            return Padding(
+              padding: MediaQuery.of(context).viewInsets,
+              child: InfinityFeatureWidget(),
+            );
+          },
+        ).then((value) => setState(() {}));
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -70,15 +102,6 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                             fontWeight: FontWeight.w500,
                           ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
-                  child: Text(
-                    'Share your creations with the I\'m Grateful community, explore how others have expressed gratitude, view creations and get inspired.\n\nComing soon.',
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).bodySmall,
                   ),
                 ),
               ],

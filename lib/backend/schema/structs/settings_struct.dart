@@ -42,12 +42,44 @@ class SettingsStruct extends FFFirebaseStruct {
       }.withoutNulls;
 
   @override
-  Map<String, dynamic> toSerializableMap() => toMap();
+  Map<String, dynamic> toSerializableMap() => {
+        'locationEnabledByDefault': serializeParam(
+          _locationEnabledByDefault,
+          ParamType.bool,
+        ),
+        'isFirstLoad': serializeParam(
+          _isFirstLoad,
+          ParamType.bool,
+        ),
+      }.withoutNulls;
+
   static SettingsStruct fromSerializableMap(Map<String, dynamic> data) =>
-      fromMap(data);
+      SettingsStruct(
+        locationEnabledByDefault: deserializeParam(
+          data['locationEnabledByDefault'],
+          ParamType.bool,
+          false,
+        ),
+        isFirstLoad: deserializeParam(
+          data['isFirstLoad'],
+          ParamType.bool,
+          false,
+        ),
+      );
 
   @override
   String toString() => 'SettingsStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    return other is SettingsStruct &&
+        locationEnabledByDefault == other.locationEnabledByDefault &&
+        isFirstLoad == other.isFirstLoad;
+  }
+
+  @override
+  int get hashCode =>
+      const ListEquality().hash([locationEnabledByDefault, isFirstLoad]);
 }
 
 SettingsStruct createSettingsStruct({

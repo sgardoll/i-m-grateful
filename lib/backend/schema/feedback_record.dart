@@ -71,6 +71,14 @@ class FeedbackRecord extends FirestoreRecord {
   @override
   String toString() =>
       'FeedbackRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is FeedbackRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createFeedbackRecordData({

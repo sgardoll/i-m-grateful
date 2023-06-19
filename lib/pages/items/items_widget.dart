@@ -6,9 +6,9 @@ import '/components/more_dropdown_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/pages_sub/details/details_widget.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -26,11 +26,6 @@ class _ItemsWidgetState extends State<ItemsWidget> {
   late ItemsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  int get pageViewCurrentIndex => _model.pageViewController != null &&
-          _model.pageViewController!.hasClients &&
-          _model.pageViewController!.page != null
-      ? _model.pageViewController!.page!.round()
-      : 0;
 
   @override
   void initState() {
@@ -38,6 +33,27 @@ class _ItemsWidgetState extends State<ItemsWidget> {
     _model = createModel(context, () => ItemsModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Items'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('ITEMS_PAGE_Items_ON_INIT_STATE');
+      if (!(valueOrDefault(currentUserDocument?.style, '') != null &&
+          valueOrDefault(currentUserDocument?.style, '') != '')) {
+        logFirebaseEvent('Items_navigate_to');
+
+        context.goNamed(
+          'StyleChoice',
+          extra: <String, dynamic>{
+            kTransitionInfoKey: TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+              duration: Duration(milliseconds: 0),
+            ),
+          },
+        );
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -99,25 +115,27 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                           'ITEMS_PageView_tkq3o76d_ON_WIDGET_SWIPE');
                       logFirebaseEvent('PageView_update_app_state');
                       FFAppState().primary = colorFromCssString(
-                        pageViewItemRecordList[pageViewCurrentIndex]
+                        pageViewItemRecordList[_model.pageViewCurrentIndex]
                             .primaryColor,
                         defaultColor: FlutterFlowTheme.of(context).primary,
                       );
                       FFAppState().contrasting = colorFromCssString(
-                        pageViewItemRecordList[pageViewCurrentIndex]
+                        pageViewItemRecordList[_model.pageViewCurrentIndex]
                             .contrastingColor,
                         defaultColor: FlutterFlowTheme.of(context).secondary,
                       );
                       FFAppState().bodyTextColor = valueOrDefault<Color>(
                         Theme.of(context).brightness == Brightness.light
                             ? colorFromCssString(
-                                pageViewItemRecordList[pageViewCurrentIndex]
+                                pageViewItemRecordList[
+                                        _model.pageViewCurrentIndex]
                                     .lightVibrant,
                                 defaultColor: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
                               )
                             : colorFromCssString(
-                                pageViewItemRecordList[pageViewCurrentIndex]
+                                pageViewItemRecordList[
+                                        _model.pageViewCurrentIndex]
                                     .darkVibrant,
                                 defaultColor: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
@@ -130,78 +148,91 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                     itemBuilder: (context, pageViewIndex) {
                       final pageViewItemRecord =
                           pageViewItemRecordList[pageViewIndex];
-                      return Stack(
-                        children: [
-                          Builder(
-                            builder: (context) => InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                logFirebaseEvent(
-                                    'ITEMS_PAGE_Container_jjzkr8pj_ON_TAP');
-                                logFirebaseEvent('ItemStack_navigate_to');
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    duration: Duration(milliseconds: 300),
-                                    reverseDuration:
-                                        Duration(milliseconds: 300),
-                                    child: DetailsWidget(
-                                      itemRef: pageViewItemRecord.reference,
-                                      primary: colorFromCssString(
-                                        pageViewItemRecord.primaryColor,
-                                        defaultColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                      ),
-                                      contrasting: colorFromCssString(
-                                        pageViewItemRecord.contrastingColor,
-                                        defaultColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
-                                      ),
-                                      text: Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? colorFromCssString(
-                                              pageViewItemRecord.lightVibrant,
-                                              defaultColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            )
-                                          : colorFromCssString(
-                                              pageViewItemRecord.lightVibrant,
-                                              defaultColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                    ),
+                      return Builder(
+                        builder: (context) => InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            logFirebaseEvent(
+                                'ITEMS_PAGE_Stack_poyb5l6o_ON_TAP');
+                            logFirebaseEvent('Stack_navigate_to');
+
+                            context.pushNamed(
+                              'Details',
+                              queryParameters: {
+                                'itemRef': serializeParam(
+                                  pageViewItemRecord.reference,
+                                  ParamType.DocumentReference,
+                                ),
+                                'primary': serializeParam(
+                                  colorFromCssString(
+                                    pageViewItemRecord.primaryColor,
+                                    defaultColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                  ),
+                                  ParamType.Color,
+                                ),
+                                'contrasting': serializeParam(
+                                  colorFromCssString(
+                                    pageViewItemRecord.contrastingColor,
+                                    defaultColor:
+                                        FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                  ParamType.Color,
+                                ),
+                                'text': serializeParam(
+                                  Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? colorFromCssString(
+                                          pageViewItemRecord.lightVibrant,
+                                          defaultColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primaryText,
+                                        )
+                                      : colorFromCssString(
+                                          pageViewItemRecord.lightVibrant,
+                                          defaultColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primaryText,
+                                        ),
+                                  ParamType.Color,
+                                ),
+                              }.withoutNulls,
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType: PageTransitionType.fade,
+                                ),
+                              },
+                            );
+                          },
+                          onLongPress: () async {
+                            logFirebaseEvent(
+                                'ITEMS_PAGE_Stack_poyb5l6o_ON_LONG_PRESS');
+                            logFirebaseEvent('Stack_alert_dialog');
+                            showAlignedDialog(
+                              context: context,
+                              isGlobal: false,
+                              avoidOverflow: true,
+                              targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              builder: (dialogContext) {
+                                return Material(
+                                  color: Colors.transparent,
+                                  child: MoreDropdownWidget(
+                                    item: pageViewItemRecord,
                                   ),
                                 );
                               },
-                              onLongPress: () async {
-                                logFirebaseEvent(
-                                    'ITEMS_Container_jjzkr8pj_ON_LONG_PRESS');
-                                logFirebaseEvent('ItemStack_alert_dialog');
-                                showAlignedDialog(
-                                  context: context,
-                                  isGlobal: false,
-                                  avoidOverflow: true,
-                                  targetAnchor: Alignment(0.0, 0.0),
-                                  followerAnchor: Alignment(0.0, 0.0),
-                                  builder: (dialogContext) {
-                                    return Material(
-                                      color: Colors.transparent,
-                                      child: MoreDropdownWidget(
-                                        item: pageViewItemRecord,
-                                      ),
-                                    );
-                                  },
-                                ).then((value) => setState(() {}));
-                              },
-                              child: wrapWithModel(
+                            ).then((value) => setState(() {}));
+                          },
+                          child: Stack(
+                            children: [
+                              wrapWithModel(
                                 model: _model.itemStackModels.getModel(
                                   pageViewItemRecord.reference.id,
                                   pageViewIndex,
@@ -215,9 +246,9 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                                   item: pageViewItemRecord,
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       );
                     },
                   ),

@@ -2,10 +2,10 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/login/register/register_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -27,12 +27,6 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
   late WelcomeOnboardModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
-  int get pageViewCurrentIndex => _model.pageViewController != null &&
-          _model.pageViewController!.hasClients &&
-          _model.pageViewController!.page != null
-      ? _model.pageViewController!.page!.round()
-      : 0;
 
   final animationsMap = {
     'pageViewOnActionTriggerAnimation': AnimationInfo(
@@ -126,32 +120,6 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         ),
       ],
     ),
-    'imageOnPageLoadAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'imageOnPageLoadAnimation4': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        RotateEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: -0.05,
-          end: 0.0,
-        ),
-      ],
-    ),
     'textOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
@@ -192,7 +160,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         ),
       ],
     ),
-    'imageOnPageLoadAnimation5': AnimationInfo(
+    'imageOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         SaturateEffect(
@@ -258,13 +226,14 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -273,7 +242,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).accent3,
@@ -305,8 +274,9 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                     Align(
                                       alignment:
                                           AlignmentDirectional(0.0, -1.0),
-                                      child: Image.asset(
-                                        'assets/images/fqvhn_1.png',
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            'https://www.connectio.com.au/grateful/1onb.png',
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 1.0,
@@ -385,7 +355,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                               ),
                                             ),
                                           ),
-                                          if (pageViewCurrentIndex != 2)
+                                          if (_model.pageViewCurrentIndex != 2)
                                             Align(
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
@@ -453,8 +423,9 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                     Align(
                                       alignment:
                                           AlignmentDirectional(0.0, -1.0),
-                                      child: Image.asset(
-                                        'assets/images/mmfwi_2.png',
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            'https://www.connectio.com.au/grateful/2onb.png',
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 1.0,
@@ -472,30 +443,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                         height: 594.0,
                                         decoration: BoxDecoration(),
                                         child: Stack(
-                                          children: [
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Image.network(
-                                                '',
-                                                width: 371.6,
-                                                height: 286.2,
-                                                fit: BoxFit.contain,
-                                              ).animateOnPageLoad(animationsMap[
-                                                  'imageOnPageLoadAnimation3']!),
-                                            ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.03, 0.67),
-                                              child: Image.network(
-                                                '',
-                                                width: 147.9,
-                                                height: 267.9,
-                                                fit: BoxFit.contain,
-                                              ).animateOnPageLoad(animationsMap[
-                                                  'imageOnPageLoadAnimation4']!),
-                                            ),
-                                          ],
+                                          children: [],
                                         ),
                                       ),
                                     ),
@@ -547,7 +495,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                                   16.0,
                                                                   0.0),
                                                       child: AutoSizeText(
-                                                        'Capture your daily gratitudes with aur easy-to-use voice or text feature.',
+                                                        'Use words, pictures or even selfies and have your entries come to life in a highly personalised creation',
                                                         textAlign:
                                                             TextAlign.center,
                                                         maxLines: 5,
@@ -571,7 +519,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                               ),
                                             ),
                                           ),
-                                          if (pageViewCurrentIndex != 2)
+                                          if (_model.pageViewCurrentIndex != 2)
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -632,13 +580,14 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                 ),
                                 Stack(
                                   children: [
-                                    Image.asset(
-                                      'assets/images/i51w6_3.png',
+                                    CachedNetworkImage(
+                                      imageUrl:
+                                          'https://www.connectio.com.au/grateful/3onb.png',
                                       width: MediaQuery.of(context).size.width *
                                           1.0,
                                       fit: BoxFit.cover,
                                     ).animateOnPageLoad(animationsMap[
-                                        'imageOnPageLoadAnimation5']!),
+                                        'imageOnPageLoadAnimation3']!),
                                     Align(
                                       alignment:
                                           AlignmentDirectional(0.0, -1.0),
@@ -722,17 +671,18 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                     'WELCOME_ONBOARD_PAGE_NextButton_ON_TAP');
                                                 logFirebaseEvent(
                                                     'NextButton_navigate_to');
-                                                await Navigator.push(
-                                                  context,
-                                                  PageTransition(
-                                                    type:
-                                                        PageTransitionType.fade,
-                                                    duration: Duration(
-                                                        milliseconds: 300),
-                                                    reverseDuration: Duration(
-                                                        milliseconds: 300),
-                                                    child: RegisterWidget(),
-                                                  ),
+
+                                                context.pushNamed(
+                                                  'Register',
+                                                  extra: <String, dynamic>{
+                                                    kTransitionInfoKey:
+                                                        TransitionInfo(
+                                                      hasTransition: true,
+                                                      transitionType:
+                                                          PageTransitionType
+                                                              .fade,
+                                                    ),
+                                                  },
                                                 );
                                               },
                                               text: 'Let\'s Begin',

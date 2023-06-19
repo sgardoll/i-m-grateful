@@ -11,13 +11,9 @@ class UploadedImageUrlsStruct extends FFFirebaseStruct {
   UploadedImageUrlsStruct({
     String? image,
     String? selfie,
-    String? stablePhoto,
-    String? stableSelfie,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _image = image,
         _selfie = selfie,
-        _stablePhoto = stablePhoto,
-        _stableSelfie = stableSelfie,
         super(firestoreUtilData);
 
   // "image" field.
@@ -32,24 +28,10 @@ class UploadedImageUrlsStruct extends FFFirebaseStruct {
   set selfie(String? val) => _selfie = val;
   bool hasSelfie() => _selfie != null;
 
-  // "stablePhoto" field.
-  String? _stablePhoto;
-  String get stablePhoto => _stablePhoto ?? '';
-  set stablePhoto(String? val) => _stablePhoto = val;
-  bool hasStablePhoto() => _stablePhoto != null;
-
-  // "stableSelfie" field.
-  String? _stableSelfie;
-  String get stableSelfie => _stableSelfie ?? '';
-  set stableSelfie(String? val) => _stableSelfie = val;
-  bool hasStableSelfie() => _stableSelfie != null;
-
   static UploadedImageUrlsStruct fromMap(Map<String, dynamic> data) =>
       UploadedImageUrlsStruct(
         image: data['image'] as String?,
         selfie: data['selfie'] as String?,
-        stablePhoto: data['stablePhoto'] as String?,
-        stableSelfie: data['stableSelfie'] as String?,
       );
 
   static UploadedImageUrlsStruct? maybeFromMap(dynamic data) =>
@@ -60,25 +42,52 @@ class UploadedImageUrlsStruct extends FFFirebaseStruct {
   Map<String, dynamic> toMap() => {
         'image': _image,
         'selfie': _selfie,
-        'stablePhoto': _stablePhoto,
-        'stableSelfie': _stableSelfie,
       }.withoutNulls;
 
   @override
-  Map<String, dynamic> toSerializableMap() => toMap();
+  Map<String, dynamic> toSerializableMap() => {
+        'image': serializeParam(
+          _image,
+          ParamType.String,
+        ),
+        'selfie': serializeParam(
+          _selfie,
+          ParamType.String,
+        ),
+      }.withoutNulls;
+
   static UploadedImageUrlsStruct fromSerializableMap(
           Map<String, dynamic> data) =>
-      fromMap(data);
+      UploadedImageUrlsStruct(
+        image: deserializeParam(
+          data['image'],
+          ParamType.String,
+          false,
+        ),
+        selfie: deserializeParam(
+          data['selfie'],
+          ParamType.String,
+          false,
+        ),
+      );
 
   @override
   String toString() => 'UploadedImageUrlsStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    return other is UploadedImageUrlsStruct &&
+        image == other.image &&
+        selfie == other.selfie;
+  }
+
+  @override
+  int get hashCode => const ListEquality().hash([image, selfie]);
 }
 
 UploadedImageUrlsStruct createUploadedImageUrlsStruct({
   String? image,
   String? selfie,
-  String? stablePhoto,
-  String? stableSelfie,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -87,8 +96,6 @@ UploadedImageUrlsStruct createUploadedImageUrlsStruct({
     UploadedImageUrlsStruct(
       image: image,
       selfie: selfie,
-      stablePhoto: stablePhoto,
-      stableSelfie: stableSelfie,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

@@ -1,5 +1,4 @@
 // Export pages
-export '/login/splash_screen/splash_screen_widget.dart' show SplashScreenWidget;
 export '/login/login/login_widget.dart' show LoginWidget;
 export '/pages/items/items_widget.dart' show ItemsWidget;
 export '/pages/entries/entries_widget.dart' show EntriesWidget;
@@ -19,3 +18,6 @@ export '/settings/delete_account/delete_account_widget.dart'
 export '/pages/explore/explore_widget.dart' show ExploreWidget;
 export '/login/style_choice/style_choice_widget.dart' show StyleChoiceWidget;
 export '/pages/new_item/new_item_widget.dart' show NewItemWidget;
+export '/pages/edit_item/edit_item_widget.dart' show EditItemWidget;
+export '/settings/edit_subscription/edit_subscription_widget.dart'
+    show EditSubscriptionWidget;

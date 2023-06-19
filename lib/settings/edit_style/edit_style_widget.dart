@@ -1,15 +1,15 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
+import '/components/custom_style_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'edit_style_model.dart';
 export 'edit_style_model.dart';
@@ -32,6 +32,7 @@ class _EditStyleWidgetState extends State<EditStyleWidget> {
     _model = createModel(context, () => EditStyleModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'EditStyle'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -63,7 +64,7 @@ class _EditStyleWidgetState extends State<EditStyleWidget> {
           onPressed: () async {
             logFirebaseEvent('EDIT_STYLE_chevron_left_rounded_ICN_ON_T');
             logFirebaseEvent('IconButton_navigate_back');
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         title: Text(
@@ -91,6 +92,113 @@ class _EditStyleWidgetState extends State<EditStyleWidget> {
                       style: FlutterFlowTheme.of(context).bodyMedium,
                     ),
                   ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional(0.0, 0.85),
+                  child: Builder(
+                    builder: (context) => Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          logFirebaseEvent(
+                              'EDIT_STYLE_CREATE_YOUR_OWN_ART_STYLE_BTN');
+                          logFirebaseEvent('Button_alert_dialog');
+                          await showAlignedDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            isGlobal: true,
+                            avoidOverflow: false,
+                            targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            followerAnchor: AlignmentDirectional(0.0, -1.0)
+                                .resolve(Directionality.of(context)),
+                            builder: (dialogContext) {
+                              return Material(
+                                color: Colors.transparent,
+                                child: Container(
+                                  height: 400.0,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
+                                  child: CustomStyleWidget(),
+                                ),
+                              );
+                            },
+                          ).then((value) =>
+                              setState(() => _model.customArtStyle = value));
+
+                          if (_model.customArtStyle != null &&
+                              _model.customArtStyle != '') {
+                            logFirebaseEvent('Button_backend_call');
+
+                            final customStylesCreateData =
+                                createCustomStylesRecordData(
+                              style: _model.customArtStyle,
+                              userRef: currentUserReference,
+                            );
+                            var customStylesRecordReference =
+                                CustomStylesRecord.collection.doc();
+                            await customStylesRecordReference
+                                .set(customStylesCreateData);
+                            _model.createCustomArtStyle =
+                                CustomStylesRecord.getDocumentFromData(
+                                    customStylesCreateData,
+                                    customStylesRecordReference);
+                            logFirebaseEvent('Button_backend_call');
+
+                            final usersUpdateData = createUsersRecordData(
+                              style: _model.customArtStyle,
+                            );
+                            await currentUserReference!.update(usersUpdateData);
+                            logFirebaseEvent('Button_show_snack_bar');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Style preference changed to ${valueOrDefault(currentUserDocument?.style, '')}',
+                                  style: GoogleFonts.getFont(
+                                    'Outfit',
+                                    color: FlutterFlowTheme.of(context).accent3,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).primary,
+                              ),
+                            );
+                            logFirebaseEvent('Button_navigate_back');
+                            context.safePop();
+                          }
+
+                          setState(() {});
+                        },
+                        text: 'Create Your Own Art Style',
+                        icon: Icon(
+                          Icons.format_paint_rounded,
+                          size: 15.0,
+                        ),
+                        options: FFButtonOptions(
+                          width: 250.0,
+                          height: 30.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle: FlutterFlowTheme.of(context).labelMedium,
+                          elevation: 2.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Text(
+                  'Or choose a pre-defined style below:',
+                  style: FlutterFlowTheme.of(context).bodyMedium,
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.75,
@@ -156,42 +264,53 @@ class _EditStyleWidgetState extends State<EditStyleWidget> {
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'EDIT_STYLE_PAGE_Image_dbw8gzyg_ON_TAP');
-                                        logFirebaseEvent('Image_expand_image');
-                                        await Navigator.push(
-                                          context,
-                                          PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: FlutterFlowExpandedImageView(
-                                              image: Image.network(
-                                                gridViewStylesRecord.image,
-                                                fit: BoxFit.contain,
+                                        logFirebaseEvent('Image_backend_call');
+
+                                        final usersUpdateData =
+                                            createUsersRecordData(
+                                          style: gridViewStylesRecord.style,
+                                        );
+                                        await currentUserReference!
+                                            .update(usersUpdateData);
+                                        logFirebaseEvent(
+                                            'Image_show_snack_bar');
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Style preference changed to ${valueOrDefault(currentUserDocument?.style, '')}',
+                                              style: GoogleFonts.getFont(
+                                                'Outfit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent3,
                                               ),
-                                              allowRotation: false,
-                                              tag: gridViewStylesRecord.image,
-                                              useHeroAnimation: true,
                                             ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
                                           ),
                                         );
+                                        logFirebaseEvent('Image_navigate_back');
+                                        context.safePop();
                                       },
-                                      child: Hero(
-                                        tag: gridViewStylesRecord.image,
-                                        transitionOnUserGestures: true,
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(0.0),
-                                            bottomRight: Radius.circular(0.0),
-                                            topLeft: Radius.circular(25.0),
-                                            topRight: Radius.circular(25.0),
-                                          ),
-                                          child: Image.network(
-                                            gridViewStylesRecord.image,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                1.0,
-                                            height: 186.0,
-                                            fit: BoxFit.cover,
-                                          ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(0.0),
+                                          bottomRight: Radius.circular(0.0),
+                                          topLeft: Radius.circular(25.0),
+                                          topRight: Radius.circular(25.0),
+                                        ),
+                                        child: Image.network(
+                                          gridViewStylesRecord.image,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              1.0,
+                                          height: 186.0,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                     ),
@@ -234,7 +353,7 @@ class _EditStyleWidgetState extends State<EditStyleWidget> {
                                           );
                                           logFirebaseEvent(
                                               'Button_navigate_back');
-                                          Navigator.pop(context);
+                                          context.safePop();
                                         },
                                         text: gridViewStylesRecord.style,
                                         options: FFButtonOptions(

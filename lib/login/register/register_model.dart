@@ -5,8 +5,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/login/style_choice/style_choice_widget.dart';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,6 +19,14 @@ class RegisterModel extends FlutterFlowModel {
   // State field(s) for fullName widget.
   TextEditingController? fullNameController;
   String? Function(BuildContext, String?)? fullNameControllerValidator;
+  String? _fullNameControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for email widget.
   TextEditingController? emailController;
   String? Function(BuildContext, String?)? emailControllerValidator;
@@ -48,6 +56,7 @@ class RegisterModel extends FlutterFlowModel {
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    fullNameControllerValidator = _fullNameControllerValidator;
     emailControllerValidator = _emailControllerValidator;
     passwordVisibility = false;
     confirmPassVisibility = false;
@@ -59,6 +68,8 @@ class RegisterModel extends FlutterFlowModel {
     passwordController?.dispose();
     confirmPassController?.dispose();
   }
+
+  /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 

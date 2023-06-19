@@ -1,9 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -30,9 +32,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     _model = createModel(context, () => EditProfileModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'EditProfile'});
-    _model.textController1 ??=
+    _model.textController ??=
         TextEditingController(text: currentUserDisplayName);
-    _model.textController2 ??= TextEditingController(text: currentUserEmail);
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -64,7 +66,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
           onPressed: () async {
             logFirebaseEvent('EDIT_PROFILE_chevron_left_rounded_ICN_ON');
             logFirebaseEvent('IconButton_navigate_back');
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         title: Text(
@@ -113,19 +115,20 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             16.0, 16.0, 16.0, 0.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => TextFormField(
-                            controller: _model.textController1,
+                            controller: _model.textController,
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'Full Name',
-                              labelStyle:
-                                  FlutterFlowTheme.of(context).titleSmall,
                               hintText: 'Please enter your full name...',
-                              hintStyle:
-                                  FlutterFlowTheme.of(context).titleSmall,
+                              hintStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context).primary,
+                                  ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                  color: Color(0x00000000),
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
@@ -152,72 +155,73 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               filled: true,
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
+                              fillColor: FlutterFlowTheme.of(context).accent3,
                               prefixIcon: Icon(
-                                Icons.person_rounded,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                Icons.person,
+                                color: FlutterFlowTheme.of(context).primary,
                               ),
                             ),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
-                            validator: _model.textController1Validator
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
+                            validator: _model.textControllerValidator
                                 .asValidator(context),
                           ),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 16.0, 16.0, 0.0),
-                        child: TextFormField(
-                          controller: _model.textController2,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Email Address',
-                            labelStyle: FlutterFlowTheme.of(context).titleSmall,
-                            hintText: 'Your email...',
-                            hintStyle: FlutterFlowTheme.of(context).titleSmall,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
+                            16.0, 16.0, 16.0, 20.0),
+                        child: AuthUserStreamWidget(
+                          builder: (context) => FlutterFlowDropDown<String>(
+                            controller: _model.dropDownValueController ??=
+                                FormFieldController<String>(
+                              _model.dropDownValue ??= valueOrDefault(
+                                              currentUserDocument?.gender,
+                                              '') !=
+                                          null &&
+                                      valueOrDefault(
+                                              currentUserDocument?.gender,
+                                              '') !=
+                                          ''
+                                  ? valueOrDefault(
+                                      currentUserDocument?.gender, '')
+                                  : '',
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
+                            options: [
+                              'Male',
+                              'Female',
+                              'Non-Binary',
+                              'Prefer not to say'
+                            ],
+                            onChanged: (val) =>
+                                setState(() => _model.dropDownValue = val),
+                            height: 50.0,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
+                            hintText: 'Please enter your gender...',
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: FlutterFlowTheme.of(context).secondary,
+                              size: 24.0,
                             ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            filled: true,
-                            fillColor:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            prefixIcon: Icon(
-                              Icons.email_outlined,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                            ),
+                            fillColor: FlutterFlowTheme.of(context).accent3,
+                            elevation: 2.0,
+                            borderColor: FlutterFlowTheme.of(context).accent3,
+                            borderWidth: 0.0,
+                            borderRadius: 8.0,
+                            margin: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 4.0, 16.0, 4.0),
+                            hidesUnderline: true,
+                            isSearchable: false,
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: _model.textController2Validator
-                              .asValidator(context),
                         ),
                       ),
                       Padding(
@@ -237,13 +241,13 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   logFirebaseEvent('Button_backend_call');
 
                                   final usersUpdateData = createUsersRecordData(
-                                    displayName: _model.textController1.text,
-                                    email: _model.textController2.text,
+                                    displayName: _model.textController.text,
+                                    gender: _model.dropDownValue,
                                   );
                                   await currentUserReference!
                                       .update(usersUpdateData);
                                   logFirebaseEvent('Button_navigate_back');
-                                  Navigator.pop(context);
+                                  context.pop();
                                 },
                                 text: 'Save Changes',
                                 options: FFButtonOptions(

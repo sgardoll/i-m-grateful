@@ -72,6 +72,8 @@ class _FeedbackDropdownWidgetState extends State<FeedbackDropdownWidget>
     _model = createModel(context, () => FeedbackDropdownModel());
 
     _model.textController ??= TextEditingController();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -680,7 +682,7 @@ class _FeedbackDropdownWidgetState extends State<FeedbackDropdownWidget>
                                             );
                                             logFirebaseEvent(
                                                 'Button_navigate_back');
-                                            Navigator.pop(context);
+                                            context.safePop();
 
                                             setState(() {});
                                           },

@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/pages/entries/entries_widget.dart';
 import '/pages/pages_sub/upload_photo/upload_photo_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -36,27 +35,39 @@ class NewItemModel extends FlutterFlowModel {
   // State field(s) for itemText widget.
   TextEditingController? itemTextController;
   String? Function(BuildContext, String?)? itemTextControllerValidator;
+  String? _itemTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    if (val.length < 5) {
+      return 'Minimum of 5 characters required';
+    }
+
+    return null;
+  }
+
   // Stores action output result for [Bottom Sheet - UploadPhoto] action in IconButton widget.
   UploadedImageUrlsStruct? uploadPhotoBottomSheet;
-  // State field(s) for AddMoreTextfield widget.
-  TextEditingController? addMoreTextfieldController;
-  String? Function(BuildContext, String?)? addMoreTextfieldControllerValidator;
+  // Stores action output result for [Bottom Sheet - UploadPhoto] action in IconButton widget.
+  UploadedImageUrlsStruct? removePhotoBottomSheet;
   DateTime? datePicked;
   // Stores action output result for [Backend Call - API (BayhouseAPI)] action in Button widget.
   ApiCallResponse? itemTextClean;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   ItemRecord? createItemWithText;
-  // Stores action output result for [Backend Call - API (BayhouseAPI)] action in Button widget.
-  ApiCallResponse? moreTextCleanCopy;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    itemTextControllerValidator = _itemTextControllerValidator;
+  }
 
   void dispose() {
     itemTextController?.dispose();
-    addMoreTextfieldController?.dispose();
   }
+
+  /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 

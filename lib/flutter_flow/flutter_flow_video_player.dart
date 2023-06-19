@@ -53,6 +53,7 @@ class _FlutterFlowVideoPlayerState extends State<FlutterFlowVideoPlayer>
   VideoPlayerController? _videoPlayerController;
   ChewieController? _chewieController;
   bool _loggedError = false;
+  bool _subscribedRoute = false;
 
   @override
   void initState() {
@@ -62,6 +63,9 @@ class _FlutterFlowVideoPlayerState extends State<FlutterFlowVideoPlayer>
 
   @override
   void dispose() {
+    if (_subscribedRoute) {
+      routeObserver.unsubscribe(this);
+    }
     _videoPlayers.remove(_videoPlayerController);
     _videoPlayerController?.dispose();
     _chewieController?.dispose();
@@ -82,7 +86,8 @@ class _FlutterFlowVideoPlayerState extends State<FlutterFlowVideoPlayer>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (widget.pauseOnNavigate) {
+    if (widget.pauseOnNavigate && ModalRoute.of(context) is PageRoute) {
+      _subscribedRoute = true;
       routeObserver.subscribe(this, ModalRoute.of(context)!);
     }
   }

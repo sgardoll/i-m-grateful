@@ -47,6 +47,14 @@ class StableT2IRecord extends FirestoreRecord {
   @override
   String toString() =>
       'StableT2IRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is StableT2IRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createStableT2IRecordData({

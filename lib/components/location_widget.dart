@@ -34,6 +34,8 @@ class _LocationWidgetState extends State<LocationWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => LocationModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -56,29 +58,12 @@ class _LocationWidgetState extends State<LocationWidget> {
             sigmaX: 2.0,
             sigmaY: 2.0,
           ),
-          child: Material(
-            color: Colors.transparent,
-            elevation: 12.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(0.0),
-                bottomRight: Radius.circular(0.0),
-                topLeft: Radius.circular(25.0),
-                topRight: Radius.circular(25.0),
-              ),
-            ),
-            child: Container(
-              width: MediaQuery.of(context).size.width * 1.0,
-              height: MediaQuery.of(context).size.height * 0.85,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 4.0,
-                    color: Color(0x33000000),
-                    offset: Offset(0.0, 2.0),
-                  )
-                ],
+          child: Align(
+            alignment: AlignmentDirectional(0.0, 1.0),
+            child: Material(
+              color: Colors.transparent,
+              elevation: 12.0,
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(0.0),
                   bottomRight: Radius.circular(0.0),
@@ -86,92 +71,102 @@ class _LocationWidgetState extends State<LocationWidget> {
                   topRight: Radius.circular(25.0),
                 ),
               ),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: Padding(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 1.0,
+                height: MediaQuery.of(context).size.height * 1.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 4.0,
+                      color: Color(0x33000000),
+                      offset: Offset(0.0, 2.0),
+                    )
+                  ],
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(0.0),
+                    bottomRight: Radius.circular(0.0),
+                    topLeft: Radius.circular(25.0),
+                    topRight: Radius.circular(25.0),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 8.0),
                         child: Container(
                           width: 60.0,
                           height: 4.0,
                           decoration: BoxDecoration(
-                            color: valueOrDefault<Color>(
-                              FFAppState().contrasting,
-                              FlutterFlowTheme.of(context).secondary,
-                            ),
+                            color: FlutterFlowTheme.of(context).secondaryText,
                             borderRadius: BorderRadius.circular(2.0),
                           ),
                         ),
                       ),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Padding(
+                      Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
                         child: Text(
-                          'Location of this entry',
-                          style:
-                              FlutterFlowTheme.of(context).titleMedium.override(
-                                    fontFamily: 'Outfit',
-                                    color: valueOrDefault<Color>(
-                                      FFAppState().contrasting,
-                                      FlutterFlowTheme.of(context).secondary,
-                                    ),
-                                  ),
+                          'This entry was recorded here',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context)
+                              .titleMedium
+                              .override(
+                                fontFamily: 'Outfit',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                         ),
                       ),
-                    ),
-                    Flexible(
-                      flex: 19,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 1.0,
-                        height: MediaQuery.of(context).size.height * 0.75,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
+                      Flexible(
+                        flex: 19,
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 24.0),
-                          child: Builder(builder: (context) {
-                            final _googleMapMarker = widget.location;
-                            return FlutterFlowGoogleMap(
-                              controller: _model.googleMapsController,
-                              onCameraIdle: (latLng) => setState(
-                                  () => _model.googleMapsCenter = latLng),
-                              initialLocation: _model.googleMapsCenter ??=
-                                  widget.location!,
-                              markers: [
-                                if (_googleMapMarker != null)
-                                  FlutterFlowMarker(
-                                    _googleMapMarker.serialize(),
-                                    _googleMapMarker,
-                                  ),
-                              ],
-                              markerColor: GoogleMarkerColor.magenta,
-                              mapType: MapType.normal,
-                              style: GoogleMapStyle.retro,
-                              initialZoom: 14.0,
-                              allowInteraction: true,
-                              allowZoom: true,
-                              showZoomControls: true,
-                              showLocation: true,
-                              showCompass: false,
-                              showMapToolbar: true,
-                              showTraffic: false,
-                              centerMapOnMarkerTap: true,
-                            );
-                          }),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 1.0,
+                            height: MediaQuery.of(context).size.height * 0.75,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            child: Builder(builder: (context) {
+                              final _googleMapMarker = widget.location;
+                              return FlutterFlowGoogleMap(
+                                controller: _model.googleMapsController,
+                                onCameraIdle: (latLng) => setState(
+                                    () => _model.googleMapsCenter = latLng),
+                                initialLocation: _model.googleMapsCenter ??=
+                                    widget.location!,
+                                markers: [
+                                  if (_googleMapMarker != null)
+                                    FlutterFlowMarker(
+                                      _googleMapMarker.serialize(),
+                                      _googleMapMarker,
+                                    ),
+                                ],
+                                markerColor: GoogleMarkerColor.red,
+                                mapType: MapType.normal,
+                                style: GoogleMapStyle.retro,
+                                initialZoom: 14.0,
+                                allowInteraction: true,
+                                allowZoom: true,
+                                showZoomControls: true,
+                                showLocation: true,
+                                showCompass: false,
+                                showMapToolbar: true,
+                                showTraffic: false,
+                                centerMapOnMarkerTap: true,
+                              );
+                            }),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -33,6 +33,8 @@ class _OnFirstLoadWidgetState extends State<OnFirstLoadWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => OnFirstLoadModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

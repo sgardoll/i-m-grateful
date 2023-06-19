@@ -5,8 +5,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/login/style_choice/style_choice_widget.dart';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,6 +36,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     _model.emailController ??= TextEditingController();
     _model.passwordController ??= TextEditingController();
     _model.confirmPassController ??= TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -56,13 +57,16 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: SpinKitRipple(
-                color: FlutterFlowTheme.of(context).primary,
-                size: 50.0,
+          return Scaffold(
+            backgroundColor: Color(0xFFFCB769),
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: SpinKitRipple(
+                  color: FlutterFlowTheme.of(context).primary,
+                  size: 50.0,
+                ),
               ),
             ),
           );
@@ -79,9 +83,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: Image.asset(
-                    'assets/images/8jz5a_6.png',
-                  ).image,
+                  image: CachedNetworkImageProvider(
+                    'https://www.connectio.com.au/grateful/6.png',
+                  ),
                 ),
               ),
               child: SingleChildScrollView(
@@ -155,14 +159,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
-                                    labelText: 'Full Name',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                        ),
                                     hintText: 'Enter your name here...',
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -205,6 +201,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                     contentPadding:
                                         EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 0.0, 0.0),
+                                    prefixIcon: Icon(
+                                      Icons.person_outline,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                    ),
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -224,14 +225,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   controller: _model.emailController,
                                   obscureText: false,
                                   decoration: InputDecoration(
-                                    labelText: 'Email Address',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                        ),
                                     hintText: 'Enter your email here...',
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -274,6 +267,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                     contentPadding:
                                         EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 0.0, 0.0),
+                                    prefixIcon: Icon(
+                                      Icons.alternate_email_rounded,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                    ),
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -293,15 +291,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   controller: _model.passwordController,
                                   obscureText: !_model.passwordVisibility,
                                   decoration: InputDecoration(
-                                    labelText: 'Password',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                        ),
-                                    hintText: 'Enter your password here...',
+                                    hintText: 'Enter a password here...',
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -343,6 +333,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                     contentPadding:
                                         EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 0.0, 0.0),
+                                    prefixIcon: Icon(
+                                      Icons.lock_outlined,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                    ),
                                     suffixIcon: InkWell(
                                       onTap: () => setState(
                                         () => _model.passwordVisibility =
@@ -377,14 +372,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   controller: _model.confirmPassController,
                                   obscureText: !_model.confirmPassVisibility,
                                   decoration: InputDecoration(
-                                    labelText: 'Confirm Password',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                        ),
                                     hintText: 'Confirm password here...',
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -427,6 +414,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                     contentPadding:
                                         EdgeInsetsDirectional.fromSTEB(
                                             18.0, 0.0, 0.0, 0.0),
+                                    prefixIcon: Icon(
+                                      Icons.lock_outlined,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                    ),
                                     suffixIcon: InkWell(
                                       onTap: () => setState(
                                         () => _model.confirmPassVisibility =
@@ -470,8 +462,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   onChanged: (val) =>
                                       setState(() => _model.genderValue = val),
                                   height: 50.0,
-                                  searchHintTextStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -480,7 +470,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                             .primary,
                                       ),
                                   hintText: 'Please enter your gender...',
-                                  searchHintText: 'Search for an item...',
                                   icon: Icon(
                                     Icons.keyboard_arrow_down_rounded,
                                     color:
@@ -504,7 +493,35 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                 onPressed: () async {
                                   logFirebaseEvent(
                                       'REGISTER_PAGE_CREATE_ACCOUNT_BTN_ON_TAP');
+                                  logFirebaseEvent('Button_validate_form');
+                                  if (_model.formKey.currentState == null ||
+                                      !_model.formKey.currentState!
+                                          .validate()) {
+                                    return;
+                                  }
+                                  if (_model.genderValue == null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Please select a gender option',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Outfit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context).error,
+                                      ),
+                                    );
+                                    return;
+                                  }
                                   logFirebaseEvent('Button_auth');
+                                  GoRouter.of(context).prepareAuthEvent();
                                   if (_model.passwordController.text !=
                                       _model.confirmPassController.text) {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -542,17 +559,13 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                       .update(usersCreateData);
 
                                   logFirebaseEvent('Button_navigate_to');
-                                  await Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => StyleChoiceWidget(),
-                                    ),
-                                    (r) => false,
-                                  );
+
+                                  context.goNamedAuth(
+                                      'StyleChoice', context.mounted);
                                 },
                                 text: 'Create Account',
                                 options: FFButtonOptions(
-                                  width: 200.0,
+                                  width: 230.0,
                                   height: 40.0,
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
@@ -573,6 +586,15 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(25.0),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 24.0, 0.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [],
                                 ),
                               ),
                             ],

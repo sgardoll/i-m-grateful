@@ -247,6 +247,371 @@ class UserBalanceCall {
 
 /// End Stability.ai REST API Group Code
 
+/// Start Replicate HTTP API Group Code
+
+class ReplicateHTTPAPIGroup {
+  static String baseUrl = 'https://api.replicate.com/v1';
+  static Map<String, String> headers = {};
+  static CollectionsListCall collectionsListCall = CollectionsListCall();
+  static CollectionsGetCall collectionsGetCall = CollectionsGetCall();
+  static ModelsGetCall modelsGetCall = ModelsGetCall();
+  static ModelsVersionsListCall modelsVersionsListCall =
+      ModelsVersionsListCall();
+  static ModelsVersionsDeleteCall modelsVersionsDeleteCall =
+      ModelsVersionsDeleteCall();
+  static ModelsVersionsGetCall modelsVersionsGetCall = ModelsVersionsGetCall();
+  static TrainingsCreateCall trainingsCreateCall = TrainingsCreateCall();
+  static PredictionsListCall predictionsListCall = PredictionsListCall();
+  static PredictionsCreateCall predictionsCreateCall = PredictionsCreateCall();
+  static PredictionsGetCall predictionsGetCall = PredictionsGetCall();
+  static PredictionsCancelCall predictionsCancelCall = PredictionsCancelCall();
+  static TrainingsListCall trainingsListCall = TrainingsListCall();
+  static TrainingsGetCall trainingsGetCall = TrainingsGetCall();
+  static TrainingsCancelCall trainingsCancelCall = TrainingsCancelCall();
+}
+
+class CollectionsListCall {
+  Future<ApiCallResponse> call() {
+    return ApiManager.instance.makeApiCall(
+      callName: 'collections.list',
+      apiUrl: '${ReplicateHTTPAPIGroup.baseUrl}/v1/collections',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class CollectionsGetCall {
+  Future<ApiCallResponse> call({
+    String? collectionSlug = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'collections.get',
+      apiUrl:
+          '${ReplicateHTTPAPIGroup.baseUrl}/v1/collections/${collectionSlug}',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class ModelsGetCall {
+  Future<ApiCallResponse> call({
+    String? modelOwner = '',
+    String? modelName = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'models.get',
+      apiUrl:
+          '${ReplicateHTTPAPIGroup.baseUrl}/v1/models/${modelOwner}/${modelName}',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class ModelsVersionsListCall {
+  Future<ApiCallResponse> call({
+    String? modelOwner = '',
+    String? modelName = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'models.versions.list',
+      apiUrl:
+          '${ReplicateHTTPAPIGroup.baseUrl}/v1/models/${modelOwner}/${modelName}/versions',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class ModelsVersionsDeleteCall {
+  Future<ApiCallResponse> call({
+    String? modelOwner = '',
+    String? modelName = '',
+    String? versionId = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'models.versions.delete',
+      apiUrl:
+          '${ReplicateHTTPAPIGroup.baseUrl}/v1/models/${modelOwner}/${modelName}/versions/${versionId}',
+      callType: ApiCallType.DELETE,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class ModelsVersionsGetCall {
+  Future<ApiCallResponse> call({
+    String? modelOwner = '',
+    String? modelName = '',
+    String? versionId = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'models.versions.get',
+      apiUrl:
+          '${ReplicateHTTPAPIGroup.baseUrl}/v1/models/${modelOwner}/${modelName}/versions/${versionId}',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class TrainingsCreateCall {
+  Future<ApiCallResponse> call({
+    String? modelOwner = '',
+    String? modelName = '',
+    String? versionId = '',
+  }) {
+    final body = '''
+{
+  "destination": "",
+  "input": {},
+  "webhook": ""
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'trainings.create',
+      apiUrl:
+          '${ReplicateHTTPAPIGroup.baseUrl}/v1/models/${modelOwner}/${modelName}/versions/${versionId}/trainings',
+      callType: ApiCallType.POST,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class PredictionsListCall {
+  Future<ApiCallResponse> call() {
+    return ApiManager.instance.makeApiCall(
+      callName: 'predictions.list',
+      apiUrl: '${ReplicateHTTPAPIGroup.baseUrl}/v1/predictions',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class PredictionsCreateCall {
+  Future<ApiCallResponse> call({
+    dynamic? inputJson,
+    String? replicateAPI = '',
+    String? version = '',
+    String? webhook = '',
+    String? image = '',
+  }) {
+    final input = _serializeJson(inputJson);
+    final body = '''
+{
+  "input": {
+    "image": "${image}"
+  },
+  "version": "dff637aacf67b4f8ec0860f8b9af7d0911cb54f21b6d0b0ca891d06f277127de"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'predictions.create',
+      apiUrl: '${ReplicateHTTPAPIGroup.baseUrl}/predictions',
+      callType: ApiCallType.POST,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+        'Authorization': 'Token ${replicateAPI}',
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic getUrl(dynamic response) => getJsonField(
+        response,
+        r'''$.urls.get''',
+      );
+  dynamic cancelUrl(dynamic response) => getJsonField(
+        response,
+        r'''$.urls.cancel''',
+      );
+  dynamic id(dynamic response) => getJsonField(
+        response,
+        r'''$.id''',
+      );
+  dynamic status(dynamic response) => getJsonField(
+        response,
+        r'''$.status''',
+      );
+}
+
+class PredictionsGetCall {
+  Future<ApiCallResponse> call({
+    String? predictionId = '',
+    String? replicateAPI = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'predictions.get',
+      apiUrl: '${ReplicateHTTPAPIGroup.baseUrl}/predictions/${predictionId}',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+        'Authorization': 'Token ${replicateAPI}',
+      },
+      params: {},
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic output(dynamic response) => getJsonField(
+        response,
+        r'''$.output''',
+        true,
+      );
+}
+
+class PredictionsCancelCall {
+  Future<ApiCallResponse> call({
+    String? predictionId = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'predictions.cancel',
+      apiUrl:
+          '${ReplicateHTTPAPIGroup.baseUrl}/v1/predictions/${predictionId}/cancel',
+      callType: ApiCallType.POST,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      bodyType: BodyType.JSON,
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class TrainingsListCall {
+  Future<ApiCallResponse> call() {
+    return ApiManager.instance.makeApiCall(
+      callName: 'trainings.list',
+      apiUrl: '${ReplicateHTTPAPIGroup.baseUrl}/v1/trainings',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class TrainingsGetCall {
+  Future<ApiCallResponse> call({
+    String? trainingId = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'trainings.get',
+      apiUrl: '${ReplicateHTTPAPIGroup.baseUrl}/v1/trainings/${trainingId}',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class TrainingsCancelCall {
+  Future<ApiCallResponse> call({
+    String? trainingId = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'trainings.cancel',
+      apiUrl:
+          '${ReplicateHTTPAPIGroup.baseUrl}/v1/trainings/${trainingId}/cancel',
+      callType: ApiCallType.POST,
+      headers: {
+        ...ReplicateHTTPAPIGroup.headers,
+      },
+      params: {},
+      bodyType: BodyType.JSON,
+      returnBody: false,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+/// End Replicate HTTP API Group Code
+
 class BayhouseAPICall {
   static Future<ApiCallResponse> call({
     String? authToken = '',
@@ -350,11 +715,11 @@ String _serializeList(List? list) {
   }
 }
 
-String _serializeJson(dynamic jsonVar) {
-  jsonVar ??= {};
+String _serializeJson(dynamic jsonVar, [bool isList = false]) {
+  jsonVar ??= (isList ? [] : {});
   try {
     return json.encode(jsonVar);
   } catch (_) {
-    return '{}';
+    return isList ? '[]' : '{}';
   }
 }

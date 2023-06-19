@@ -1,11 +1,6 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/entries/entries_widget.dart';
-import '/pages/explore/explore_widget.dart';
-import '/pages/items/items_widget.dart';
-import '/pages/new_item/new_item_widget.dart';
-import '/pages/settings/settings_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,6 +28,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => NavBarModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -119,23 +116,26 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                   buttonSize: 50.0,
                                   icon: Icon(
                                     Icons.home_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                    color: valueOrDefault<Color>(
+                                      FFAppState().contrasting,
+                                      FlutterFlowTheme.of(context).secondary,
+                                    ),
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
                                     logFirebaseEvent(
                                         'NAV_BAR_COMP_home_rounded_ICN_ON_TAP');
                                     logFirebaseEvent('IconButton_navigate_to');
-                                    await Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.fade,
-                                        duration: Duration(milliseconds: 300),
-                                        reverseDuration:
-                                            Duration(milliseconds: 300),
-                                        child: ItemsWidget(),
-                                      ),
+
+                                    context.pushNamed(
+                                      'Items',
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.fade,
+                                        ),
+                                      },
                                     );
                                   },
                                 ),
@@ -161,23 +161,26 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                   buttonSize: 50.0,
                                   icon: Icon(
                                     Icons.table_rows_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                    color: valueOrDefault<Color>(
+                                      FFAppState().contrasting,
+                                      FlutterFlowTheme.of(context).secondary,
+                                    ),
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
                                     logFirebaseEvent(
                                         'NAV_BAR_table_rows_rounded_ICN_ON_TAP');
                                     logFirebaseEvent('IconButton_navigate_to');
-                                    await Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.fade,
-                                        duration: Duration(milliseconds: 300),
-                                        reverseDuration:
-                                            Duration(milliseconds: 300),
-                                        child: EntriesWidget(),
-                                      ),
+
+                                    context.pushNamed(
+                                      'Entries',
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.fade,
+                                        ),
+                                      },
                                     );
                                   },
                                 ),
@@ -206,26 +209,24 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 ),
                                 icon: Icon(
                                   Icons.add,
-                                  color: valueOrDefault<Color>(
-                                    FFAppState().primary,
-                                    FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   size: 30.0,
                                 ),
                                 onPressed: () async {
                                   logFirebaseEvent(
                                       'NAV_BAR_COMP_MiddleButton_ON_TAP');
                                   logFirebaseEvent('MiddleButton_navigate_to');
-                                  await Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.bottomToTop,
-                                      duration: Duration(milliseconds: 300),
-                                      reverseDuration:
-                                          Duration(milliseconds: 300),
-                                      child: NewItemWidget(),
-                                    ),
+
+                                  context.pushNamed(
+                                    'NewItem',
+                                    extra: <String, dynamic>{
+                                      kTransitionInfoKey: TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType:
+                                            PageTransitionType.bottomToTop,
+                                      ),
+                                    },
                                   );
                                 },
                               ),
@@ -249,23 +250,25 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 buttonSize: 50.0,
                                 icon: Icon(
                                   Icons.image_search_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: valueOrDefault<Color>(
+                                    FFAppState().contrasting,
+                                    FlutterFlowTheme.of(context).secondary,
+                                  ),
                                   size: 24.0,
                                 ),
                                 onPressed: () async {
                                   logFirebaseEvent(
                                       'NAV_BAR_COMP_Explore_ON_TAP');
                                   logFirebaseEvent('Explore_navigate_to');
-                                  await Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.fade,
-                                      duration: Duration(milliseconds: 300),
-                                      reverseDuration:
-                                          Duration(milliseconds: 300),
-                                      child: ExploreWidget(),
-                                    ),
+
+                                  context.pushNamed(
+                                    'Explore',
+                                    extra: <String, dynamic>{
+                                      kTransitionInfoKey: TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType: PageTransitionType.fade,
+                                      ),
+                                    },
                                   );
                                 },
                               ),
@@ -289,23 +292,25 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 buttonSize: 50.0,
                                 icon: Icon(
                                   Icons.settings_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: valueOrDefault<Color>(
+                                    FFAppState().contrasting,
+                                    FlutterFlowTheme.of(context).secondary,
+                                  ),
                                   size: 24.0,
                                 ),
                                 onPressed: () async {
                                   logFirebaseEvent(
                                       'NAV_BAR_COMP_settings_rounded_ICN_ON_TAP');
                                   logFirebaseEvent('IconButton_navigate_to');
-                                  await Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.fade,
-                                      duration: Duration(milliseconds: 300),
-                                      reverseDuration:
-                                          Duration(milliseconds: 300),
-                                      child: SettingsWidget(),
-                                    ),
+
+                                  context.pushNamed(
+                                    'Settings',
+                                    extra: <String, dynamic>{
+                                      kTransitionInfoKey: TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType: PageTransitionType.fade,
+                                      ),
+                                    },
                                   );
                                 },
                               ),

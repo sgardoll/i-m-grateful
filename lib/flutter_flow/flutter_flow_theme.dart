@@ -59,6 +59,9 @@ abstract class FlutterFlowTheme {
   late Color darkBG;
   late Color primaryBlack;
   late Color customColor1;
+  late Color customColor2;
+  late Color customColor3;
+  late Color customColor4;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -134,7 +137,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color primary = const Color(0xFFFCB769);
   late Color secondary = const Color(0xFF406C88);
   late Color tertiary = const Color(0xFFE74C3C);
-  late Color alternate = const Color(0xFF28B463);
+  late Color alternate = const Color(0xFFF8EC4E);
   late Color primaryText = const Color(0xFF333333);
   late Color secondaryText = const Color(0xFF555555);
   late Color primaryBackground = const Color(0xFFFFFFFF);
@@ -153,6 +156,9 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color darkBG = Color(0xFF1A1F24);
   late Color primaryBlack = Color(0xFF131619);
   late Color customColor1 = Color(0xFF7B6B47);
+  late Color customColor2 = Color(0xFFF8EC4E);
+  late Color customColor3 = Color(0xFF9C7021);
+  late Color customColor4 = Color(0xFFF0EFE9);
 }
 
 abstract class Typography {
@@ -329,6 +335,9 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color darkBG = Color(0xFF1A1F24);
   late Color primaryBlack = Color(0xFF131619);
   late Color customColor1 = Color(0xFF7B6B47);
+  late Color customColor2 = Color(0xFF3887F4);
+  late Color customColor3 = Color(0xFF580749);
+  late Color customColor4 = Color(0xFFACF932);
 }
 
 extension TextStyleHelper on TextStyle {

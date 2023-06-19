@@ -87,12 +87,88 @@ class StableStruct extends FFFirebaseStruct {
       }.withoutNulls;
 
   @override
-  Map<String, dynamic> toSerializableMap() => toMap();
+  Map<String, dynamic> toSerializableMap() => {
+        'colorPalettes': serializeParam(
+          _colorPalettes,
+          ParamType.DataStruct,
+        ),
+        'imageUrls': serializeParam(
+          _imageUrls,
+          ParamType.String,
+          true,
+        ),
+        'userRef': serializeParam(
+          _userRef,
+          ParamType.DocumentReference,
+        ),
+        'style': serializeParam(
+          _style,
+          ParamType.String,
+        ),
+        'timestamp': serializeParam(
+          _timestamp,
+          ParamType.DateTime,
+        ),
+        'status': serializeParam(
+          _status,
+          ParamType.String,
+        ),
+      }.withoutNulls;
+
   static StableStruct fromSerializableMap(Map<String, dynamic> data) =>
-      fromMap(data);
+      StableStruct(
+        colorPalettes: deserializeStructParam(
+          data['colorPalettes'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: ColorPalettesStruct.fromSerializableMap,
+        ),
+        imageUrls: deserializeParam<String>(
+          data['imageUrls'],
+          ParamType.String,
+          true,
+        ),
+        userRef: deserializeParam(
+          data['userRef'],
+          ParamType.DocumentReference,
+          false,
+          collectionNamePath: ['Users'],
+        ),
+        style: deserializeParam(
+          data['style'],
+          ParamType.String,
+          false,
+        ),
+        timestamp: deserializeParam(
+          data['timestamp'],
+          ParamType.DateTime,
+          false,
+        ),
+        status: deserializeParam(
+          data['status'],
+          ParamType.String,
+          false,
+        ),
+      );
 
   @override
   String toString() => 'StableStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    const listEquality = ListEquality();
+    return other is StableStruct &&
+        colorPalettes == other.colorPalettes &&
+        listEquality.equals(imageUrls, other.imageUrls) &&
+        userRef == other.userRef &&
+        style == other.style &&
+        timestamp == other.timestamp &&
+        status == other.status;
+  }
+
+  @override
+  int get hashCode => const ListEquality()
+      .hash([colorPalettes, imageUrls, userRef, style, timestamp, status]);
 }
 
 StableStruct createStableStruct({

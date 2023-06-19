@@ -10,7 +10,8 @@ Future initFirebase() async {
             projectId: "i-m-grateful",
             storageBucket: "i-m-grateful.appspot.com",
             messagingSenderId: "253994998931",
-            appId: "1:253994998931:web:de584746c6c585ffb64166"));
+            appId: "1:253994998931:web:de584746c6c585ffb64166",
+            measurementId: "G-47NKJQX7CF"));
   } else {
     await Firebase.initializeApp();
   }

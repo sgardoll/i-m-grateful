@@ -19,20 +19,53 @@ class FFAppState extends ChangeNotifier {
 
   Future initializePersistedState() async {
     secureStorage = FlutterSecureStorage();
-    _bayhouseAPI =
-        await secureStorage.getString('ff_bayhouseAPI') ?? _bayhouseAPI;
-    _primary = _colorFromIntValue(await secureStorage.getInt('ff_primary')) ??
-        _primary;
-    _contrasting =
-        _colorFromIntValue(await secureStorage.getInt('ff_contrasting')) ??
-            _contrasting;
-    _bodyTextColor =
-        _colorFromIntValue(await secureStorage.getInt('ff_bodyTextColor')) ??
-            _bodyTextColor;
-    _StableApiKey =
-        await secureStorage.getString('ff_StableApiKey') ?? _StableApiKey;
-    _success = await secureStorage.getString('ff_success') ?? _success;
-    _error = await secureStorage.getString('ff_error') ?? _error;
+    await _safeInitAsync(() async {
+      _bayhouseAPI =
+          await secureStorage.getString('ff_bayhouseAPI') ?? _bayhouseAPI;
+    });
+    await _safeInitAsync(() async {
+      _primary = _colorFromIntValue(await secureStorage.getInt('ff_primary')) ??
+          _primary;
+    });
+    await _safeInitAsync(() async {
+      _contrasting =
+          _colorFromIntValue(await secureStorage.getInt('ff_contrasting')) ??
+              _contrasting;
+    });
+    await _safeInitAsync(() async {
+      _bodyTextColor =
+          _colorFromIntValue(await secureStorage.getInt('ff_bodyTextColor')) ??
+              _bodyTextColor;
+    });
+    await _safeInitAsync(() async {
+      _StableApiKey =
+          await secureStorage.getString('ff_StableApiKey') ?? _StableApiKey;
+    });
+    await _safeInitAsync(() async {
+      _success = await secureStorage.getString('ff_success') ?? _success;
+    });
+    await _safeInitAsync(() async {
+      _error = await secureStorage.getString('ff_error') ?? _error;
+    });
+    await _safeInitAsync(() async {
+      _replicateAPI =
+          await secureStorage.getString('ff_replicateAPI') ?? _replicateAPI;
+    });
+    await _safeInitAsync(() async {
+      _lightVibrant =
+          _colorFromIntValue(await secureStorage.getInt('ff_lightVibrant')) ??
+              _lightVibrant;
+    });
+    await _safeInitAsync(() async {
+      _darkVibrant =
+          _colorFromIntValue(await secureStorage.getInt('ff_darkVibrant')) ??
+              _darkVibrant;
+    });
+    await _safeInitAsync(() async {
+      _zeroLocation =
+          _latLngFromString(await secureStorage.getString('ff_zeroLocation')) ??
+              _zeroLocation;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -75,7 +108,7 @@ class FFAppState extends ChangeNotifier {
   Color get primary => _primary;
   set primary(Color _value) {
     _primary = _value;
-    secureStorage.setString('ff_primary', _value.value.toString());
+    secureStorage.setInt('ff_primary', _value.value);
   }
 
   void deletePrimary() {
@@ -86,7 +119,7 @@ class FFAppState extends ChangeNotifier {
   Color get contrasting => _contrasting;
   set contrasting(Color _value) {
     _contrasting = _value;
-    secureStorage.setString('ff_contrasting', _value.value.toString());
+    secureStorage.setInt('ff_contrasting', _value.value);
   }
 
   void deleteContrasting() {
@@ -97,7 +130,7 @@ class FFAppState extends ChangeNotifier {
   Color get bodyTextColor => _bodyTextColor;
   set bodyTextColor(Color _value) {
     _bodyTextColor = _value;
-    secureStorage.setString('ff_bodyTextColor', _value.value.toString());
+    secureStorage.setInt('ff_bodyTextColor', _value.value);
   }
 
   void deleteBodyTextColor() {
@@ -135,6 +168,135 @@ class FFAppState extends ChangeNotifier {
 
   void deleteError() {
     secureStorage.delete(key: 'ff_error');
+  }
+
+  String _replicateAPI = '905598db1e31366d29b82a8a423d50b6d53d3cf4';
+  String get replicateAPI => _replicateAPI;
+  set replicateAPI(String _value) {
+    _replicateAPI = _value;
+    secureStorage.setString('ff_replicateAPI', _value);
+  }
+
+  void deleteReplicateAPI() {
+    secureStorage.delete(key: 'ff_replicateAPI');
+  }
+
+  List<String> _foregroundImages = [
+    'https://raw.githubusercontent.com/sbis04/flutter-parallax-cards/main/images/rio.png',
+    'https://raw.githubusercontent.com/sbis04/flutter-parallax-cards/main/images/france.png',
+    'https://raw.githubusercontent.com/sbis04/flutter-parallax-cards/main/images/iceland.png'
+  ];
+  List<String> get foregroundImages => _foregroundImages;
+  set foregroundImages(List<String> _value) {
+    _foregroundImages = _value;
+  }
+
+  void addToForegroundImages(String _value) {
+    _foregroundImages.add(_value);
+  }
+
+  void removeFromForegroundImages(String _value) {
+    _foregroundImages.remove(_value);
+  }
+
+  void removeAtIndexFromForegroundImages(int _index) {
+    _foregroundImages.removeAt(_index);
+  }
+
+  void updateForegroundImagesAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _foregroundImages[_index] = updateFn(_foregroundImages[_index]);
+  }
+
+  List<String> _backgroundImages = [
+    'https://raw.githubusercontent.com/sbis04/flutter-parallax-cards/main/images/rio-bg.jpg',
+    'https://raw.githubusercontent.com/sbis04/flutter-parallax-cards/main/images/france-bg.jpg',
+    'https://raw.githubusercontent.com/sbis04/flutter-parallax-cards/main/images/iceland-bg.jpg'
+  ];
+  List<String> get backgroundImages => _backgroundImages;
+  set backgroundImages(List<String> _value) {
+    _backgroundImages = _value;
+  }
+
+  void addToBackgroundImages(String _value) {
+    _backgroundImages.add(_value);
+  }
+
+  void removeFromBackgroundImages(String _value) {
+    _backgroundImages.remove(_value);
+  }
+
+  void removeAtIndexFromBackgroundImages(int _index) {
+    _backgroundImages.removeAt(_index);
+  }
+
+  void updateBackgroundImagesAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _backgroundImages[_index] = updateFn(_backgroundImages[_index]);
+  }
+
+  List<String> _texts = ['Brazil', 'France', 'Iceland'];
+  List<String> get texts => _texts;
+  set texts(List<String> _value) {
+    _texts = _value;
+  }
+
+  void addToTexts(String _value) {
+    _texts.add(_value);
+  }
+
+  void removeFromTexts(String _value) {
+    _texts.remove(_value);
+  }
+
+  void removeAtIndexFromTexts(int _index) {
+    _texts.removeAt(_index);
+  }
+
+  void updateTextsAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _texts[_index] = updateFn(_texts[_index]);
+  }
+
+  Color _lightVibrant = Color(4283782485);
+  Color get lightVibrant => _lightVibrant;
+  set lightVibrant(Color _value) {
+    _lightVibrant = _value;
+    secureStorage.setInt('ff_lightVibrant', _value.value);
+  }
+
+  void deleteLightVibrant() {
+    secureStorage.delete(key: 'ff_lightVibrant');
+  }
+
+  Color _darkVibrant = Color(4281545523);
+  Color get darkVibrant => _darkVibrant;
+  set darkVibrant(Color _value) {
+    _darkVibrant = _value;
+    secureStorage.setInt('ff_darkVibrant', _value.value);
+  }
+
+  void deleteDarkVibrant() {
+    secureStorage.delete(key: 'ff_darkVibrant');
+  }
+
+  LatLng? _zeroLocation = LatLng(0.0, 0.0);
+  LatLng? get zeroLocation => _zeroLocation;
+  set zeroLocation(LatLng? _value) {
+    _zeroLocation = _value;
+    _value != null
+        ? secureStorage.setString('ff_zeroLocation', _value.serialize())
+        : secureStorage.remove('ff_zeroLocation');
+  }
+
+  void deleteZeroLocation() {
+    secureStorage.delete(key: 'ff_zeroLocation');
   }
 
   final _itemsManager = StreamRequestManager<List<ItemRecord>>();
@@ -176,6 +338,18 @@ LatLng? _latLngFromString(String? val) {
   final lat = double.parse(split.first);
   final lng = double.parse(split.last);
   return LatLng(lat, lng);
+}
+
+void _safeInit(Function() initializeField) {
+  try {
+    initializeField();
+  } catch (_) {}
+}
+
+Future _safeInitAsync(Function() initializeField) async {
+  try {
+    await initializeField();
+  } catch (_) {}
 }
 
 Color? _colorFromIntValue(int? val) {

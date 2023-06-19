@@ -1,15 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
+import '/components/unlimited_circle_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/login/change_password/change_password_widget.dart';
-import '/login/login/login_widget.dart';
-import '/settings/delete_account/delete_account_widget.dart';
-import '/settings/edit_app_settings/edit_app_settings_widget.dart';
-import '/settings/edit_profile/edit_profile_widget.dart';
-import '/settings/edit_style/edit_style_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -73,6 +68,8 @@ class _SettingsWidgetState extends State<SettingsWidget>
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -173,12 +170,57 @@ class _SettingsWidgetState extends State<SettingsWidget>
                             logFirebaseEvent(
                                 'SETTINGS_PAGE_Row_s3zxze5p_ON_TAP');
                             logFirebaseEvent('Row_navigate_to');
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditAppSettingsWidget(),
+
+                            context.pushNamed('EditSubscription');
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 0.0, 0.0),
+                                child: wrapWithModel(
+                                  model: _model.unlimitedCircleModel,
+                                  updateCallback: () => setState(() {}),
+                                  child: UnlimitedCircleWidget(),
+                                ),
                               ),
-                            );
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 20.0, 0.0, 20.0),
+                                  child: Text(
+                                    ' Subscription Settings',
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyMedium,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 12.0, 0.0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            logFirebaseEvent(
+                                'SETTINGS_PAGE_Row_9brzf7yh_ON_TAP');
+                            logFirebaseEvent('Row_navigate_to');
+
+                            context.pushNamed('EditAppSettings');
                           },
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -573,12 +615,8 @@ class _SettingsWidgetState extends State<SettingsWidget>
                             logFirebaseEvent(
                                 'SETTINGS_PAGE_Row_vml49gpm_ON_TAP');
                             logFirebaseEvent('Row_navigate_to');
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditProfileWidget(),
-                              ),
-                            );
+
+                            context.pushNamed('EditProfile');
                           },
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -589,7 +627,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 20.0, 0.0, 20.0),
                                   child: Text(
-                                    'Edit Name or E-Mail Address',
+                                    'Edit Name or Gender',
                                     style:
                                         FlutterFlowTheme.of(context).bodyMedium,
                                   ),
@@ -624,12 +662,8 @@ class _SettingsWidgetState extends State<SettingsWidget>
                             logFirebaseEvent(
                                 'SETTINGS_PAGE_Row_codgtu1x_ON_TAP');
                             logFirebaseEvent('Row_navigate_to');
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChangePasswordWidget(),
-                              ),
-                            );
+
+                            context.pushNamed('ChangePassword');
                           },
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -675,12 +709,8 @@ class _SettingsWidgetState extends State<SettingsWidget>
                             logFirebaseEvent(
                                 'SETTINGS_PAGE_Row_3vblm1j0_ON_TAP');
                             logFirebaseEvent('Row_navigate_to');
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditStyleWidget(),
-                              ),
-                            );
+
+                            context.pushNamed('EditStyle');
                           },
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -726,12 +756,8 @@ class _SettingsWidgetState extends State<SettingsWidget>
                             logFirebaseEvent(
                                 'SETTINGS_PAGE_Row_8udo76zr_ON_TAP');
                             logFirebaseEvent('Row_navigate_to');
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DeleteAccountWidget(),
-                              ),
-                            );
+
+                            context.pushNamed('DeleteAccount');
                           },
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -780,14 +806,11 @@ class _SettingsWidgetState extends State<SettingsWidget>
                           onPressed: () async {
                             logFirebaseEvent('SETTINGS_PAGE_LOGOUT_BTN_ON_TAP');
                             logFirebaseEvent('Button_auth');
+                            GoRouter.of(context).prepareAuthEvent();
                             await authManager.signOut();
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LoginWidget(),
-                              ),
-                              (r) => false,
-                            );
+                            GoRouter.of(context).clearRedirectLocation();
+
+                            context.goNamedAuth('Login', context.mounted);
                           },
                           text: 'Logout',
                           options: FFButtonOptions(

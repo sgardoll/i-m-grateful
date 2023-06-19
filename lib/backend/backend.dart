@@ -10,6 +10,8 @@ import 'schema/item_record.dart';
 import 'schema/stable_t2_i_record.dart';
 import 'schema/styles_record.dart';
 import 'schema/feedback_record.dart';
+import 'schema/replicate_no_bg_record.dart';
+import 'schema/custom_styles_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,6 +24,8 @@ export 'schema/item_record.dart';
 export 'schema/stable_t2_i_record.dart';
 export 'schema/styles_record.dart';
 export 'schema/feedback_record.dart';
+export 'schema/replicate_no_bg_record.dart';
+export 'schema/custom_styles_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -277,6 +281,110 @@ Future<FFFirestorePage<FeedbackRecord>> queryFeedbackRecordPage({
     queryCollectionPage(
       FeedbackRecord.collection,
       FeedbackRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query ReplicateNoBgRecords (as a Stream and as a Future).
+Future<int> queryReplicateNoBgRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      ReplicateNoBgRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<ReplicateNoBgRecord>> queryReplicateNoBgRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      ReplicateNoBgRecord.collection,
+      ReplicateNoBgRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<ReplicateNoBgRecord>> queryReplicateNoBgRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      ReplicateNoBgRecord.collection,
+      ReplicateNoBgRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<ReplicateNoBgRecord>> queryReplicateNoBgRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      ReplicateNoBgRecord.collection,
+      ReplicateNoBgRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query CustomStylesRecords (as a Stream and as a Future).
+Future<int> queryCustomStylesRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      CustomStylesRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<CustomStylesRecord>> queryCustomStylesRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      CustomStylesRecord.collection,
+      CustomStylesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<CustomStylesRecord>> queryCustomStylesRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      CustomStylesRecord.collection,
+      CustomStylesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<CustomStylesRecord>> queryCustomStylesRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      CustomStylesRecord.collection,
+      CustomStylesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

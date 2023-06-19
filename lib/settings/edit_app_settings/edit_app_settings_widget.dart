@@ -31,6 +31,7 @@ class _EditAppSettingsWidgetState extends State<EditAppSettingsWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'EditAppSettings'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -62,7 +63,7 @@ class _EditAppSettingsWidgetState extends State<EditAppSettingsWidget> {
           onPressed: () async {
             logFirebaseEvent('EDIT_APP_SETTINGS_chevron_left_rounded_I');
             logFirebaseEvent('IconButton_navigate_back');
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         title: Text(
@@ -186,7 +187,7 @@ class _EditAppSettingsWidgetState extends State<EditAppSettingsWidget> {
                                       await columnUsersRecord.reference
                                           .update(usersUpdateData);
                                       logFirebaseEvent('Button_navigate_back');
-                                      Navigator.pop(context);
+                                      context.pop();
                                     },
                                     text: 'Save Changes',
                                     options: FFButtonOptions(

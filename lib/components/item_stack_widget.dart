@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -65,8 +66,18 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
                 ),
           FlutterFlowTheme.of(context).secondaryBackground,
         );
+        FFAppState().lightVibrant = colorFromCssString(
+          widget.item!.lightVibrant,
+          defaultColor: FlutterFlowTheme.of(context).secondaryText,
+        );
+        FFAppState().darkVibrant = colorFromCssString(
+          widget.item!.darkVibrant,
+          defaultColor: FlutterFlowTheme.of(context).primaryText,
+        );
       });
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -99,24 +110,59 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
         final stackItemRecord = snapshot.data!;
         return Stack(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(0.0),
+            Hero(
+              tag: valueOrDefault<String>(
+                stackItemRecord.stable.imageUrls.first,
+                '0',
+              ),
+              transitionOnUserGestures: true,
               child: Image.network(
                 valueOrDefault<String>(
-                  stackItemRecord.stable.imageUrls.first == null ||
-                          stackItemRecord.stable.imageUrls.first == ''
-                      ? 'https://www.connectio.com.au/grateful/loading.png'
-                      : valueOrDefault<String>(
-                          stackItemRecord.stable.imageUrls.first,
-                          '0',
-                        ),
-                  'https://www.connectio.com.au/grateful/loading.png',
+                  stackItemRecord.stable.imageUrls.first,
+                  '0',
                 ),
                 width: MediaQuery.of(context).size.width * 1.0,
                 height: MediaQuery.of(context).size.height * 1.0,
                 fit: BoxFit.cover,
               ),
             ),
+            if (valueOrDefault<bool>(
+              stackItemRecord.stableImg2Img != null &&
+                  stackItemRecord.stableImg2Img != '',
+              false,
+            ))
+              ClipRRect(
+                borderRadius: BorderRadius.circular(0.0),
+                child: CachedNetworkImage(
+                  imageUrl: valueOrDefault<String>(
+                    stackItemRecord.stableImg2Img,
+                    '#',
+                  ),
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: MediaQuery.of(context).size.height * 1.0,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            if (valueOrDefault<bool>(
+              stackItemRecord.instructPix2Pix != null &&
+                  stackItemRecord.instructPix2Pix != '',
+              false,
+            ))
+              Align(
+                alignment: AlignmentDirectional(0.0, 1.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(0.0),
+                  child: CachedNetworkImage(
+                    imageUrl: valueOrDefault<String>(
+                      stackItemRecord.instructPix2Pix,
+                      '#',
+                    ),
+                    width: MediaQuery.of(context).size.width * 1.0,
+                    height: MediaQuery.of(context).size.height * 1.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             Stack(
               children: [
                 Align(
@@ -129,8 +175,8 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
                         child: ClipRect(
                           child: ImageFiltered(
                             imageFilter: ImageFilter.blur(
-                              sigmaX: 12.0,
-                              sigmaY: 12.0,
+                              sigmaX: 6.0,
+                              sigmaY: 6.0,
                             ),
                             child: Align(
                               alignment: AlignmentDirectional(0.0, 0.0),
@@ -150,11 +196,11 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
                                         stackItemRecord.itemText,
                                         MediaQuery.of(context).size.height *
                                             0.7),
-                                    45.0,
+                                    40.0,
                                   ),
-                                  colour: valueOrDefault<Color>(
-                                    FFAppState().contrasting,
-                                    FlutterFlowTheme.of(context).secondary,
+                                  colour: colorFromCssString(
+                                    stackItemRecord.darkVibrant,
+                                    defaultColor: Colors.black,
                                   ),
                                 ),
                               ),
@@ -168,7 +214,7 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Flexible(
@@ -186,7 +232,7 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
                                     MediaQuery.of(context).size.width * 0.4,
                                     stackItemRecord.itemText,
                                     MediaQuery.of(context).size.height * 0.7),
-                                45.0,
+                                40.0,
                               ),
                               colour: valueOrDefault<Color>(
                                 FFAppState().primary,

@@ -5,8 +5,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -32,6 +34,27 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
     _model = createModel(context, () => StyleChoiceModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'StyleChoice'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('STYLE_CHOICE_StyleChoice_ON_INIT_STATE');
+      if (valueOrDefault(currentUserDocument?.style, '') != null &&
+          valueOrDefault(currentUserDocument?.style, '') != '') {
+        logFirebaseEvent('StyleChoice_navigate_to');
+
+        context.goNamed(
+          'Items',
+          extra: <String, dynamic>{
+            kTransitionInfoKey: TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+              duration: Duration(milliseconds: 0),
+            ),
+          },
+        );
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -56,9 +79,9 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: Image.asset(
-                'assets/images/8jz5a_6.png',
-              ).image,
+              image: CachedNetworkImageProvider(
+                'https://www.connectio.com.au/grateful/4.png',
+              ),
             ),
           ),
           child: SingleChildScrollView(
@@ -95,7 +118,7 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                'I\'M\nGRATEFUL',
+                                'ART STYLE \nCHOICE',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -124,16 +147,15 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                       Flexible(
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 24.0, 0.0, 8.0),
+                              0.0, 0.0, 0.0, 8.0),
                           child: Text(
-                            'Please select an art style for your entries to be represented in',
+                            'When you record an entry in I\'m Grateful, the app creates a  stunning visual representation in your chosen style. You can change this with each entry but will default to the style you choose from the below.',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Outfit',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                                  color: FlutterFlowTheme.of(context).accent3,
                                 ),
                           ),
                         ),
@@ -191,6 +213,13 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                                 width: 100.0,
                                 height: 125.0,
                                 decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 4.0,
+                                      color: Color(0x33000000),
+                                      offset: Offset(0.0, 2.0),
+                                    )
+                                  ],
                                   borderRadius: BorderRadius.circular(25.0),
                                 ),
                                 child: Column(
@@ -272,9 +301,9 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                                                     .primary,
                                           ),
                                         );
-                                        logFirebaseEvent(
-                                            'Button_navigate_back');
-                                        Navigator.pop(context);
+                                        logFirebaseEvent('Button_navigate_to');
+
+                                        context.goNamed('Items');
                                       },
                                       text: gridViewStylesRecord.style,
                                       options: FFButtonOptions(

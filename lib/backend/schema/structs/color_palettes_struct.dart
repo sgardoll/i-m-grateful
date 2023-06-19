@@ -63,12 +63,64 @@ class ColorPalettesStruct extends FFFirebaseStruct {
       }.withoutNulls;
 
   @override
-  Map<String, dynamic> toSerializableMap() => toMap();
+  Map<String, dynamic> toSerializableMap() => {
+        'primaryColor': serializeParam(
+          _primaryColor,
+          ParamType.Color,
+        ),
+        'contrastingColor': serializeParam(
+          _contrastingColor,
+          ParamType.Color,
+        ),
+        'lightVibrant': serializeParam(
+          _lightVibrant,
+          ParamType.Color,
+        ),
+        'darkVibrant': serializeParam(
+          _darkVibrant,
+          ParamType.Color,
+        ),
+      }.withoutNulls;
+
   static ColorPalettesStruct fromSerializableMap(Map<String, dynamic> data) =>
-      fromMap(data);
+      ColorPalettesStruct(
+        primaryColor: deserializeParam(
+          data['primaryColor'],
+          ParamType.Color,
+          false,
+        ),
+        contrastingColor: deserializeParam(
+          data['contrastingColor'],
+          ParamType.Color,
+          false,
+        ),
+        lightVibrant: deserializeParam(
+          data['lightVibrant'],
+          ParamType.Color,
+          false,
+        ),
+        darkVibrant: deserializeParam(
+          data['darkVibrant'],
+          ParamType.Color,
+          false,
+        ),
+      );
 
   @override
   String toString() => 'ColorPalettesStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    return other is ColorPalettesStruct &&
+        primaryColor == other.primaryColor &&
+        contrastingColor == other.contrastingColor &&
+        lightVibrant == other.lightVibrant &&
+        darkVibrant == other.darkVibrant;
+  }
+
+  @override
+  int get hashCode => const ListEquality()
+      .hash([primaryColor, contrastingColor, lightVibrant, darkVibrant]);
 }
 
 ColorPalettesStruct createColorPalettesStruct({

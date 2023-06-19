@@ -31,6 +31,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'ChangePassword'});
     _model.emailTextController ??= TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -51,13 +52,16 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: SpinKitRipple(
-                color: FlutterFlowTheme.of(context).primary,
-                size: 50.0,
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: SpinKitRipple(
+                  color: FlutterFlowTheme.of(context).primary,
+                  size: 50.0,
+                ),
               ),
             ),
           );
@@ -89,7 +93,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
               onPressed: () async {
                 logFirebaseEvent('CHANGE_PASSWORD_chevron_left_rounded_ICN');
                 logFirebaseEvent('IconButton_navigate_back');
-                Navigator.pop(context);
+                context.pop();
               },
             ),
             title: Text(
@@ -149,16 +153,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
                               controller: _model.emailTextController,
                               obscureText: false,
                               decoration: InputDecoration(
-                                labelText: 'Email address here...',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Outfit',
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                    ),
-                                hintText:
-                                    'We will send a link to your email...',
+                                hintText: 'E-mail address...',
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -196,6 +191,10 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
                                 ),
                                 filled: true,
                                 fillColor: FlutterFlowTheme.of(context).accent3,
+                                prefixIcon: Icon(
+                                  Icons.alternate_email_rounded,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -237,7 +236,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
                                     );
                                     logFirebaseEvent(
                                         'emailAddress_navigate_back');
-                                    Navigator.pop(context);
+                                    context.pop();
                                   },
                                   text: 'Send Link',
                                   options: FFButtonOptions(

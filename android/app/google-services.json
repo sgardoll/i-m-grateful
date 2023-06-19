@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "253994998931-n51sqp4582dasrh5nliikm9e4e4nd8us.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.connectio.imgrateful",
+            "certificate_hash": "e49e22fc6b7516e43402738ae571713e30c464d8"
+          }
+        },
+        {
           "client_id": "253994998931-vrudnh9bmteck5e83k365p9hd44ial1d.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -40,10 +48,11 @@
               "client_type": 3
             },
             {
-              "client_id": "253994998931-c57shhtg47efebv5fk3k0cv7go5fpk6b.apps.googleusercontent.com",
+              "client_id": "253994998931-4fdimavn58jfi6ssoeb57m7s4kc3ef42.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.connectio.imgrateful"
+                "bundle_id": "com.connectio.imgrateful",
+                "app_store_id": "6448337226"
               }
             }
           ]
