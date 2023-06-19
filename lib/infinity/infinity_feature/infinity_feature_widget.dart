@@ -513,6 +513,8 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                   setState(() {
                                     _model.purchaseSuccessful = true;
                                   });
+                                  logFirebaseEvent('Button_bottom_sheet');
+                                  Navigator.pop(context);
                                 } else {
                                   logFirebaseEvent(
                                       'Button_update_widget_state');
