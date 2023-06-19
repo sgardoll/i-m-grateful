@@ -81,7 +81,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
               stream: queryItemRecord(
                 queryBuilder: (itemRecord) => itemRecord
                     .where('userRef', isEqualTo: currentUserReference)
-                    .where('status', isEqualTo: FFAppState().success)
+                    .where('status', isEqualTo: 'Success')
                     .orderBy('timestamp', descending: true),
               ),
               builder: (context, snapshot) {
