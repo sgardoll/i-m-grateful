@@ -179,7 +179,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 0.0, 0.0),
+                                    16.0, 4.0, 0.0, 4.0),
                                 child: wrapWithModel(
                                   model: _model.unlimitedCircleModel,
                                   updateCallback: () => setState(() {}),
@@ -209,6 +209,13 @@ class _SettingsWidgetState extends State<SettingsWidget>
                               ),
                             ],
                           ),
+                        ),
+                        Divider(
+                          height: 2.0,
+                          thickness: 1.0,
+                          indent: 0.0,
+                          endIndent: 0.0,
+                          color: FlutterFlowTheme.of(context).lineColor,
                         ),
                         InkWell(
                           splashColor: Colors.transparent,

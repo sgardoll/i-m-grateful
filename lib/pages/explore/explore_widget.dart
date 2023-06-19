@@ -45,6 +45,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
         await showModalBottomSheet(
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
+          isDismissible: false,
           enableDrag: false,
           context: context,
           builder: (context) {

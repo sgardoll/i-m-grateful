@@ -459,8 +459,8 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                               onPressed: () async {
                                 logFirebaseEvent(
                                     'INFINITY_FEATURE_COMP_CANCEL_BTN_ON_TAP');
-                                logFirebaseEvent('Button_dismiss_dialog');
-                                Navigator.pop(context);
+                                logFirebaseEvent('Button_navigate_back');
+                                context.safePop();
                               },
                               text: 'Cancel',
                               options: FFButtonOptions(
@@ -507,6 +507,19 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                             .annual!.identifier
                                         : revenue_cat.offerings!.current!
                                             .monthly!.identifier);
+                                if (_model.revenueCatConfirmPurchase!) {
+                                  logFirebaseEvent(
+                                      'Button_update_widget_state');
+                                  setState(() {
+                                    _model.purchaseSuccessful = true;
+                                  });
+                                } else {
+                                  logFirebaseEvent(
+                                      'Button_update_widget_state');
+                                  setState(() {
+                                    _model.purchaseSuccessful = false;
+                                  });
+                                }
 
                                 setState(() {});
                               },
