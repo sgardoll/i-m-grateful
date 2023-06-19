@@ -521,6 +521,22 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                   setState(() {
                                     _model.purchaseSuccessful = false;
                                   });
+                                  logFirebaseEvent('Button_show_snack_bar');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Subscription unsuccessful',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondary,
+                                    ),
+                                  );
                                 }
 
                                 setState(() {});

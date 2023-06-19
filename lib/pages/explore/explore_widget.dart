@@ -40,7 +40,10 @@ class _ExploreWidgetState extends State<ExploreWidget> {
         await revenue_cat.loadOfferings();
       }
 
-      if (!isEntitled) {
+      if (isEntitled) {
+        logFirebaseEvent('Explore_close_dialog,_drawer,_etc');
+        Navigator.pop(context);
+      } else {
         logFirebaseEvent('Explore_bottom_sheet');
         await showModalBottomSheet(
           isScrollControlled: true,

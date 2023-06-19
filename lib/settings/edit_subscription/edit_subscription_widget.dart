@@ -132,17 +132,19 @@ class _EditSubscriptionWidgetState extends State<EditSubscriptionWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.asset(
-                                    Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? 'assets/images/Infinity_200_black.png'
-                                        : 'assets/images/Infinity_1024.jpg',
-                                    width:
-                                        MediaQuery.of(context).size.width * 1.0,
-                                    height: 154.0,
-                                    fit: BoxFit.cover,
+                                Flexible(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.asset(
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? 'assets/images/Infinity_200_black.png'
+                                          : 'assets/images/Infinity_1024.jpg',
+                                      width: MediaQuery.of(context).size.width *
+                                          1.0,
+                                      height: 154.0,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -192,46 +194,66 @@ class _EditSubscriptionWidgetState extends State<EditSubscriptionWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium,
                                           ),
-                                          RichText(
-                                            text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: revenue_cat
-                                                      .offerings!
-                                                      .current!
-                                                      .monthly!
-                                                      .storeProduct
-                                                      .title,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                ),
-                                                TextSpan(
-                                                  text: ' - ',
-                                                  style: TextStyle(),
-                                                ),
-                                                TextSpan(
-                                                  text: revenue_cat
-                                                      .offerings!
-                                                      .current!
-                                                      .monthly!
-                                                      .storeProduct
-                                                      .priceString,
-                                                  style: TextStyle(),
-                                                )
-                                              ],
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 8.0, 0.0, 0.0),
+                                            child: RichText(
+                                              text: TextSpan(
+                                                children: [
+                                                  TextSpan(
+                                                    text: revenue_cat
+                                                        .offerings!
+                                                        .current!
+                                                        .monthly!
+                                                        .storeProduct
+                                                        .title,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Outfit',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                  TextSpan(
+                                                    text: ' - ',
+                                                    style: TextStyle(),
+                                                  ),
+                                                  TextSpan(
+                                                    text: revenue_cat
+                                                        .offerings!
+                                                        .current!
+                                                        .monthly!
+                                                        .storeProduct
+                                                        .priceString,
+                                                    style: TextStyle(),
+                                                  ),
+                                                  TextSpan(
+                                                    text: formatNumber(
+                                                      revenue_cat
+                                                          .offerings!
+                                                          .current!
+                                                          .monthly!
+                                                          .storeProduct
+                                                          .price,
+                                                      formatType:
+                                                          FormatType.decimal,
+                                                      decimalType:
+                                                          DecimalType.automatic,
+                                                      currency: '\$ ',
+                                                    ),
+                                                    style: TextStyle(),
+                                                  )
+                                                ],
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium,
+                                              ),
                                             ),
                                           ),
                                         ],
