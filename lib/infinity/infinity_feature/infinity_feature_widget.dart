@@ -391,30 +391,28 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                           children: [
                                             Expanded(
                                               child: FlutterFlowRadioButton(
-                                                options: revenue_cat.offerings!
-                                                    .current!.availablePackages
-                                                    .map((e) => e.storeProduct
-                                                        .description)
-                                                    .toList()
-                                                    .toList(),
+                                                options: [
+                                                  'Yearly | \$49.99 / year (1 month free trial)',
+                                                  'Monthly  |  \$4.99 / month  (2 weeks free trial)'
+                                                ].toList(),
                                                 onChanged: (val) =>
                                                     setState(() {}),
                                                 controller: _model
                                                         .radioButtonValueController ??=
                                                     FormFieldController<String>(
-                                                        revenue_cat
-                                                            .offerings!
-                                                            .current!
-                                                            .monthly!
-                                                            .storeProduct
-                                                            .description),
+                                                        'Yearly | \$49.99 / year (1 month free trial)'),
                                                 optionHeight: 32.0,
                                                 textStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium,
                                                 selectedTextStyle:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Outfit',
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
                                                 buttonPosition:
                                                     RadioButtonPosition.left,
                                                 direction: Axis.vertical,
@@ -502,8 +500,13 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                     'INFINITY_FEATURE_CONFIRM_PURCHASE_BTN_ON');
                                 logFirebaseEvent('Button_revenue_cat');
                                 _model.revenueCatConfirmPurchase =
-                                    await revenue_cat.purchasePackage(
-                                        _model.radioButtonValue!);
+                                    await revenue_cat.purchasePackage(_model
+                                                .radioButtonValue ==
+                                            'Yearly | \$49.99 / year (1 month free trial)'
+                                        ? revenue_cat.offerings!.current!
+                                            .annual!.identifier
+                                        : revenue_cat.offerings!.current!
+                                            .monthly!.identifier);
 
                                 setState(() {});
                               },
