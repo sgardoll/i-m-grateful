@@ -393,8 +393,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                               child: FlutterFlowRadioButton(
                                                 options: revenue_cat.offerings!
                                                     .current!.availablePackages
-                                                    .map((e) =>
-                                                        e.storeProduct.title)
+                                                    .map((e) => e.identifier)
                                                     .toList()
                                                     .toList(),
                                                 onChanged: (val) =>
@@ -406,8 +405,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                                             .offerings!
                                                             .current!
                                                             .monthly!
-                                                            .storeProduct
-                                                            .title),
+                                                            .identifier),
                                                 optionHeight: 32.0,
                                                 textStyle:
                                                     FlutterFlowTheme.of(context)
