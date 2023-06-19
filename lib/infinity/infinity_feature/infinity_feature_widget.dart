@@ -391,16 +391,23 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                           children: [
                                             Expanded(
                                               child: FlutterFlowRadioButton(
-                                                options: [
-                                                  'Yearly | \$49.99 / year (1 month free)',
-                                                  'Monthly  |  \$4.99 / month  (2 weeks free)'
-                                                ].toList(),
+                                                options: revenue_cat.offerings!
+                                                    .current!.availablePackages
+                                                    .map((e) =>
+                                                        e.storeProduct.title)
+                                                    .toList()
+                                                    .toList(),
                                                 onChanged: (val) =>
                                                     setState(() {}),
                                                 controller: _model
                                                         .radioButtonValueController ??=
                                                     FormFieldController<String>(
-                                                        null),
+                                                        revenue_cat
+                                                            .offerings!
+                                                            .current!
+                                                            .monthly!
+                                                            .storeProduct
+                                                            .title),
                                                 optionHeight: 32.0,
                                                 textStyle:
                                                     FlutterFlowTheme.of(context)
@@ -495,13 +502,10 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                     'INFINITY_FEATURE_CONFIRM_PURCHASE_BTN_ON');
                                 logFirebaseEvent('Button_revenue_cat');
                                 _model.revenueCatConfirmPurchase =
-                                    await revenue_cat.purchasePackage(_model
-                                                .radioButtonValue ==
-                                            'Yearly | \$49.99 / year (get 1 mth free)'
-                                        ? revenue_cat.offerings!.current!
-                                            .annual!.identifier
-                                        : revenue_cat.offerings!.current!
-                                            .monthly!.identifier);
+                                    await revenue_cat.purchasePackage(
+                                        revenue_cat.activeEntitlementIds
+                                            .contains(_model.radioButtonValue)
+                                            .toString());
 
                                 setState(() {});
                               },

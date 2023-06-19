@@ -70,7 +70,7 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFFCB769),
+      backgroundColor: FlutterFlowTheme.of(context).accent3,
       body: SafeArea(
         top: true,
         child: Container(

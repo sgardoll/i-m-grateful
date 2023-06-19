@@ -58,7 +58,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
           return Scaffold(
-            backgroundColor: Color(0xFFFCB769),
+            backgroundColor: FlutterFlowTheme.of(context).accent3,
             body: Center(
               child: SizedBox(
                 width: 50.0,
@@ -74,7 +74,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         List<StylesRecord> registerStylesRecordList = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
-          backgroundColor: Color(0xFFFCB769),
+          backgroundColor: FlutterFlowTheme.of(context).accent3,
           body: SafeArea(
             top: true,
             child: Container(
