@@ -393,7 +393,8 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                               child: FlutterFlowRadioButton(
                                                 options: revenue_cat.offerings!
                                                     .current!.availablePackages
-                                                    .map((e) => e.identifier)
+                                                    .map((e) => e.storeProduct
+                                                        .description)
                                                     .toList()
                                                     .toList(),
                                                 onChanged: (val) =>
@@ -405,7 +406,8 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                                             .offerings!
                                                             .current!
                                                             .monthly!
-                                                            .identifier),
+                                                            .storeProduct
+                                                            .description),
                                                 optionHeight: 32.0,
                                                 textStyle:
                                                     FlutterFlowTheme.of(context)
@@ -501,9 +503,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                 logFirebaseEvent('Button_revenue_cat');
                                 _model.revenueCatConfirmPurchase =
                                     await revenue_cat.purchasePackage(
-                                        revenue_cat.activeEntitlementIds
-                                            .contains(_model.radioButtonValue)
-                                            .toString());
+                                        _model.radioButtonValue!);
 
                                 setState(() {});
                               },
