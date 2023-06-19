@@ -19,11 +19,6 @@ class StylesRecord extends FirestoreRecord {
   String get style => _style ?? '';
   bool hasStyle() => _style != null;
 
-  // "stableT2I" field.
-  List<String>? _stableT2I;
-  List<String> get stableT2I => _stableT2I ?? const [];
-  bool hasStableT2I() => _stableT2I != null;
-
   // "image" field.
   String? _image;
   String get image => _image ?? '';
@@ -31,7 +26,6 @@ class StylesRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _style = snapshotData['style'] as String?;
-    _stableT2I = getDataList(snapshotData['stableT2I']);
     _image = snapshotData['image'] as String?;
   }
 

@@ -205,7 +205,7 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                                       .toList()
                                                       .length,
                                                   0,
-                                                ) == 1 ? 'entry' : 'entries'}',
+                                                ) == 1 ? ' entry' : ' entries'}',
                                             maxLines: 3,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
@@ -396,6 +396,54 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                                         .primaryText,
                                               ),
                                           elevation: 2.0,
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(25.0),
+                                        ),
+                                      ),
+                                      FFButtonWidget(
+                                        onPressed: () async {
+                                          logFirebaseEvent(
+                                              'ENTRIES_PAGE__BTN_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Button_backend_call');
+                                          await entriesItemRecordList
+                                              .where((e) =>
+                                                  e.reference ==
+                                                  _model.itemRefs.first)
+                                              .toList()
+                                              .first
+                                              .reference
+                                              .delete();
+                                        },
+                                        text: '',
+                                        icon: Icon(
+                                          Icons.cancel_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          size: 15.0,
+                                        ),
+                                        options: FFButtonOptions(
+                                          height: 24.0,
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 0.0, 0.0, 0.0),
+                                          color: Colors.transparent,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                fontFamily: 'Outfit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
                                           borderSide: BorderSide(
                                             color: Colors.transparent,
                                             width: 1.0,
