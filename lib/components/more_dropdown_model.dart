@@ -6,6 +6,7 @@ import '/components/location_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class MoreDropdownModel extends FlutterFlowModel {
 
   // Stores action output result for [Backend Call - Create Document] action in replaceWidget widget.
   FeedbackRecord? addRegenerateAsFeedback;
+  // Stores action output result for [Custom Action - addWatermark] action in replaceWidget widget.
+  String? addWatermark;
 
   /// Initialization and disposal methods.
 

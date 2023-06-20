@@ -486,6 +486,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                               .accent3,
                                                           size: 20.0,
                                                         ),
+                                                        showLoadingIndicator:
+                                                            true,
                                                         onPressed: () async {
                                                           logFirebaseEvent(
                                                               'LOGIN_PAGE_google_ICN_ON_TAP');
@@ -552,6 +554,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                                 .accent3,
                                                         size: 20.0,
                                                       ),
+                                                      showLoadingIndicator:
+                                                          true,
                                                       onPressed: () async {
                                                         logFirebaseEvent(
                                                             'LOGIN_PAGE_apple_ICN_ON_TAP');

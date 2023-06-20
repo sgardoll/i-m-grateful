@@ -6,6 +6,7 @@ import '/components/location_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -322,19 +323,20 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget> {
                   onTap: () async {
                     logFirebaseEvent('MORE_DROPDOWN_COMP_replaceWidget_ON_TAP');
                     logFirebaseEvent('replaceWidget_custom_action');
+                    _model.addWatermark = await actions.addWatermark(
+                      functions.getImageStringFromPath(widget.item!.mainImage),
+                      'I\'M GRATEFUL',
+                      8,
+                      8,
+                      FlutterFlowTheme.of(context).primaryBackground,
+                    );
+                    logFirebaseEvent('replaceWidget_custom_action');
                     await actions.shareFirebaseImage(
-                      valueOrDefault<String>(
-                        widget.item!.stableImg2Img != null &&
-                                widget.item!.stableImg2Img != ''
-                            ? widget.item!.stableImg2Img
-                            : valueOrDefault<String>(
-                                widget.item!.stable.imageUrls.first,
-                                '0',
-                              ),
-                        '#',
-                      ),
+                      _model.addWatermark!,
                       widget.item!.itemText,
                     );
+
+                    setState(() {});
                   },
                   child: Container(
                     width: double.infinity,
