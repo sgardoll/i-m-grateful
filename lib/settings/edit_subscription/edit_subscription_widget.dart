@@ -225,15 +225,6 @@ class _EditSubscriptionWidgetState extends State<EditSubscriptionWidget> {
                                                     style: TextStyle(),
                                                   ),
                                                   TextSpan(
-                                                    text: revenue_cat
-                                                        .offerings!
-                                                        .current!
-                                                        .monthly!
-                                                        .storeProduct
-                                                        .priceString,
-                                                    style: TextStyle(),
-                                                  ),
-                                                  TextSpan(
                                                     text: formatNumber(
                                                       revenue_cat
                                                           .offerings!
@@ -269,6 +260,44 @@ class _EditSubscriptionWidgetState extends State<EditSubscriptionWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 24.0, 8.0, 24.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        logFirebaseEvent(
+                                            'EDIT_SUBSCRIPTION_RESTORE_PURCHASES_BTN_');
+                                        logFirebaseEvent('Button_revenue_cat');
+                                        await revenue_cat.restorePurchases();
+                                      },
+                                      text: 'Restore Purchases',
+                                      options: FFButtonOptions(
+                                        height: 40.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8.0, 0.0, 8.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                        elevation: 2.0,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                      ),
+                                    ),
+                                  ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 24.0, 0.0, 24.0),

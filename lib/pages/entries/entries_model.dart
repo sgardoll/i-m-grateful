@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/components/empty_list_no_bg/empty_list_no_bg_widget.dart';
 import '/components/more_dropdown_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -32,6 +33,8 @@ class EntriesModel extends FlutterFlowModel {
   void removeAtIndexFromItemRefs(int index) => itemRefs.removeAt(index);
   void updateItemRefsAtIndex(int index, Function(DocumentReference) updateFn) =>
       itemRefs[index] = updateFn(itemRefs[index]);
+
+  bool showGridView = false;
 
   ///  State fields for stateful widgets in this page.
 

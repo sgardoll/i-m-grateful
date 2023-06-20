@@ -117,17 +117,17 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                       PageTransition(
                         type: PageTransitionType.fade,
                         child: FlutterFlowExpandedImageView(
-                          image: Image.network(
-                            valueOrDefault<String>(
-                              detailsItemRecord.stable.imageUrls.first,
-                              '0',
+                          image: CachedNetworkImage(
+                            imageUrl: valueOrDefault<String>(
+                              detailsItemRecord.mainImage,
+                              'https://www.connectio.com.au/grateful/loading.png',
                             ),
                             fit: BoxFit.contain,
                           ),
                           allowRotation: false,
                           tag: valueOrDefault<String>(
-                            detailsItemRecord.stable.imageUrls.first,
-                            '0',
+                            detailsItemRecord.mainImage,
+                            'https://www.connectio.com.au/grateful/loading.png',
                           ),
                           useHeroAnimation: true,
                         ),
@@ -157,14 +157,14 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                   },
                   child: Hero(
                     tag: valueOrDefault<String>(
-                      detailsItemRecord.stable.imageUrls.first,
-                      '0',
+                      detailsItemRecord.mainImage,
+                      'https://www.connectio.com.au/grateful/loading.png',
                     ),
                     transitionOnUserGestures: true,
-                    child: Image.network(
-                      valueOrDefault<String>(
-                        detailsItemRecord.stable.imageUrls.first,
-                        '0',
+                    child: CachedNetworkImage(
+                      imageUrl: valueOrDefault<String>(
+                        detailsItemRecord.mainImage,
+                        'https://www.connectio.com.au/grateful/loading.png',
                       ),
                       width: MediaQuery.of(context).size.width * 1.0,
                       height: MediaQuery.of(context).size.height * 1.0,
@@ -173,164 +173,6 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                   ),
                 ),
               ),
-              if (valueOrDefault<bool>(
-                detailsItemRecord.stableImg2Img != null &&
-                    detailsItemRecord.stableImg2Img != '',
-                false,
-              ))
-                Builder(
-                  builder: (context) => InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent('DETAILS_PAGE_StableImg2Img_ON_TAP');
-                      logFirebaseEvent('StableImg2Img_expand_image');
-                      await Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          child: FlutterFlowExpandedImageView(
-                            image: CachedNetworkImage(
-                              imageUrl: valueOrDefault<String>(
-                                detailsItemRecord.stableImg2Img,
-                                '0',
-                              ),
-                              fit: BoxFit.contain,
-                            ),
-                            allowRotation: true,
-                            tag: valueOrDefault<String>(
-                              detailsItemRecord.stableImg2Img,
-                              '0',
-                            ),
-                            useHeroAnimation: true,
-                          ),
-                        ),
-                      );
-                    },
-                    onLongPress: () async {
-                      logFirebaseEvent(
-                          'DETAILS_PAGE_StableImg2Img_ON_LONG_PRESS');
-                      logFirebaseEvent('StableImg2Img_alert_dialog');
-                      showAlignedDialog(
-                        context: context,
-                        isGlobal: false,
-                        avoidOverflow: true,
-                        targetAnchor: AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
-                        followerAnchor: AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
-                        builder: (dialogContext) {
-                          return Material(
-                            color: Colors.transparent,
-                            child: MoreDropdownWidget(
-                              item: detailsItemRecord,
-                            ),
-                          );
-                        },
-                      ).then((value) => setState(() {}));
-                    },
-                    child: Hero(
-                      tag: valueOrDefault<String>(
-                        detailsItemRecord.stableImg2Img,
-                        '0',
-                      ),
-                      transitionOnUserGestures: true,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(0.0),
-                        child: CachedNetworkImage(
-                          imageUrl: valueOrDefault<String>(
-                            detailsItemRecord.stableImg2Img,
-                            '0',
-                          ),
-                          width: MediaQuery.of(context).size.width * 1.0,
-                          height: MediaQuery.of(context).size.height * 1.0,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              if (valueOrDefault<bool>(
-                detailsItemRecord.instructPix2Pix != null &&
-                    detailsItemRecord.instructPix2Pix != '',
-                false,
-              ))
-                Builder(
-                  builder: (context) => InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent('DETAILS_PAGE_StableImg2Img_ON_TAP');
-                      logFirebaseEvent('StableImg2Img_expand_image');
-                      await Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          child: FlutterFlowExpandedImageView(
-                            image: CachedNetworkImage(
-                              imageUrl: valueOrDefault<String>(
-                                detailsItemRecord.instructPix2Pix,
-                                '0',
-                              ),
-                              fit: BoxFit.contain,
-                            ),
-                            allowRotation: true,
-                            tag: valueOrDefault<String>(
-                              detailsItemRecord.instructPix2Pix,
-                              '0',
-                            ),
-                            useHeroAnimation: true,
-                          ),
-                        ),
-                      );
-                    },
-                    onLongPress: () async {
-                      logFirebaseEvent(
-                          'DETAILS_PAGE_StableImg2Img_ON_LONG_PRESS');
-                      logFirebaseEvent('StableImg2Img_alert_dialog');
-                      showAlignedDialog(
-                        context: context,
-                        isGlobal: false,
-                        avoidOverflow: true,
-                        targetAnchor: AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
-                        followerAnchor: AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
-                        builder: (dialogContext) {
-                          return Material(
-                            color: Colors.transparent,
-                            child: MoreDropdownWidget(
-                              item: detailsItemRecord,
-                            ),
-                          );
-                        },
-                      ).then((value) => setState(() {}));
-                    },
-                    child: Hero(
-                      tag: valueOrDefault<String>(
-                        detailsItemRecord.instructPix2Pix,
-                        '0',
-                      ),
-                      transitionOnUserGestures: true,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(0.0),
-                        child: CachedNetworkImage(
-                          imageUrl: valueOrDefault<String>(
-                            detailsItemRecord.instructPix2Pix,
-                            '0',
-                          ),
-                          width: MediaQuery.of(context).size.width * 1.0,
-                          height: MediaQuery.of(context).size.height * 1.0,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,

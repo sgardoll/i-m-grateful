@@ -112,57 +112,20 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
           children: [
             Hero(
               tag: valueOrDefault<String>(
-                stackItemRecord.stable.imageUrls.first,
-                '0',
+                stackItemRecord.mainImage,
+                'https://www.connectio.com.au/grateful/loading.png',
               ),
               transitionOnUserGestures: true,
-              child: Image.network(
-                valueOrDefault<String>(
-                  stackItemRecord.stable.imageUrls.first,
-                  '0',
+              child: CachedNetworkImage(
+                imageUrl: valueOrDefault<String>(
+                  stackItemRecord.mainImage,
+                  'https://www.connectio.com.au/grateful/loading.png',
                 ),
                 width: MediaQuery.of(context).size.width * 1.0,
                 height: MediaQuery.of(context).size.height * 1.0,
                 fit: BoxFit.cover,
               ),
             ),
-            if (valueOrDefault<bool>(
-              stackItemRecord.stableImg2Img != null &&
-                  stackItemRecord.stableImg2Img != '',
-              false,
-            ))
-              ClipRRect(
-                borderRadius: BorderRadius.circular(0.0),
-                child: CachedNetworkImage(
-                  imageUrl: valueOrDefault<String>(
-                    stackItemRecord.stableImg2Img,
-                    '#',
-                  ),
-                  width: MediaQuery.of(context).size.width * 1.0,
-                  height: MediaQuery.of(context).size.height * 1.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            if (valueOrDefault<bool>(
-              stackItemRecord.instructPix2Pix != null &&
-                  stackItemRecord.instructPix2Pix != '',
-              false,
-            ))
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(0.0),
-                  child: CachedNetworkImage(
-                    imageUrl: valueOrDefault<String>(
-                      stackItemRecord.instructPix2Pix,
-                      '#',
-                    ),
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 1.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
             Stack(
               children: [
                 Align(

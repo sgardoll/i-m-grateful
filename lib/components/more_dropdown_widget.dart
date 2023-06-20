@@ -177,6 +177,7 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget> {
                       'status': FieldValue.delete(),
                       'stableImg2Img': FieldValue.delete(),
                       'instructPix2Pix': FieldValue.delete(),
+                      'mainImage': FieldValue.delete(),
                     };
                     await widget.item!.reference.update(itemUpdateData1);
                     logFirebaseEvent('replaceWidget_backend_call');

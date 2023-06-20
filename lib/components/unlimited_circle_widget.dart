@@ -58,7 +58,7 @@ class _UnlimitedCircleWidgetState extends State<UnlimitedCircleWidget> {
       ),
       child: Icon(
         FFIcons.kinfinity,
-        color: FlutterFlowTheme.of(context).accent3,
+        color: FlutterFlowTheme.of(context).primaryText,
         size: 15.0,
       ),
     );

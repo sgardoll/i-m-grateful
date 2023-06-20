@@ -112,13 +112,25 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     children: [
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 16.0, 16.0, 0.0),
+                            16.0, 16.0, 0.0, 0.0),
+                        child: Text(
+                          'Full Name:',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context).accent3,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => TextFormField(
                             controller: _model.textController,
                             obscureText: false,
                             decoration: InputDecoration(
-                              labelText: 'Full Name',
                               hintText: 'Please enter your full name...',
                               hintStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -174,7 +186,20 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 16.0, 16.0, 20.0),
+                            16.0, 16.0, 0.0, 0.0),
+                        child: Text(
+                          'Gender:',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context).accent3,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 20.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => FlutterFlowDropDown<String>(
                             controller: _model.dropDownValueController ??=
@@ -246,8 +271,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   );
                                   await currentUserReference!
                                       .update(usersUpdateData);
-                                  logFirebaseEvent('Button_navigate_back');
-                                  context.pop();
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.pushNamed('Items');
                                 },
                                 text: 'Save Changes',
                                 options: FFButtonOptions(

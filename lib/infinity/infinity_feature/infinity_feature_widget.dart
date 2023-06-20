@@ -13,7 +13,13 @@ import 'infinity_feature_model.dart';
 export 'infinity_feature_model.dart';
 
 class InfinityFeatureWidget extends StatefulWidget {
-  const InfinityFeatureWidget({Key? key}) : super(key: key);
+  const InfinityFeatureWidget({
+    Key? key,
+    String? premiumFeature,
+  })  : this.premiumFeature = premiumFeature ?? 'This',
+        super(key: key);
+
+  final String premiumFeature;
 
   @override
   _InfinityFeatureWidgetState createState() => _InfinityFeatureWidgetState();
@@ -62,7 +68,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
               maxWidth: 530.0,
             ),
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
+              color: FlutterFlowTheme.of(context).primaryBackground,
               boxShadow: [
                 BoxShadow(
                   blurRadius: 3.0,
@@ -72,7 +78,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
               ],
               borderRadius: BorderRadius.circular(24.0),
               border: Border.all(
-                color: FlutterFlowTheme.of(context).primaryBackground,
+                color: Colors.transparent,
                 width: 1.0,
               ),
             ),
@@ -83,28 +89,25 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 16.0),
+                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 16.0, 0.0, 0.0),
-                            child: Container(
-                              width: 200.0,
-                              height: 109.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: Image.asset(
-                                    'assets/images/infinWhite.png',
-                                  ).image,
-                                ),
+                          Container(
+                            width: 144.0,
+                            height: 109.0,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fitWidth,
+                                image: Image.asset(
+                                  Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? 'assets/images/Infinity_200_black.png'
+                                      : 'assets/images/Infinity_200.png',
+                                ).image,
                               ),
                             ),
                           ),
@@ -119,7 +122,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 8.0, 8.0),
                                   child: Text(
-                                    'This is a',
+                                    '${widget.premiumFeature} is a',
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .headlineMedium,
@@ -158,7 +161,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 8.0, 4.0, 8.0),
                                     child: Text(
-                                      'Unlock your unlimited potential with an I\'m Grateful subscription for as little as \$4.99/month. Subscribers receive:',
+                                      'Unlock your infinite potential with an I\'m Grateful Subscription. Subscribers enjoy:',
                                       textAlign: TextAlign.center,
                                       maxLines: 6,
                                       style: FlutterFlowTheme.of(context)
@@ -190,7 +193,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                       height: 100.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
+                                            .secondaryBackground,
                                         boxShadow: [
                                           BoxShadow(
                                             blurRadius: 4.0,
@@ -256,7 +259,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                       height: 100.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
+                                            .secondaryBackground,
                                         boxShadow: [
                                           BoxShadow(
                                             blurRadius: 4.0,
@@ -347,7 +350,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 4.0, 8.0),
                                     child: Text(
-                                      'Regenerate any image, access to the Explore tab, and more!',
+                                      'Unlimited regenerations of any image, access to the Explore tab, and more!',
                                       textAlign: TextAlign.center,
                                       maxLines: 6,
                                       style: FlutterFlowTheme.of(context)
@@ -508,19 +511,9 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                         : revenue_cat.offerings!.current!
                                             .monthly!.identifier);
                                 if (_model.revenueCatConfirmPurchase!) {
-                                  logFirebaseEvent(
-                                      'Button_update_widget_state');
-                                  setState(() {
-                                    _model.purchaseSuccessful = true;
-                                  });
                                   logFirebaseEvent('Button_bottom_sheet');
-                                  Navigator.pop(context);
+                                  Navigator.pop(context, true);
                                 } else {
-                                  logFirebaseEvent(
-                                      'Button_update_widget_state');
-                                  setState(() {
-                                    _model.purchaseSuccessful = false;
-                                  });
                                   logFirebaseEvent('Button_show_snack_bar');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(

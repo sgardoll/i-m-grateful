@@ -7,6 +7,8 @@ import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -36,12 +38,31 @@ class _ItemsWidgetState extends State<ItemsWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('ITEMS_PAGE_Items_ON_INIT_STATE');
-      if (!(valueOrDefault(currentUserDocument?.style, '') != null &&
-          valueOrDefault(currentUserDocument?.style, '') != '')) {
+      logFirebaseEvent('Items_firestore_query');
+      _model.queryUser = await queryUsersRecordOnce(
+        queryBuilder: (usersRecord) =>
+            usersRecord.where('uid', isEqualTo: currentUserUid),
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+      if (_model.queryUser!.style == null || _model.queryUser!.style == '') {
         logFirebaseEvent('Items_navigate_to');
 
         context.goNamed(
           'StyleChoice',
+          extra: <String, dynamic>{
+            kTransitionInfoKey: TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+              duration: Duration(milliseconds: 0),
+            ),
+          },
+        );
+      } else if (_model.queryUser!.gender == null ||
+          _model.queryUser!.gender == '') {
+        logFirebaseEvent('Items_navigate_to');
+
+        context.goNamed(
+          'EditProfile',
           extra: <String, dynamic>{
             kTransitionInfoKey: TransitionInfo(
               hasTransition: true,

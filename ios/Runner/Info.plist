@@ -65,6 +65,8 @@
     <string>Please allow speech recognition access</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
     <string>In order to record speech input through a Bluetooth headset, this app requires access to Bluetooth</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>In order to add location tags to your entry, this app requires permission to access your location</string>
 
 
 	<key>UILaunchStoryboardName</key>

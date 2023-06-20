@@ -11,10 +11,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class InfinityFeatureModel extends FlutterFlowModel {
-  ///  Local state fields for this component.
-
-  bool? purchaseSuccessful;
-
   ///  State fields for stateful widgets in this component.
 
   // Model for UnlimitedCircle component.

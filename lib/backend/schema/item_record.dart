@@ -122,6 +122,11 @@ class ItemRecord extends FirestoreRecord {
   String get stableImg2Img => _stableImg2Img ?? '';
   bool hasStableImg2Img() => _stableImg2Img != null;
 
+  // "mainImage" field.
+  String? _mainImage;
+  String get mainImage => _mainImage ?? '';
+  bool hasMainImage() => _mainImage != null;
+
   void _initializeFields() {
     _itemText = snapshotData['itemText'] as String?;
     _moreText = snapshotData['moreText'] as String?;
@@ -147,6 +152,7 @@ class ItemRecord extends FirestoreRecord {
     _replicateNoBgCreate = snapshotData['replicateNoBgCreate'] as String?;
     _instructPix2Pix = snapshotData['instructPix2Pix'] as String?;
     _stableImg2Img = snapshotData['stableImg2Img'] as String?;
+    _mainImage = snapshotData['mainImage'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -203,6 +209,7 @@ Map<String, dynamic> createItemRecordData({
   String? replicateNoBgCreate,
   String? instructPix2Pix,
   String? stableImg2Img,
+  String? mainImage,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -226,6 +233,7 @@ Map<String, dynamic> createItemRecordData({
       'replicateNoBgCreate': replicateNoBgCreate,
       'instructPix2Pix': instructPix2Pix,
       'stableImg2Img': stableImg2Img,
+      'mainImage': mainImage,
     }.withoutNulls,
   );
 
