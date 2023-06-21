@@ -81,10 +81,17 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 1.0,
                       height: MediaQuery.of(context).size.height * 1.0,
-                      child: custom_widgets.VideoList(
-                        width: MediaQuery.of(context).size.width * 1.0,
-                        height: MediaQuery.of(context).size.height * 1.0,
-                        files: FFAppState().videoFiles,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                      ),
+                      child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: custom_widgets.VideoList(
+                          width: double.infinity,
+                          height: double.infinity,
+                          files: FFAppState().videoFiles,
+                        ),
                       ),
                     ),
                   ),
