@@ -84,14 +84,10 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                       ),
-                      child: Container(
+                      child: custom_widgets.VideoList(
                         width: double.infinity,
                         height: double.infinity,
-                        child: custom_widgets.VideoList(
-                          width: double.infinity,
-                          height: double.infinity,
-                          files: FFAppState().videoFiles,
-                        ),
+                        files: FFAppState().videoFiles.take(2).toList(),
                       ),
                     ),
                   ),
