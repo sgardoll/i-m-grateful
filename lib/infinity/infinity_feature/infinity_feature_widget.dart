@@ -97,30 +97,12 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Material(
-                          color: Colors.transparent,
-                          elevation: 6.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(0.0),
-                              bottomRight: Radius.circular(0.0),
-                              topLeft: Radius.circular(25.0),
-                              topRight: Radius.circular(25.0),
-                            ),
-                          ),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 1.0,
-                            height: 234.0,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fitWidth,
-                                image: Image.asset(
-                                  Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? 'assets/images/Infinity_200_black.png'
-                                      : 'assets/images/Infinity_200.png',
-                                ).image,
-                              ),
+                        Align(
+                          alignment: AlignmentDirectional(0.0, -1.0),
+                          child: Material(
+                            color: Colors.transparent,
+                            elevation: 6.0,
+                            shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(0.0),
                                 bottomRight: Radius.circular(0.0),
@@ -128,22 +110,45 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                 topRight: Radius.circular(25.0),
                               ),
                             ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 8.0, 24.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, -1.0),
-                                        child: Padding(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 1.0,
+                              height: 234.0,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.fitWidth,
+                                  image: Image.asset(
+                                    Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? 'assets/images/Infinity_200_black.png'
+                                        : 'assets/images/Infinity_200.png',
+                                  ).image,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(0.0),
+                                  bottomRight: Radius.circular(0.0),
+                                  topLeft: Radius.circular(25.0),
+                                  topRight: Radius.circular(25.0),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 8.0, 0.0, 0.0),
+                                    child: Wrap(
+                                      spacing: 0.0,
+                                      runSpacing: 0.0,
+                                      alignment: WrapAlignment.start,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      direction: Axis.horizontal,
+                                      runAlignment: WrapAlignment.center,
+                                      verticalDirection: VerticalDirection.down,
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 8.0, 8.0),
@@ -155,16 +160,12 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                                 .headlineMedium,
                                           ),
                                         ),
-                                      ),
-                                      wrapWithModel(
-                                        model: _model.unlimitedCircleModel,
-                                        updateCallback: () => setState(() {}),
-                                        child: UnlimitedCircleWidget(),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, -1.0),
-                                        child: Padding(
+                                        wrapWithModel(
+                                          model: _model.unlimitedCircleModel,
+                                          updateCallback: () => setState(() {}),
+                                          child: UnlimitedCircleWidget(),
+                                        ),
+                                        Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   8.0, 0.0, 0.0, 8.0),
@@ -176,11 +177,11 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                                 .headlineMedium,
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
