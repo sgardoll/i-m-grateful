@@ -1,7 +1,8 @@
 import '/components/nav_bar/nav_bar_widget.dart';
+import '/flutter_flow/flutter_flow_media_display.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/flutter_flow_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,19 +77,46 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                       ),
                     ),
                   ),
-                  Flexible(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      height: MediaQuery.of(context).size.height * 1.0,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                      child: custom_widgets.VideoList(
-                        width: double.infinity,
-                        height: double.infinity,
-                        files: FFAppState().videoFiles.take(2).toList(),
-                      ),
-                    ),
+                  Builder(
+                    builder: (context) {
+                      final vids = FFAppState().videoFiles.toList();
+                      return Wrap(
+                        spacing: 0.0,
+                        runSpacing: 0.0,
+                        alignment: WrapAlignment.start,
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        direction: Axis.horizontal,
+                        runAlignment: WrapAlignment.start,
+                        verticalDirection: VerticalDirection.down,
+                        clipBehavior: Clip.none,
+                        children: List.generate(vids.length, (vidsIndex) {
+                          final vidsItem = vids[vidsIndex];
+                          return FlutterFlowMediaDisplay(
+                            path: vidsItem,
+                            imageBuilder: (path) => ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.network(
+                                path,
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            videoPlayerBuilder: (path) =>
+                                FlutterFlowVideoPlayer(
+                              path: path,
+                              width: 100.0,
+                              height: 100.0,
+                              autoPlay: false,
+                              looping: true,
+                              showControls: true,
+                              allowFullScreen: true,
+                              allowPlaybackSpeedMenu: false,
+                            ),
+                          );
+                        }),
+                      );
+                    },
                   ),
                 ],
               ),
