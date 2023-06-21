@@ -27,7 +27,6 @@ class _ExploreWidgetState extends State<ExploreWidget> {
     _model = createModel(context, () => ExploreModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Explore'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

@@ -226,8 +226,6 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
           !anim.applyInitialState),
       this,
     );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

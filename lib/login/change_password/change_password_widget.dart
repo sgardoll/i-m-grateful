@@ -31,7 +31,6 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'ChangePassword'});
     _model.emailTextController ??= TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

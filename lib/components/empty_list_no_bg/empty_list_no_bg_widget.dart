@@ -27,8 +27,6 @@ class _EmptyListNoBgWidgetState extends State<EmptyListNoBgWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => EmptyListNoBgModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

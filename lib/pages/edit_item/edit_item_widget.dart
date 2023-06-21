@@ -52,8 +52,6 @@ class _EditItemWidgetState extends State<EditItemWidget> {
         _model.timestamp = getCurrentTimestamp;
       });
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

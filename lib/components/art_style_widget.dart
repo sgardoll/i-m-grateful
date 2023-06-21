@@ -34,8 +34,6 @@ class _ArtStyleWidgetState extends State<ArtStyleWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ArtStyleModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

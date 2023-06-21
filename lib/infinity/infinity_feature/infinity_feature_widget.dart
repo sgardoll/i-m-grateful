@@ -38,8 +38,6 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => InfinityFeatureModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -140,7 +138,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                     child: Wrap(
                                       spacing: 0.0,
                                       runSpacing: 0.0,
-                                      alignment: WrapAlignment.start,
+                                      alignment: WrapAlignment.center,
                                       crossAxisAlignment:
                                           WrapCrossAlignment.center,
                                       direction: Axis.horizontal,

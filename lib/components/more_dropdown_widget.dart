@@ -40,8 +40,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => MoreDropdownModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

@@ -53,8 +53,6 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
         );
       }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

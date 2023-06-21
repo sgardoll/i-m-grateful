@@ -37,7 +37,6 @@ class _EntriesWidgetState extends State<EntriesWidget> {
     _model = createModel(context, () => EntriesModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Entries'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

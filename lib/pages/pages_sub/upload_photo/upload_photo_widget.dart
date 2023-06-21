@@ -97,8 +97,6 @@ class _UploadPhotoWidgetState extends State<UploadPhotoWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => UploadPhotoModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

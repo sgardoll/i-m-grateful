@@ -33,7 +33,6 @@ class _EditSubscriptionWidgetState extends State<EditSubscriptionWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'EditSubscription'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

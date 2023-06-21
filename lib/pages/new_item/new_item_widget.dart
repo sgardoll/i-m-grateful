@@ -59,7 +59,6 @@ class _NewItemWidgetState extends State<NewItemWidget> {
     });
 
     _model.itemTextController ??= TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

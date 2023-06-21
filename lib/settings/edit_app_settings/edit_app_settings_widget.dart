@@ -31,7 +31,6 @@ class _EditAppSettingsWidgetState extends State<EditAppSettingsWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'EditAppSettings'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

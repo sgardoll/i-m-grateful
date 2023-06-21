@@ -32,7 +32,6 @@ class _EditStyleWidgetState extends State<EditStyleWidget> {
     _model = createModel(context, () => EditStyleModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'EditStyle'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

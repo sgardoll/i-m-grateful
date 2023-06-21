@@ -73,8 +73,6 @@ class _ItemsWidgetState extends State<ItemsWidget> {
         );
       }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

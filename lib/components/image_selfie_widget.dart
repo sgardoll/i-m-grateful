@@ -36,8 +36,6 @@ class _ImageSelfieWidgetState extends State<ImageSelfieWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ImageSelfieModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

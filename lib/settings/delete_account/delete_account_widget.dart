@@ -30,7 +30,6 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'DeleteAccount'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

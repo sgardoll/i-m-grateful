@@ -63,8 +63,6 @@ class _DetailsWidgetState extends State<DetailsWidget> {
         FFAppState().bodyTextColor = widget.text;
       });
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

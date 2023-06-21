@@ -27,8 +27,6 @@ class _UnlimitedCircleWidgetState extends State<UnlimitedCircleWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => UnlimitedCircleModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

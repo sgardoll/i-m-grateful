@@ -34,7 +34,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'EditProfile'});
     _model.textController ??=
         TextEditingController(text: currentUserDisplayName);
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

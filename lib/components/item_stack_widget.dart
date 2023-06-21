@@ -76,8 +76,6 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
         );
       });
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

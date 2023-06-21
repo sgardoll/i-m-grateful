@@ -30,7 +30,6 @@ class _CustomStyleWidgetState extends State<CustomStyleWidget> {
     _model = createModel(context, () => CustomStyleModel());
 
     _model.textFieldCustomStyleController ??= TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
