@@ -115,7 +115,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                               height: 234.0,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  fit: BoxFit.fitWidth,
+                                  fit: BoxFit.cover,
                                   image: Image.asset(
                                     Theme.of(context).brightness ==
                                             Brightness.dark
@@ -136,7 +136,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 8.0, 0.0, 0.0),
+                                        16.0, 8.0, 16.0, 0.0),
                                     child: Wrap(
                                       spacing: 0.0,
                                       runSpacing: 0.0,
@@ -204,7 +204,11 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                       textAlign: TextAlign.center,
                                       maxLines: 6,
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyLarge,
+                                          .bodyLarge
+                                          .override(
+                                            fontFamily: 'Outfit',
+                                            lineHeight: 1.5,
+                                          ),
                                     ),
                                   ),
                                 ),
