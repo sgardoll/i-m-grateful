@@ -66,6 +66,10 @@ class FFAppState extends ChangeNotifier {
           _latLngFromString(await secureStorage.getString('ff_zeroLocation')) ??
               _zeroLocation;
     });
+    await _safeInitAsync(() async {
+      _videoFiles =
+          (await secureStorage.getStringList('ff_videoFiles')) ?? _videoFiles;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -297,6 +301,43 @@ class FFAppState extends ChangeNotifier {
 
   void deleteZeroLocation() {
     secureStorage.delete(key: 'ff_zeroLocation');
+  }
+
+  List<String> _videoFiles = [
+    'https://www.connectio.com.au/grateful/video/replicate-prediction-2csdgdbbewapfue7l74yobikke.mp4',
+    'https://www.connectio.com.au/grateful/video/replicate-prediction-3k6pkyjbqme2vh6jbxikgv5k4e.mp4'
+  ];
+  List<String> get videoFiles => _videoFiles;
+  set videoFiles(List<String> _value) {
+    _videoFiles = _value;
+    secureStorage.setStringList('ff_videoFiles', _value);
+  }
+
+  void deleteVideoFiles() {
+    secureStorage.delete(key: 'ff_videoFiles');
+  }
+
+  void addToVideoFiles(String _value) {
+    _videoFiles.add(_value);
+    secureStorage.setStringList('ff_videoFiles', _videoFiles);
+  }
+
+  void removeFromVideoFiles(String _value) {
+    _videoFiles.remove(_value);
+    secureStorage.setStringList('ff_videoFiles', _videoFiles);
+  }
+
+  void removeAtIndexFromVideoFiles(int _index) {
+    _videoFiles.removeAt(_index);
+    secureStorage.setStringList('ff_videoFiles', _videoFiles);
+  }
+
+  void updateVideoFilesAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _videoFiles[_index] = updateFn(_videoFiles[_index]);
+    secureStorage.setStringList('ff_videoFiles', _videoFiles);
   }
 
   final _itemsManager = StreamRequestManager<List<ItemRecord>>();

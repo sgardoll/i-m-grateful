@@ -261,6 +261,10 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 onPressed: () async {
                                   logFirebaseEvent(
                                       'NAV_BAR_COMP_Explore_ON_TAP');
+                                  logFirebaseEvent('Explore_navigate_to');
+
+                                  context.pushNamed('Explore');
+
                                   logFirebaseEvent('Explore_revenue_cat');
                                   final isEntitled =
                                       await revenue_cat.isEntitled('Unlimited');
