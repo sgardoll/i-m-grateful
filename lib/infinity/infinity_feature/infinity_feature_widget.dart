@@ -87,313 +87,319 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 144.0,
-                            height: 109.0,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fitWidth,
-                                image: Image.asset(
-                                  Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? 'assets/images/Infinity_200_black.png'
-                                      : 'assets/images/Infinity_200.png',
-                                ).image,
+                  Flexible(
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 16.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 144.0,
+                              height: 109.0,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.fitWidth,
+                                  image: Image.asset(
+                                    Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? 'assets/images/Infinity_200_black.png'
+                                        : 'assets/images/Infinity_200.png',
+                                  ).image,
+                                ),
                               ),
                             ),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 8.0, 8.0),
-                                  child: Text(
-                                    '${widget.premiumFeature} is a',
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .headlineMedium,
-                                  ),
-                                ),
-                              ),
-                              wrapWithModel(
-                                model: _model.unlimitedCircleModel,
-                                updateCallback: () => setState(() {}),
-                                child: UnlimitedCircleWidget(),
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 0.0, 0.0, 8.0),
-                                  child: Text(
-                                    'feature ',
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .headlineMedium,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                child: Align(
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Align(
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 8.0, 4.0, 8.0),
+                                        0.0, 0.0, 8.0, 8.0),
                                     child: Text(
-                                      'Unlock your infinite potential with an I\'m Grateful Subscription. Subscribers enjoy:',
+                                      '${widget.premiumFeature} is a',
                                       textAlign: TextAlign.center,
-                                      maxLines: 6,
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyLarge,
+                                          .headlineMedium,
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 8.0, 8.0, 8.0),
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    elevation: 6.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25.0),
-                                    ),
-                                    child: Container(
-                                      width: 100.0,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 4.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            offset: Offset(0.0, 2.0),
-                                          )
-                                        ],
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 8.0, 8.0, 8.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Icon(
-                                              Icons.calendar_today_outlined,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .warning,
-                                              size: 24.0,
-                                            ),
-                                            Text(
-                                              'Unlimited Entries',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge,
-                                            ),
-                                            Flexible(
-                                              child: Text(
-                                                'Store unlimited entries and creations',
-                                                textAlign: TextAlign.center,
-                                                maxLines: 10,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelSmall,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                wrapWithModel(
+                                  model: _model.unlimitedCircleModel,
+                                  updateCallback: () => setState(() {}),
+                                  child: UnlimitedCircleWidget(),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 8.0, 8.0, 8.0),
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    elevation: 6.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25.0),
-                                    ),
-                                    child: Container(
-                                      width: 100.0,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 4.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            offset: Offset(0.0, 2.0),
-                                          )
-                                        ],
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 8.0, 8.0, 8.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Icon(
-                                              Icons.format_paint_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .warning,
-                                              size: 24.0,
-                                            ),
-                                            Text(
-                                              'Custom Styles',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge,
-                                            ),
-                                            Flexible(
-                                              child: Text(
-                                                'Apply your own art style to your entries and vote on new styles!',
-                                                textAlign: TextAlign.center,
-                                                maxLines: 10,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelSmall,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                child: Align(
+                                Align(
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 8.0, 0.0, 0.0),
+                                        8.0, 0.0, 0.0, 8.0),
                                     child: Text(
-                                      'PLUS',
+                                      'feature ',
                                       textAlign: TextAlign.center,
-                                      maxLines: 6,
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          .headlineMedium,
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                child: Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 4.0, 8.0),
-                                    child: Text(
-                                      'Unlimited regenerations of any image, access to the Explore tab, and more!',
-                                      textAlign: TextAlign.center,
-                                      maxLines: 6,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 8.0, 4.0, 8.0),
+                                      child: Text(
+                                        'Unlock your infinite potential with an I\'m Grateful Subscription. Subscribers enjoy:',
+                                        textAlign: TextAlign.center,
+                                        maxLines: 6,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyLarge,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 1.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 4.0,
-                                        color: FlutterFlowTheme.of(context)
-                                            .warning,
-                                        offset: Offset(0.0, 2.0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(25.0),
-                                  ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  flex: 1,
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         8.0, 8.0, 8.0, 8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Expanded(
-                                              child: FlutterFlowRadioButton(
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      elevation: 6.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                      ),
+                                      child: Container(
+                                        width: 100.0,
+                                        height: 100.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 4.0,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              offset: Offset(0.0, 2.0),
+                                            )
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(25.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 8.0, 8.0, 8.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Icon(
+                                                Icons.calendar_today_outlined,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .warning,
+                                                size: 24.0,
+                                              ),
+                                              Text(
+                                                'Unlimited Entries',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge,
+                                              ),
+                                              Flexible(
+                                                child: Text(
+                                                  'Store unlimited entries and creations',
+                                                  textAlign: TextAlign.center,
+                                                  maxLines: 10,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelSmall,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 8.0, 8.0, 8.0),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      elevation: 6.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                      ),
+                                      child: Container(
+                                        width: 100.0,
+                                        height: 100.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 4.0,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              offset: Offset(0.0, 2.0),
+                                            )
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(25.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 8.0, 8.0, 8.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Icon(
+                                                Icons.format_paint_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .warning,
+                                                size: 24.0,
+                                              ),
+                                              Text(
+                                                'Custom Styles',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge,
+                                              ),
+                                              Flexible(
+                                                child: Text(
+                                                  'Apply your own art style to your entries and vote on new styles!',
+                                                  textAlign: TextAlign.center,
+                                                  maxLines: 10,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelSmall,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 8.0, 0.0, 0.0),
+                                      child: Text(
+                                        'PLUS',
+                                        textAlign: TextAlign.center,
+                                        maxLines: 6,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 4.0, 8.0),
+                                      child: Text(
+                                        'Unlimited regenerations of any image, access to the Explore tab, and more!',
+                                        textAlign: TextAlign.center,
+                                        maxLines: 6,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 1.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: FlutterFlowTheme.of(context)
+                                              .warning,
+                                          offset: Offset(0.0, 2.0),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(25.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 8.0, 8.0, 8.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              FlutterFlowRadioButton(
                                                 options: [
                                                   'Yearly | \$49.99 / year (1 month free trial)',
                                                   'Monthly  |  \$4.99 / month  (2 weeks free trial)'
@@ -431,17 +437,17 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                                 verticalAlignment:
                                                     WrapCrossAlignment.start,
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
