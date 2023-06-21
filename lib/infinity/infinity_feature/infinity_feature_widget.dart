@@ -65,7 +65,6 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
           ),
           child: Container(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.85,
             constraints: BoxConstraints(
               maxWidth: 530.0,
             ),
@@ -134,7 +133,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 16.0, 24.0, 0.0),
+                                      24.0, 8.0, 24.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
