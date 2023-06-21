@@ -1304,6 +1304,7 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                               mainAxisSpacing: 8.0,
                               childAspectRatio: 0.7,
                             ),
+                            primary: false,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemCount: itemsGrid.length,

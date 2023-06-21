@@ -111,7 +111,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                           ),
                           child: Container(
                             width: MediaQuery.of(context).size.width * 1.0,
-                            height: 202.0,
+                            height: 234.0,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.fitWidth,
@@ -136,14 +136,14 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       24.0, 16.0, 24.0, 0.0),
                                   child: Row(
-                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, -1.0),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -151,6 +151,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                           child: Text(
                                             '${widget.premiumFeature} is a',
                                             textAlign: TextAlign.center,
+                                            maxLines: 2,
                                             style: FlutterFlowTheme.of(context)
                                                 .headlineMedium,
                                           ),
@@ -163,7 +164,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, -1.0),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -171,6 +172,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                           child: Text(
                                             'feature ',
                                             textAlign: TextAlign.center,
+                                            maxLines: 2,
                                             style: FlutterFlowTheme.of(context)
                                                 .headlineMedium,
                                           ),
@@ -198,7 +200,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 8.0, 4.0, 8.0),
                                     child: Text(
-                                      'Unlock your infinite potential with an I\'m Grateful Subscription. Subscribers enjoy:',
+                                      'Unlock your infinite potential. \nSubscribers enjoy:',
                                       textAlign: TextAlign.center,
                                       maxLines: 6,
                                       style: FlutterFlowTheme.of(context)
