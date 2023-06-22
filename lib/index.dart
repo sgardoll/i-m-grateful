@@ -10,8 +10,6 @@ export '/login/change_password/change_password_widget.dart'
 export '/login/welcome_onboard/welcome_onboard_widget.dart'
     show WelcomeOnboardWidget;
 export '/login/register/register_widget.dart' show RegisterWidget;
-export '/settings/edit_app_settings/edit_app_settings_widget.dart'
-    show EditAppSettingsWidget;
 export '/settings/edit_style/edit_style_widget.dart' show EditStyleWidget;
 export '/settings/delete_account/delete_account_widget.dart'
     show DeleteAccountWidget;

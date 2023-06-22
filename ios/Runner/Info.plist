@@ -58,7 +58,7 @@
 	<key>NSCameraUsageDescription</key>
     <string>In order to take a picture, this app requires access to your camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>In order to upload photos, this app requires access to your photo library</string>
+    <string>In order to upload &amp; download photos, this app requires access to your photo library</string>
 	<key>NSMicrophoneUsageDescription</key>
     <string>In order to record your spoken input, this app requires access to your microphone</string>
 	<key>NSSpeechRecognitionUsageDescription</key>

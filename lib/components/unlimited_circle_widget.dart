@@ -48,7 +48,7 @@ class _UnlimitedCircleWidgetState extends State<UnlimitedCircleWidget> {
         boxShadow: [
           BoxShadow(
             blurRadius: 4.0,
-            color: Color(0x33000000),
+            color: Color(0x7F000000),
             offset: Offset(0.0, 2.0),
           )
         ],

@@ -146,12 +146,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => RegisterWidget(),
         ),
         FFRoute(
-          name: 'EditAppSettings',
-          path: '/editAppSettings',
-          requireAuth: true,
-          builder: (context, params) => EditAppSettingsWidget(),
-        ),
-        FFRoute(
           name: 'EditStyle',
           path: '/editStyle',
           requireAuth: true,
