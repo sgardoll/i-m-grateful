@@ -9,6 +9,6 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future gestureDetectorWidget() async {
+Future gestureDetectorWidget2() async {
   // Add your function code here!
 }

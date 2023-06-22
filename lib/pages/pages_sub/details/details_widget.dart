@@ -1,14 +1,12 @@
 import '/backend/backend.dart';
 import '/components/image_selfie_widget.dart';
 import '/components/location_widget.dart';
-import '/components/more_dropdown_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -122,30 +120,19 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                           fit: BoxFit.contain,
                         ),
                         allowRotation: false,
-                        tag: valueOrDefault<String>(
-                          detailsItemRecord.mainImage,
-                          'https://www.connectio.com.au/grateful/loading.png',
-                        ),
-                        useHeroAnimation: true,
+                        useHeroAnimation: false,
                       ),
                     ),
                   );
                 },
-                child: Hero(
-                  tag: valueOrDefault<String>(
+                child: CachedNetworkImage(
+                  imageUrl: valueOrDefault<String>(
                     detailsItemRecord.mainImage,
                     'https://www.connectio.com.au/grateful/loading.png',
                   ),
-                  transitionOnUserGestures: true,
-                  child: CachedNetworkImage(
-                    imageUrl: valueOrDefault<String>(
-                      detailsItemRecord.mainImage,
-                      'https://www.connectio.com.au/grateful/loading.png',
-                    ),
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 1.0,
-                    fit: BoxFit.cover,
-                  ),
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: MediaQuery.of(context).size.height * 1.0,
+                  fit: BoxFit.cover,
                 ),
               ),
               Row(
@@ -252,43 +239,22 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                         ],
                       ),
                     ),
-                    Builder(
-                      builder: (context) => FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 30.0,
-                        borderWidth: 1.0,
-                        buttonSize: 60.0,
-                        icon: Icon(
-                          Icons.more_vert_rounded,
-                          color: valueOrDefault<Color>(
-                            FFAppState().contrasting,
-                            FlutterFlowTheme.of(context).secondary,
-                          ),
-                          size: 30.0,
+                    FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30.0,
+                      borderWidth: 1.0,
+                      buttonSize: 60.0,
+                      icon: Icon(
+                        Icons.more_vert_rounded,
+                        color: valueOrDefault<Color>(
+                          FFAppState().contrasting,
+                          FlutterFlowTheme.of(context).secondary,
                         ),
-                        onPressed: () async {
-                          logFirebaseEvent(
-                              'DETAILS_more_vert_rounded_ICN_ON_TAP');
-                          logFirebaseEvent('IconButton_alert_dialog');
-                          showAlignedDialog(
-                            context: context,
-                            isGlobal: false,
-                            avoidOverflow: true,
-                            targetAnchor: AlignmentDirectional(0.0, 0.0)
-                                .resolve(Directionality.of(context)),
-                            followerAnchor: AlignmentDirectional(0.0, 0.0)
-                                .resolve(Directionality.of(context)),
-                            builder: (dialogContext) {
-                              return Material(
-                                color: Colors.transparent,
-                                child: MoreDropdownWidget(
-                                  item: detailsItemRecord,
-                                ),
-                              );
-                            },
-                          ).then((value) => setState(() {}));
-                        },
+                        size: 30.0,
                       ),
+                      onPressed: () {
+                        print('IconButton pressed ...');
+                      },
                     ),
                   ],
                 ),
