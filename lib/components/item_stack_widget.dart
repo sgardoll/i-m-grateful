@@ -136,8 +136,8 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
                         child: ClipRect(
                           child: ImageFiltered(
                             imageFilter: ImageFilter.blur(
-                              sigmaX: 6.0,
-                              sigmaY: 6.0,
+                              sigmaX: 4.0,
+                              sigmaY: 4.0,
                             ),
                             child: Align(
                               alignment: AlignmentDirectional(0.0, 0.0),
@@ -153,16 +153,17 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
                                   text: stackItemRecord.itemText,
                                   fontSize: valueOrDefault<double>(
                                     functions.fontsize(
-                                        MediaQuery.of(context).size.width * 0.4,
+                                        MediaQuery.of(context).size.width * 0.6,
                                         stackItemRecord.itemText,
                                         MediaQuery.of(context).size.height *
-                                            0.7),
+                                            0.9),
                                     40.0,
                                   ),
-                                  colour: colorFromCssString(
-                                    stackItemRecord.darkVibrant,
-                                    defaultColor: Colors.black,
+                                  colour: valueOrDefault<Color>(
+                                    FFAppState().lightVibrant,
+                                    FlutterFlowTheme.of(context).secondaryText,
                                   ),
+                                  fontFamily: 'Aldo',
                                 ),
                               ),
                             ),
@@ -190,15 +191,16 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
                               text: stackItemRecord.itemText,
                               fontSize: valueOrDefault<double>(
                                 functions.fontsize(
-                                    MediaQuery.of(context).size.width * 0.4,
+                                    MediaQuery.of(context).size.width * 0.6,
                                     stackItemRecord.itemText,
-                                    MediaQuery.of(context).size.height * 0.7),
+                                    MediaQuery.of(context).size.height * 0.9),
                                 40.0,
                               ),
                               colour: valueOrDefault<Color>(
                                 FFAppState().primary,
                                 FlutterFlowTheme.of(context).primary,
                               ),
+                              fontFamily: 'Aldo',
                             ),
                           ),
                         ),

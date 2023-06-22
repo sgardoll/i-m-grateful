@@ -167,8 +167,6 @@ flutter:
     - family: 'Aldo'
       fonts:
         - asset: assets/fonts/Aldo-Regular.ttf
-        - asset: assets/fonts/Aldo-Italic.ttf
-          style: italic
         - asset: assets/fonts/Aldo-Bold.ttf
           weight: 700
     - family: 'BadgerValley'
@@ -178,47 +176,21 @@ flutter:
       fonts:
         - asset: assets/fonts/Morganite-Thin.ttf
           weight: 100
-        - asset: assets/fonts/Morganite-ThinItalic.ttf
-          weight: 100
-          style: italic
         - asset: assets/fonts/Morganite-ExtraLight.ttf
           weight: 200
-        - asset: assets/fonts/Morganite-ExtraLightItalic.ttf
-          weight: 200
-          style: italic
         - asset: assets/fonts/Morganite-Light.ttf
           weight: 300
-        - asset: assets/fonts/Morganite-LightItalic.ttf
-          weight: 300
-          style: italic
         - asset: assets/fonts/Morganite-Book.ttf
-        - asset: assets/fonts/Morganite-BookItalic.ttf
-          style: italic
         - asset: assets/fonts/Morganite-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Morganite-MediumItalic.ttf
-          weight: 500
-          style: italic
         - asset: assets/fonts/Morganite-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Morganite-SemiBoldItalic.ttf
-          weight: 600
-          style: italic
         - asset: assets/fonts/Morganite-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Morganite-BoldItalic.ttf
-          weight: 700
-          style: italic
         - asset: assets/fonts/Morganite-ExtraBold.ttf
           weight: 800
-        - asset: assets/fonts/Morganite-ExtraBoldItalic.ttf
-          weight: 800
-          style: italic
         - asset: assets/fonts/Morganite-Black.ttf
           weight: 900
-        - asset: assets/fonts/Morganite-BlackItalic.ttf
-          weight: 900
-          style: italic
     - family: 'Sushka'
       fonts:
         - asset: assets/fonts/SFTSushkaTESTv0.2Trial-1-BF6413d13242bed.otf
@@ -231,18 +203,9 @@ flutter:
     - family: 'Ristretto'
       fonts:
         - asset: assets/fonts/ristrettopro-regular.otf
-    - family: 'Zewyolk'
-      fonts:
-        - asset: assets/fonts/zewyolk.otf
-    - family: 'Basier'
-      fonts:
-        - asset: assets/fonts/BasierSquareNarrow-Regular.otf
     - family: 'Marisole'
       fonts:
         - asset: assets/fonts/MARISOLE.otf
-    - family: 'Fitalia'
-      fonts:
-        - asset: assets/fonts/Fitalia.ttf
     - family: 'NarrowStreets'
       fonts:
         - asset: assets/fonts/NARROWSTREETS.otf
@@ -252,9 +215,6 @@ flutter:
     - family: 'Calama'
       fonts:
         - asset: assets/fonts/Calama_new.ttf
-    - family: 'Calibre'
-      fonts:
-        - asset: assets/fonts/CalibreSuperCondensed-Regular.otf
     - family: 'Fontuna'
       fonts:
         - asset: assets/fonts/Fontuna-Stencil.otf

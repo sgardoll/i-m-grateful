@@ -1,14 +1,15 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/feedback_dropdown/feedback_dropdown_widget.dart';
 import '/components/image_selfie_widget.dart';
 import '/components/location_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -27,8 +28,128 @@ class MoreDropdownWidget extends StatefulWidget {
   _MoreDropdownWidgetState createState() => _MoreDropdownWidgetState();
 }
 
-class _MoreDropdownWidgetState extends State<MoreDropdownWidget> {
+class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
+    with TickerProviderStateMixin {
   late MoreDropdownModel _model;
+
+  final animationsMap = {
+    'rowOnActionTriggerAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        ScaleEffect(
+          curve: Curves.elasticOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.7),
+          end: Offset(1.0, 1.0),
+        ),
+      ],
+    ),
+    'rowOnActionTriggerAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        ScaleEffect(
+          curve: Curves.elasticOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.7),
+          end: Offset(1.0, 1.0),
+        ),
+      ],
+    ),
+    'rowOnActionTriggerAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        ScaleEffect(
+          curve: Curves.elasticOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.7),
+          end: Offset(1.0, 1.0),
+        ),
+      ],
+    ),
+    'rowOnActionTriggerAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        ScaleEffect(
+          curve: Curves.elasticOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.7),
+          end: Offset(1.0, 1.0),
+        ),
+      ],
+    ),
+    'rowOnActionTriggerAnimation5': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        ScaleEffect(
+          curve: Curves.elasticOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.7),
+          end: Offset(1.0, 1.0),
+        ),
+      ],
+    ),
+    'rowOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        ScaleEffect(
+          curve: Curves.elasticOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.7),
+          end: Offset(1.0, 1.0),
+        ),
+      ],
+    ),
+    'rowOnActionTriggerAnimation6': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        ScaleEffect(
+          curve: Curves.elasticOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.7),
+          end: Offset(1.0, 1.0),
+        ),
+      ],
+    ),
+    'rowOnActionTriggerAnimation7': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        ScaleEffect(
+          curve: Curves.elasticOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.7),
+          end: Offset(1.0, 1.0),
+        ),
+      ],
+    ),
+    'rowOnActionTriggerAnimation8': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        ScaleEffect(
+          curve: Curves.elasticOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.7),
+          end: Offset(1.0, 1.0),
+        ),
+      ],
+    ),
+  };
 
   @override
   void setState(VoidCallback callback) {
@@ -40,6 +161,13 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => MoreDropdownModel());
+
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -74,36 +202,150 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              MouseRegion(
+                opaque: false,
+                cursor: MouseCursor.defer ?? MouseCursor.defer,
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    logFirebaseEvent('MORE_DROPDOWN_COMP_feedback_ON_TAP');
+                    logFirebaseEvent('feedback_widget_animation');
+                    if (animationsMap['rowOnActionTriggerAnimation8'] != null) {
+                      animationsMap['rowOnActionTriggerAnimation8']!
+                          .controller
+                          .forward(from: 0.0);
+                    }
+                  },
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    curve: Curves.elasticOut,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: valueOrDefault<Color>(
+                        _model.mouseRegionHovered1!
+                            ? FFAppState().lightVibrant
+                            : Colors.transparent,
+                        Colors.transparent,
+                      ),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 0.0, 0.0),
+                            child: Icon(
+                              Icons.feedback_outlined,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 24.0,
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                'Give Feedback',
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ).animateOnActionTrigger(
+                        animationsMap['rowOnActionTriggerAnimation1']!,
+                      ),
+                    ),
+                  ),
+                ),
+                onEnter: ((event) async {
+                  setState(() => _model.mouseRegionHovered1 = true);
+                  logFirebaseEvent('MORE_DROPDOWN_MouseRegion_zfqatxys_ON_TO');
+                  logFirebaseEvent('MouseRegion_update_widget_state');
+                  setState(() {});
+                }),
+                onExit: ((event) async {
+                  setState(() => _model.mouseRegionHovered1 = false);
+                }),
+              ),
               Flexible(
-                child: Builder(
-                  builder: (context) => InkWell(
+                child: MouseRegion(
+                  opaque: false,
+                  cursor: MouseCursor.defer ?? MouseCursor.defer,
+                  child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      logFirebaseEvent(
-                          'MORE_DROPDOWN_COMP_replaceWidget_ON_TAP');
-                      logFirebaseEvent('replaceWidget_alert_dialog');
-                      showAlignedDialog(
-                        context: context,
-                        isGlobal: false,
-                        avoidOverflow: true,
-                        targetAnchor: AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
-                        followerAnchor: AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
-                        builder: (dialogContext) {
-                          return Material(
-                            color: Colors.transparent,
-                            child: FeedbackDropdownWidget(),
-                          );
-                        },
-                      ).then((value) => setState(() {}));
+                      logFirebaseEvent('MORE_DROPDOWN_COMP_regenerate_ON_TAP');
+                      logFirebaseEvent('regenerate_widget_animation');
+                      if (animationsMap['rowOnActionTriggerAnimation8'] !=
+                          null) {
+                        animationsMap['rowOnActionTriggerAnimation8']!
+                            .controller
+                            .forward(from: 0.0);
+                      }
+                      logFirebaseEvent('regenerate_backend_call');
+
+                      final feedbackCreateData = {
+                        ...createFeedbackRecordData(
+                          itemRef: widget.item!.reference,
+                          userRef: currentUserReference,
+                          feedback: 'Regenerated',
+                        ),
+                        'screenshots': [
+                          valueOrDefault<String>(
+                            widget.item!.stable.imageUrls.first,
+                            '0',
+                          )
+                        ],
+                      };
+                      var feedbackRecordReference =
+                          FeedbackRecord.collection.doc();
+                      await feedbackRecordReference.set(feedbackCreateData);
+                      _model.addRegenerateAsFeedback =
+                          FeedbackRecord.getDocumentFromData(
+                              feedbackCreateData, feedbackRecordReference);
+                      logFirebaseEvent('regenerate_update_widget_state');
+                      _model.itemText = widget.item!.itemText;
+                      logFirebaseEvent('regenerate_backend_call');
+
+                      final itemUpdateData1 = {
+                        'itemText': FieldValue.delete(),
+                        'status': FieldValue.delete(),
+                        'stableImg2Img': FieldValue.delete(),
+                        'instructPix2Pix': FieldValue.delete(),
+                        'mainImage': FieldValue.delete(),
+                      };
+                      await widget.item!.reference.update(itemUpdateData1);
+                      logFirebaseEvent('regenerate_backend_call');
+
+                      final itemUpdateData2 = createItemRecordData(
+                        itemText: _model.itemText,
+                      );
+                      await widget.item!.reference.update(itemUpdateData2);
+                      logFirebaseEvent('regenerate_navigate_to');
+
+                      context.goNamed('Items');
+
+                      setState(() {});
                     },
                     child: Container(
                       width: double.infinity,
-                      decoration: BoxDecoration(),
+                      decoration: BoxDecoration(
+                        color: valueOrDefault<Color>(
+                          _model.mouseRegionHovered1!
+                              ? FFAppState().lightVibrant
+                              : Colors.transparent,
+                          Colors.transparent,
+                        ),
+                      ),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             0.0, 16.0, 0.0, 16.0),
@@ -114,7 +356,7 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 0.0, 0.0),
                               child: Icon(
-                                Icons.feedback_outlined,
+                                Icons.replay_sharp,
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 size: 24.0,
                               ),
@@ -124,76 +366,638 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 0.0, 0.0),
                                 child: Text(
-                                  'Give Feedback',
+                                  'Regenerate',
                                   style:
                                       FlutterFlowTheme.of(context).bodyMedium,
                                 ),
                               ),
                             ),
                           ],
+                        ).animateOnActionTrigger(
+                          animationsMap['rowOnActionTriggerAnimation2']!,
                         ),
                       ),
                     ),
                   ),
+                  onEnter: ((event) async {
+                    setState(() => _model.mouseRegionHovered2 = true);
+                    logFirebaseEvent(
+                        'MORE_DROPDOWN_MouseRegion_p5hryldn_ON_TO');
+                    logFirebaseEvent('MouseRegion_update_widget_state');
+                    setState(() {});
+                  }),
+                  onExit: ((event) async {
+                    setState(() => _model.mouseRegionHovered2 = false);
+                  }),
                 ),
               ),
               Flexible(
+                child: MouseRegion(
+                  opaque: false,
+                  cursor: MouseCursor.defer ?? MouseCursor.defer,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      logFirebaseEvent('MORE_DROPDOWN_COMP_detail_ON_TAP');
+                      logFirebaseEvent('detail_widget_animation');
+                      if (animationsMap['rowOnActionTriggerAnimation8'] !=
+                          null) {
+                        animationsMap['rowOnActionTriggerAnimation8']!
+                            .controller
+                            .forward(from: 0.0);
+                      }
+                      logFirebaseEvent('detail_navigate_to');
+
+                      context.pushNamed(
+                        'Details',
+                        queryParameters: {
+                          'itemRef': serializeParam(
+                            widget.item!.reference,
+                            ParamType.DocumentReference,
+                          ),
+                          'primary': serializeParam(
+                            valueOrDefault<Color>(
+                              widget.item!.stable.colorPalettes.primaryColor,
+                              FlutterFlowTheme.of(context).primary,
+                            ),
+                            ParamType.Color,
+                          ),
+                          'contrasting': serializeParam(
+                            valueOrDefault<Color>(
+                              widget
+                                  .item!.stable.colorPalettes.contrastingColor,
+                              FlutterFlowTheme.of(context).secondary,
+                            ),
+                            ParamType.Color,
+                          ),
+                          'text': serializeParam(
+                            Theme.of(context).brightness == Brightness.light
+                                ? valueOrDefault<Color>(
+                                    widget.item!.stable.colorPalettes
+                                        .lightVibrant,
+                                    FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                  )
+                                : valueOrDefault<Color>(
+                                    widget
+                                        .item!.stable.colorPalettes.darkVibrant,
+                                    FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                  ),
+                            ParamType.Color,
+                          ),
+                        }.withoutNulls,
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: valueOrDefault<Color>(
+                          _model.mouseRegionHovered1!
+                              ? FFAppState().lightVibrant
+                              : Colors.transparent,
+                          Colors.transparent,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 16.0, 0.0, 16.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 0.0, 0.0),
+                              child: Icon(
+                                Icons.image_search,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 24.0,
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  'View Details',
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ).animateOnActionTrigger(
+                          animationsMap['rowOnActionTriggerAnimation3']!,
+                        ),
+                      ),
+                    ),
+                  ),
+                  onEnter: ((event) async {
+                    setState(() => _model.mouseRegionHovered3 = true);
+                    logFirebaseEvent(
+                        'MORE_DROPDOWN_MouseRegion_z3u509ij_ON_TO');
+                    logFirebaseEvent('MouseRegion_update_widget_state');
+                    setState(() {});
+                  }),
+                  onExit: ((event) async {
+                    setState(() => _model.mouseRegionHovered3 = false);
+                  }),
+                ),
+              ),
+              Flexible(
+                child: MouseRegion(
+                  opaque: false,
+                  cursor: MouseCursor.defer ?? MouseCursor.defer,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      logFirebaseEvent('MORE_DROPDOWN_COMP_share_ON_TAP');
+                      logFirebaseEvent('share_widget_animation');
+                      if (animationsMap['rowOnActionTriggerAnimation8'] !=
+                          null) {
+                        animationsMap['rowOnActionTriggerAnimation8']!
+                            .controller
+                            .forward(from: 0.0);
+                      }
+                      logFirebaseEvent('share_custom_action');
+                      await actions.shareFirebaseImage(
+                        widget.item!.mainImage,
+                        widget.item!.itemText,
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: valueOrDefault<Color>(
+                          _model.mouseRegionHovered1!
+                              ? FFAppState().lightVibrant
+                              : Colors.transparent,
+                          Colors.transparent,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 16.0, 0.0, 16.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 0.0, 0.0),
+                              child: Icon(
+                                Icons.share_rounded,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 24.0,
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  'Share',
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ).animateOnActionTrigger(
+                          animationsMap['rowOnActionTriggerAnimation4']!,
+                        ),
+                      ),
+                    ),
+                  ),
+                  onEnter: ((event) async {
+                    setState(() => _model.mouseRegionHovered4 = true);
+                    logFirebaseEvent(
+                        'MORE_DROPDOWN_MouseRegion_yz2kg7a1_ON_TO');
+                    logFirebaseEvent('MouseRegion_update_widget_state');
+                    setState(() {});
+                  }),
+                  onExit: ((event) async {
+                    setState(() => _model.mouseRegionHovered4 = false);
+                  }),
+                ),
+              ),
+              Flexible(
+                child: MouseRegion(
+                  opaque: false,
+                  cursor: MouseCursor.defer ?? MouseCursor.defer,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      logFirebaseEvent('MORE_DROPDOWN_COMP_edit_ON_TAP');
+                      logFirebaseEvent('edit_widget_animation');
+                      if (animationsMap['rowOnActionTriggerAnimation8'] !=
+                          null) {
+                        animationsMap['rowOnActionTriggerAnimation8']!
+                            .controller
+                            .forward(from: 0.0);
+                      }
+                      logFirebaseEvent('edit_navigate_to');
+
+                      context.pushNamed(
+                        'EditItem',
+                        queryParameters: {
+                          'itemRef': serializeParam(
+                            widget.item!.reference,
+                            ParamType.DocumentReference,
+                          ),
+                        }.withoutNulls,
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: valueOrDefault<Color>(
+                          _model.mouseRegionHovered1!
+                              ? FFAppState().lightVibrant
+                              : Colors.transparent,
+                          Colors.transparent,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 16.0, 0.0, 16.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 0.0, 0.0),
+                              child: Icon(
+                                Icons.edit_rounded,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 24.0,
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  'Edit',
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ).animateOnActionTrigger(
+                          animationsMap['rowOnActionTriggerAnimation5']!,
+                        ),
+                      ),
+                    ),
+                  ),
+                  onEnter: ((event) async {
+                    setState(() => _model.mouseRegionHovered5 = true);
+                    logFirebaseEvent(
+                        'MORE_DROPDOWN_MouseRegion_0hm1s3zj_ON_TO');
+                    logFirebaseEvent('MouseRegion_update_widget_state');
+                    setState(() {});
+                  }),
+                  onExit: ((event) async {
+                    setState(() => _model.mouseRegionHovered5 = false);
+                  }),
+                ),
+              ),
+              Flexible(
+                child: MouseRegion(
+                  opaque: false,
+                  cursor: MouseCursor.defer ?? MouseCursor.defer,
+                  child: Visibility(
+                    visible: valueOrDefault<bool>(
+                      widget.item!.location != null,
+                      false,
+                    ),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        logFirebaseEvent('MORE_DROPDOWN_COMP_locatio_ON_TAP');
+                        logFirebaseEvent('locatio_widget_animation');
+                        if (animationsMap['rowOnActionTriggerAnimation8'] !=
+                            null) {
+                          animationsMap['rowOnActionTriggerAnimation8']!
+                              .controller
+                              .forward(from: 0.0);
+                        }
+                        logFirebaseEvent('locatio_bottom_sheet');
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          barrierColor: Color(0x80000000),
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: MediaQuery.of(context).viewInsets,
+                              child: LocationWidget(
+                                location: widget.item!.location!,
+                              ),
+                            );
+                          },
+                        ).then((value) => setState(() {}));
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: valueOrDefault<Color>(
+                            _model.mouseRegionHovered1!
+                                ? FFAppState().lightVibrant
+                                : Colors.transparent,
+                            Colors.transparent,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 16.0, 0.0, 16.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 0.0, 0.0),
+                                child: Icon(
+                                  Icons.location_pin,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 24.0,
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 0.0, 0.0),
+                                  child: Text(
+                                    'Show Location',
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyMedium,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ).animateOnPageLoad(
+                              animationsMap['rowOnPageLoadAnimation']!),
+                        ),
+                      ),
+                    ),
+                  ),
+                  onEnter: ((event) async {
+                    setState(() => _model.mouseRegionHovered6 = true);
+                    logFirebaseEvent(
+                        'MORE_DROPDOWN_MouseRegion_hazi05x4_ON_TO');
+                    logFirebaseEvent('MouseRegion_update_widget_state');
+                    setState(() {});
+                  }),
+                  onExit: ((event) async {
+                    setState(() => _model.mouseRegionHovered6 = false);
+                  }),
+                ),
+              ),
+              Flexible(
+                child: MouseRegion(
+                  opaque: false,
+                  cursor: MouseCursor.defer ?? MouseCursor.defer,
+                  child: Visibility(
+                    visible: valueOrDefault<bool>(
+                      widget.item!.uploadedImages.image != null &&
+                          widget.item!.uploadedImages.image != '',
+                      false,
+                    ),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        logFirebaseEvent(
+                            'MORE_DROPDOWN_COMP_uploadedImage_ON_TAP');
+                        logFirebaseEvent('uploadedImage_widget_animation');
+                        if (animationsMap['rowOnActionTriggerAnimation8'] !=
+                            null) {
+                          animationsMap['rowOnActionTriggerAnimation8']!
+                              .controller
+                              .forward(from: 0.0);
+                        }
+                        logFirebaseEvent('uploadedImage_bottom_sheet');
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Color(0x00FFFFFF),
+                          barrierColor: Color(0x80000000),
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: MediaQuery.of(context).viewInsets,
+                              child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.85,
+                                child: ImageSelfieWidget(
+                                  imageSelfie:
+                                      widget.item!.uploadedImages.image,
+                                ),
+                              ),
+                            );
+                          },
+                        ).then((value) => setState(() {}));
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: valueOrDefault<Color>(
+                            _model.mouseRegionHovered1!
+                                ? FFAppState().lightVibrant
+                                : Colors.transparent,
+                            Colors.transparent,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 16.0, 0.0, 16.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 0.0, 0.0),
+                                child: Icon(
+                                  Icons.photo_outlined,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 24.0,
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 0.0, 0.0),
+                                  child: Text(
+                                    'Show Uploaded Image',
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyMedium,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ).animateOnActionTrigger(
+                            animationsMap['rowOnActionTriggerAnimation6']!,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  onEnter: ((event) async {
+                    setState(() => _model.mouseRegionHovered7 = true);
+                    logFirebaseEvent(
+                        'MORE_DROPDOWN_MouseRegion_o6ses3gh_ON_TO');
+                    logFirebaseEvent('MouseRegion_update_widget_state');
+                    setState(() {});
+                  }),
+                  onExit: ((event) async {
+                    setState(() => _model.mouseRegionHovered7 = false);
+                  }),
+                ),
+              ),
+              Flexible(
+                child: MouseRegion(
+                  opaque: false,
+                  cursor: MouseCursor.defer ?? MouseCursor.defer,
+                  child: Visibility(
+                    visible: valueOrDefault<bool>(
+                      widget.item!.uploadedImages.selfie != null &&
+                          widget.item!.uploadedImages.selfie != '',
+                      false,
+                    ),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        logFirebaseEvent(
+                            'MORE_DROPDOWN_COMP_uploadedSelfie_ON_TAP');
+                        logFirebaseEvent('uploadedSelfie_widget_animation');
+                        if (animationsMap['rowOnActionTriggerAnimation8'] !=
+                            null) {
+                          animationsMap['rowOnActionTriggerAnimation8']!
+                              .controller
+                              .forward(from: 0.0);
+                        }
+                        logFirebaseEvent('uploadedSelfie_bottom_sheet');
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Color(0x00FFFFFF),
+                          barrierColor: Color(0x80000000),
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: MediaQuery.of(context).viewInsets,
+                              child: ImageSelfieWidget(
+                                imageSelfie: widget.item!.uploadedImages.selfie,
+                              ),
+                            );
+                          },
+                        ).then((value) => setState(() {}));
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: valueOrDefault<Color>(
+                            _model.mouseRegionHovered1!
+                                ? FFAppState().lightVibrant
+                                : Colors.transparent,
+                            Colors.transparent,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 16.0, 0.0, 16.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 0.0, 0.0),
+                                child: Icon(
+                                  Icons.portrait_rounded,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 24.0,
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 0.0, 0.0),
+                                  child: Text(
+                                    'Show Uploaded Selfie',
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyMedium,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ).animateOnActionTrigger(
+                            animationsMap['rowOnActionTriggerAnimation7']!,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  onEnter: ((event) async {
+                    setState(() => _model.mouseRegionHovered8 = true);
+                    logFirebaseEvent(
+                        'MORE_DROPDOWN_MouseRegion_rfvnh3o4_ON_TO');
+                    logFirebaseEvent('MouseRegion_update_widget_state');
+                    setState(() {});
+                  }),
+                  onExit: ((event) async {
+                    setState(() => _model.mouseRegionHovered8 = false);
+                  }),
+                ),
+              ),
+              MouseRegion(
+                opaque: false,
+                cursor: MouseCursor.defer ?? MouseCursor.defer,
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    logFirebaseEvent('MORE_DROPDOWN_COMP_replaceWidget_ON_TAP');
-                    logFirebaseEvent('replaceWidget_backend_call');
-
-                    final feedbackCreateData = {
-                      ...createFeedbackRecordData(
-                        itemRef: widget.item!.reference,
-                        userRef: currentUserReference,
-                        feedback: 'Regenerated',
-                      ),
-                      'screenshots': [
-                        valueOrDefault<String>(
-                          widget.item!.stable.imageUrls.first,
-                          '0',
-                        )
-                      ],
-                    };
-                    var feedbackRecordReference =
-                        FeedbackRecord.collection.doc();
-                    await feedbackRecordReference.set(feedbackCreateData);
-                    _model.addRegenerateAsFeedback =
-                        FeedbackRecord.getDocumentFromData(
-                            feedbackCreateData, feedbackRecordReference);
-                    logFirebaseEvent('replaceWidget_update_widget_state');
-                    _model.itemText = widget.item!.itemText;
-                    logFirebaseEvent('replaceWidget_backend_call');
-
-                    final itemUpdateData1 = {
-                      'itemText': FieldValue.delete(),
-                      'status': FieldValue.delete(),
-                      'stableImg2Img': FieldValue.delete(),
-                      'instructPix2Pix': FieldValue.delete(),
-                      'mainImage': FieldValue.delete(),
-                    };
-                    await widget.item!.reference.update(itemUpdateData1);
-                    logFirebaseEvent('replaceWidget_backend_call');
-
-                    final itemUpdateData2 = createItemRecordData(
-                      itemText: _model.itemText,
-                    );
-                    await widget.item!.reference.update(itemUpdateData2);
-                    logFirebaseEvent('replaceWidget_navigate_to');
+                    logFirebaseEvent('MORE_DROPDOWN_COMP_delete_ON_TAP');
+                    logFirebaseEvent('delete_widget_animation');
+                    if (animationsMap['rowOnActionTriggerAnimation8'] != null) {
+                      animationsMap['rowOnActionTriggerAnimation8']!
+                          .controller
+                          .forward(from: 0.0);
+                    }
+                    logFirebaseEvent('delete_backend_call');
+                    await widget.item!.reference.delete();
+                    logFirebaseEvent('delete_navigate_to');
 
                     context.goNamed('Items');
-
-                    setState(() {});
                   },
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: valueOrDefault<Color>(
+                        _model.mouseRegionHovered1!
+                            ? FFAppState().lightVibrant
+                            : Colors.transparent,
+                        Colors.transparent,
+                      ),
                     ),
                     child: Padding(
                       padding:
@@ -205,8 +1009,8 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 0.0, 0.0),
                             child: Icon(
-                              Icons.replay_sharp,
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              Icons.delete_outlined,
+                              color: FlutterFlowTheme.of(context).tertiary,
                               size: 24.0,
                             ),
                           ),
@@ -215,464 +1019,33 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                'Regenerate',
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                'Delete',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                    ),
                               ),
                             ),
                           ),
                         ],
+                      ).animateOnActionTrigger(
+                        animationsMap['rowOnActionTriggerAnimation8']!,
                       ),
                     ),
                   ),
                 ),
-              ),
-              Flexible(
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    logFirebaseEvent('MORE_DROPDOWN_COMP_replaceWidget_ON_TAP');
-                    logFirebaseEvent('replaceWidget_navigate_to');
-
-                    context.pushNamed(
-                      'Details',
-                      queryParameters: {
-                        'itemRef': serializeParam(
-                          widget.item!.reference,
-                          ParamType.DocumentReference,
-                        ),
-                        'primary': serializeParam(
-                          valueOrDefault<Color>(
-                            widget.item!.stable.colorPalettes.primaryColor,
-                            FlutterFlowTheme.of(context).primary,
-                          ),
-                          ParamType.Color,
-                        ),
-                        'contrasting': serializeParam(
-                          valueOrDefault<Color>(
-                            widget.item!.stable.colorPalettes.contrastingColor,
-                            FlutterFlowTheme.of(context).secondary,
-                          ),
-                          ParamType.Color,
-                        ),
-                        'text': serializeParam(
-                          Theme.of(context).brightness == Brightness.light
-                              ? valueOrDefault<Color>(
-                                  widget
-                                      .item!.stable.colorPalettes.lightVibrant,
-                                  FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                )
-                              : valueOrDefault<Color>(
-                                  widget.item!.stable.colorPalettes.darkVibrant,
-                                  FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                ),
-                          ParamType.Color,
-                        ),
-                      }.withoutNulls,
-                    );
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 0.0, 0.0, 0.0),
-                            child: Icon(
-                              Icons.image_search,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                'View Details',
-                                style: FlutterFlowTheme.of(context).bodyMedium,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Flexible(
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    logFirebaseEvent('MORE_DROPDOWN_COMP_replaceWidget_ON_TAP');
-                    logFirebaseEvent('replaceWidget_custom_action');
-                    await actions.shareFirebaseImage(
-                      widget.item!.mainImage,
-                      widget.item!.itemText,
-                    );
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 0.0, 0.0, 0.0),
-                            child: Icon(
-                              Icons.share_rounded,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                'Share',
-                                style: FlutterFlowTheme.of(context).bodyMedium,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Flexible(
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    logFirebaseEvent('MORE_DROPDOWN_COMP_replaceWidget_ON_TAP');
-                    logFirebaseEvent('replaceWidget_navigate_to');
-
-                    context.pushNamed(
-                      'EditItem',
-                      queryParameters: {
-                        'itemRef': serializeParam(
-                          widget.item!.reference,
-                          ParamType.DocumentReference,
-                        ),
-                      }.withoutNulls,
-                    );
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 0.0, 0.0, 0.0),
-                            child: Icon(
-                              Icons.edit_rounded,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                'Edit',
-                                style: FlutterFlowTheme.of(context).bodyMedium,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              if (valueOrDefault<bool>(
-                widget.item!.location != null,
-                false,
-              ))
-                Flexible(
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent(
-                          'MORE_DROPDOWN_COMP_replaceWidget_ON_TAP');
-                      logFirebaseEvent('replaceWidget_bottom_sheet');
-                      await showModalBottomSheet(
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        barrierColor: Color(0x80000000),
-                        context: context,
-                        builder: (context) {
-                          return Padding(
-                            padding: MediaQuery.of(context).viewInsets,
-                            child: LocationWidget(
-                              location: widget.item!.location!,
-                            ),
-                          );
-                        },
-                      ).then((value) => setState(() {}));
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 16.0, 0.0, 16.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 0.0, 0.0),
-                              child: Icon(
-                                Icons.location_pin,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 24.0,
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  'Show Location',
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              if (valueOrDefault<bool>(
-                widget.item!.uploadedImages.image != null &&
-                    widget.item!.uploadedImages.image != '',
-                false,
-              ))
-                Flexible(
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent(
-                          'MORE_DROPDOWN_COMP_replaceWidget_ON_TAP');
-                      logFirebaseEvent('replaceWidget_bottom_sheet');
-                      showModalBottomSheet(
-                        isScrollControlled: true,
-                        backgroundColor: Color(0x00FFFFFF),
-                        barrierColor: Color(0x80000000),
-                        context: context,
-                        builder: (context) {
-                          return Padding(
-                            padding: MediaQuery.of(context).viewInsets,
-                            child: Container(
-                              height: MediaQuery.of(context).size.height * 0.85,
-                              child: ImageSelfieWidget(
-                                imageSelfie: widget.item!.uploadedImages.image,
-                              ),
-                            ),
-                          );
-                        },
-                      ).then((value) => setState(() {}));
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 16.0, 0.0, 16.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 0.0, 0.0),
-                              child: Icon(
-                                Icons.photo_outlined,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 24.0,
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  'Show Uploaded Image',
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              if (valueOrDefault<bool>(
-                widget.item!.uploadedImages.selfie != null &&
-                    widget.item!.uploadedImages.selfie != '',
-                false,
-              ))
-                Flexible(
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent(
-                          'MORE_DROPDOWN_COMP_replaceWidget_ON_TAP');
-                      logFirebaseEvent('replaceWidget_bottom_sheet');
-                      showModalBottomSheet(
-                        isScrollControlled: true,
-                        backgroundColor: Color(0x00FFFFFF),
-                        barrierColor: Color(0x80000000),
-                        context: context,
-                        builder: (context) {
-                          return Padding(
-                            padding: MediaQuery.of(context).viewInsets,
-                            child: ImageSelfieWidget(
-                              imageSelfie: widget.item!.uploadedImages.selfie,
-                            ),
-                          );
-                        },
-                      ).then((value) => setState(() {}));
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 16.0, 0.0, 16.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 0.0, 0.0),
-                              child: Icon(
-                                Icons.portrait_rounded,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 24.0,
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  'Show Uploaded Selfie',
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  logFirebaseEvent('MORE_DROPDOWN_COMP_replaceWidget_ON_TAP');
-                  logFirebaseEvent('replaceWidget_backend_call');
-                  await widget.item!.reference.delete();
-                  logFirebaseEvent('replaceWidget_navigate_to');
-
-                  context.goNamed('Items');
-                },
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                  ),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              12.0, 0.0, 0.0, 0.0),
-                          child: Icon(
-                            Icons.delete_outlined,
-                            color: FlutterFlowTheme.of(context).tertiary,
-                            size: 24.0,
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Delete',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Outfit',
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                onEnter: ((event) async {
+                  setState(() => _model.mouseRegionHovered9 = true);
+                  logFirebaseEvent('MORE_DROPDOWN_MouseRegion_h89ld3en_ON_TO');
+                  logFirebaseEvent('MouseRegion_update_widget_state');
+                  setState(() {});
+                }),
+                onExit: ((event) async {
+                  setState(() => _model.mouseRegionHovered9 = false);
+                }),
               ),
             ],
           ),

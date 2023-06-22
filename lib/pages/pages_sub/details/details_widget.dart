@@ -101,73 +101,50 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           body: Stack(
             children: [
-              Builder(
-                builder: (context) => InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    logFirebaseEvent('DETAILS_PAGE_Image_d3kjgi3m_ON_TAP');
-                    logFirebaseEvent('Image_expand_image');
-                    await Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        child: FlutterFlowExpandedImageView(
-                          image: CachedNetworkImage(
-                            imageUrl: valueOrDefault<String>(
-                              detailsItemRecord.mainImage,
-                              'https://www.connectio.com.au/grateful/loading.png',
-                            ),
-                            fit: BoxFit.contain,
-                          ),
-                          allowRotation: false,
-                          tag: valueOrDefault<String>(
+              InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  logFirebaseEvent('DETAILS_PAGE_Image_d3kjgi3m_ON_TAP');
+                  logFirebaseEvent('Image_expand_image');
+                  await Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      child: FlutterFlowExpandedImageView(
+                        image: CachedNetworkImage(
+                          imageUrl: valueOrDefault<String>(
                             detailsItemRecord.mainImage,
                             'https://www.connectio.com.au/grateful/loading.png',
                           ),
-                          useHeroAnimation: true,
+                          fit: BoxFit.contain,
                         ),
+                        allowRotation: false,
+                        tag: valueOrDefault<String>(
+                          detailsItemRecord.mainImage,
+                          'https://www.connectio.com.au/grateful/loading.png',
+                        ),
+                        useHeroAnimation: true,
                       ),
-                    );
-                  },
-                  onLongPress: () async {
-                    logFirebaseEvent('DETAILS_Image_d3kjgi3m_ON_LONG_PRESS');
-                    logFirebaseEvent('Image_alert_dialog');
-                    showAlignedDialog(
-                      context: context,
-                      isGlobal: false,
-                      avoidOverflow: true,
-                      targetAnchor: AlignmentDirectional(0.0, 0.0)
-                          .resolve(Directionality.of(context)),
-                      followerAnchor: AlignmentDirectional(0.0, 0.0)
-                          .resolve(Directionality.of(context)),
-                      builder: (dialogContext) {
-                        return Material(
-                          color: Colors.transparent,
-                          child: MoreDropdownWidget(
-                            item: detailsItemRecord,
-                          ),
-                        );
-                      },
-                    ).then((value) => setState(() {}));
-                  },
-                  child: Hero(
-                    tag: valueOrDefault<String>(
+                    ),
+                  );
+                },
+                child: Hero(
+                  tag: valueOrDefault<String>(
+                    detailsItemRecord.mainImage,
+                    'https://www.connectio.com.au/grateful/loading.png',
+                  ),
+                  transitionOnUserGestures: true,
+                  child: CachedNetworkImage(
+                    imageUrl: valueOrDefault<String>(
                       detailsItemRecord.mainImage,
                       'https://www.connectio.com.au/grateful/loading.png',
                     ),
-                    transitionOnUserGestures: true,
-                    child: CachedNetworkImage(
-                      imageUrl: valueOrDefault<String>(
-                        detailsItemRecord.mainImage,
-                        'https://www.connectio.com.au/grateful/loading.png',
-                      ),
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      height: MediaQuery.of(context).size.height * 1.0,
-                      fit: BoxFit.cover,
-                    ),
+                    width: MediaQuery.of(context).size.width * 1.0,
+                    height: MediaQuery.of(context).size.height * 1.0,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -294,11 +271,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                               'DETAILS_more_vert_rounded_ICN_ON_TAP');
                           logFirebaseEvent('IconButton_alert_dialog');
                           showAlignedDialog(
-                            barrierColor: Color(0x7F000000),
                             context: context,
                             isGlobal: false,
                             avoidOverflow: true,
-                            targetAnchor: AlignmentDirectional(1.0, -1.0)
+                            targetAnchor: AlignmentDirectional(0.0, 0.0)
                                 .resolve(Directionality.of(context)),
                             followerAnchor: AlignmentDirectional(0.0, 0.0)
                                 .resolve(Directionality.of(context)),
@@ -387,9 +363,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .displaySmall
                                             .override(
-                                              fontFamily: 'Roboto Condensed',
+                                              fontFamily: 'Aldo',
                                               color: widget.primary,
                                               fontSize: 45.0,
+                                              useGoogleFonts: false,
                                             ),
                                       ),
                                     ),
@@ -414,11 +391,13 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                fontFamily: 'Roboto Condensed',
+                                                fontFamily: 'Aldo',
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 fontSize: 20.0,
+                                                fontWeight: FontWeight.normal,
+                                                useGoogleFonts: false,
                                               ),
                                         ),
                                       ),
@@ -647,7 +626,9 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                   model: _model.navBarModel,
                   updateCallback: () => setState(() {}),
                   updateOnChange: true,
-                  child: NavBarWidget(),
+                  child: NavBarWidget(
+                    activePage: 'Entries',
+                  ),
                 ),
               ),
             ],

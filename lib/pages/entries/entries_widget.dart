@@ -901,8 +901,9 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .headlineSmall
                                                                             .override(
-                                                                              fontFamily: 'Roboto Condensed',
+                                                                              fontFamily: 'Aldo',
                                                                               letterSpacing: 0.0,
+                                                                              useGoogleFonts: false,
                                                                             ),
                                                                       ),
                                                                     ],
@@ -1399,7 +1400,9 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                         model: _model.navBarModel,
                         updateCallback: () => setState(() {}),
                         updateOnChange: true,
-                        child: NavBarWidget(),
+                        child: NavBarWidget(
+                          activePage: 'Entries',
+                        ),
                       ),
                     ),
                   ],

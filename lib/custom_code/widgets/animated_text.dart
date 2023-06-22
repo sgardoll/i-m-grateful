@@ -20,6 +20,7 @@ class AnimatedText extends StatefulWidget {
     this.text,
     this.fontSize = 32.0,
     this.colour = Colors.white,
+    this.fontFamily = 'OxfordStreet',
   }) : super(key: key);
 
   final double? width;
@@ -27,6 +28,7 @@ class AnimatedText extends StatefulWidget {
   final String? text;
   final double fontSize;
   final Color colour;
+  final String fontFamily;
 
   @override
   _AnimatedTextState createState() => _AnimatedTextState();
@@ -41,7 +43,7 @@ class _AnimatedTextState extends State<AnimatedText> {
         child: TyperAnimatedTextKit(
           text: [widget.text ?? ''],
           textStyle: TextStyle(
-            fontFamily: 'Roboto Condensed',
+            fontFamily: widget.fontFamily,
             letterSpacing: 0.0,
             color: widget.colour,
             fontSize: widget.fontSize,

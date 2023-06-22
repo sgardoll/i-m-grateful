@@ -866,7 +866,9 @@ class _SettingsWidgetState extends State<SettingsWidget>
               model: _model.navBarModel,
               updateCallback: () => setState(() {}),
               updateOnChange: true,
-              child: NavBarWidget(),
+              child: NavBarWidget(
+                activePage: 'Settings',
+              ),
             ),
           ),
         ],

@@ -284,7 +284,9 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                     model: _model.navBarModel,
                     updateCallback: () => setState(() {}),
                     updateOnChange: true,
-                    child: NavBarWidget(),
+                    child: NavBarWidget(
+                      activePage: 'Home',
+                    ),
                   ),
                 ],
               ),

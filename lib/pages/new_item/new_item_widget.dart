@@ -498,7 +498,8 @@ class _NewItemWidgetState extends State<NewItemWidget> {
                                 .titleSmall
                                 .override(
                                   fontFamily: 'Outfit',
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: FFAppState().primary,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ),

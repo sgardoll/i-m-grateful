@@ -11,7 +11,12 @@ import 'nav_bar_model.dart';
 export 'nav_bar_model.dart';
 
 class NavBarWidget extends StatefulWidget {
-  const NavBarWidget({Key? key}) : super(key: key);
+  const NavBarWidget({
+    Key? key,
+    this.activePage,
+  }) : super(key: key);
+
+  final String? activePage;
 
   @override
   _NavBarWidgetState createState() => _NavBarWidgetState();
@@ -105,40 +110,54 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Flexible(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 30.0, 0.0, 0.0),
-                                child: FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 50.0,
-                                  icon: Icon(
-                                    Icons.home_rounded,
-                                    color: valueOrDefault<Color>(
-                                      FFAppState().contrasting,
-                                      FlutterFlowTheme.of(context).secondary,
-                                    ),
-                                    size: 24.0,
-                                  ),
-                                  onPressed: () async {
-                                    logFirebaseEvent(
-                                        'NAV_BAR_COMP_home_rounded_ICN_ON_TAP');
-                                    logFirebaseEvent('IconButton_navigate_to');
-
-                                    context.pushNamed(
-                                      'Items',
-                                      extra: <String, dynamic>{
-                                        kTransitionInfoKey: TransitionInfo(
-                                          hasTransition: true,
-                                          transitionType:
-                                              PageTransitionType.fade,
-                                        ),
-                                      },
-                                    );
-                                  },
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 30.0, 0.0, 0.0),
+                              child: FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 30.0,
+                                borderWidth: 1.0,
+                                buttonSize: 50.0,
+                                fillColor: valueOrDefault<Color>(
+                                  widget.activePage == 'Home'
+                                      ? Color(0x4C616161)
+                                      : Colors.transparent,
+                                  Colors.transparent,
                                 ),
+                                hoverColor: Color(0x4C616161),
+                                hoverIconColor: valueOrDefault<Color>(
+                                  widget.activePage == 'Home'
+                                      ? FFAppState().lightVibrant
+                                      : FFAppState().darkVibrant,
+                                  FlutterFlowTheme.of(context).accent3,
+                                ),
+                                icon: Icon(
+                                  Icons.home_rounded,
+                                  color: valueOrDefault<Color>(
+                                    widget.activePage == 'Home'
+                                        ? FlutterFlowTheme.of(context)
+                                            .secondaryBackground
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
+                                    FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                  size: 24.0,
+                                ),
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'NAV_BAR_COMP_home_rounded_ICN_ON_TAP');
+                                  logFirebaseEvent('IconButton_navigate_to');
+
+                                  context.pushNamed(
+                                    'Items',
+                                    extra: <String, dynamic>{
+                                      kTransitionInfoKey: TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType: PageTransitionType.fade,
+                                      ),
+                                    },
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -150,40 +169,54 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Flexible(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 30.0, 0.0, 0.0),
-                                child: FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 50.0,
-                                  icon: Icon(
-                                    Icons.table_rows_rounded,
-                                    color: valueOrDefault<Color>(
-                                      FFAppState().contrasting,
-                                      FlutterFlowTheme.of(context).secondary,
-                                    ),
-                                    size: 24.0,
-                                  ),
-                                  onPressed: () async {
-                                    logFirebaseEvent(
-                                        'NAV_BAR_table_rows_rounded_ICN_ON_TAP');
-                                    logFirebaseEvent('IconButton_navigate_to');
-
-                                    context.pushNamed(
-                                      'Entries',
-                                      extra: <String, dynamic>{
-                                        kTransitionInfoKey: TransitionInfo(
-                                          hasTransition: true,
-                                          transitionType:
-                                              PageTransitionType.fade,
-                                        ),
-                                      },
-                                    );
-                                  },
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 30.0, 0.0, 0.0),
+                              child: FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 30.0,
+                                borderWidth: 1.0,
+                                buttonSize: 50.0,
+                                fillColor: valueOrDefault<Color>(
+                                  widget.activePage == 'Entries'
+                                      ? Color(0x4C616161)
+                                      : Colors.transparent,
+                                  Colors.transparent,
                                 ),
+                                hoverColor: Color(0x4C616161),
+                                hoverIconColor: valueOrDefault<Color>(
+                                  widget.activePage == 'Entries'
+                                      ? FFAppState().lightVibrant
+                                      : FFAppState().darkVibrant,
+                                  FlutterFlowTheme.of(context).accent3,
+                                ),
+                                icon: Icon(
+                                  Icons.table_rows_rounded,
+                                  color: valueOrDefault<Color>(
+                                    widget.activePage == 'Entries'
+                                        ? FlutterFlowTheme.of(context)
+                                            .secondaryBackground
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
+                                    FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                  size: 24.0,
+                                ),
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'NAV_BAR_table_rows_rounded_ICN_ON_TAP');
+                                  logFirebaseEvent('IconButton_navigate_to');
+
+                                  context.pushNamed(
+                                    'Entries',
+                                    extra: <String, dynamic>{
+                                      kTransitionInfoKey: TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType: PageTransitionType.fade,
+                                      ),
+                                    },
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -206,6 +239,15 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 fillColor: valueOrDefault<Color>(
                                   FFAppState().contrasting,
                                   FlutterFlowTheme.of(context).primary,
+                                ),
+                                hoverColor: valueOrDefault<Color>(
+                                  FFAppState().darkVibrant,
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
+                                hoverIconColor: valueOrDefault<Color>(
+                                  FFAppState().lightVibrant,
+                                  FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                 ),
                                 icon: Icon(
                                   Icons.add,
@@ -248,10 +290,27 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 borderRadius: 30.0,
                                 borderWidth: 1.0,
                                 buttonSize: 50.0,
+                                fillColor: valueOrDefault<Color>(
+                                  widget.activePage == 'Explore'
+                                      ? Color(0x4C616161)
+                                      : Colors.transparent,
+                                  Colors.transparent,
+                                ),
+                                hoverColor: Color(0x4C616161),
+                                hoverIconColor: valueOrDefault<Color>(
+                                  widget.activePage == 'Explore'
+                                      ? FFAppState().lightVibrant
+                                      : FFAppState().darkVibrant,
+                                  FlutterFlowTheme.of(context).accent3,
+                                ),
                                 icon: Icon(
                                   Icons.image_search_rounded,
                                   color: valueOrDefault<Color>(
-                                    FFAppState().contrasting,
+                                    widget.activePage == 'Explore'
+                                        ? FlutterFlowTheme.of(context)
+                                            .secondaryBackground
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
                                     FlutterFlowTheme.of(context).secondary,
                                   ),
                                   size: 24.0,
@@ -259,10 +318,6 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 onPressed: () async {
                                   logFirebaseEvent(
                                       'NAV_BAR_COMP_Explore_ON_TAP');
-                                  logFirebaseEvent('Explore_navigate_to');
-
-                                  context.pushNamed('Explore');
-
                                   logFirebaseEvent('Explore_revenue_cat');
                                   final isEntitled =
                                       await revenue_cat.isEntitled('Unlimited');
@@ -275,7 +330,16 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                   if (isEntitled) {
                                     logFirebaseEvent('Explore_navigate_to');
 
-                                    context.pushNamed('Explore');
+                                    context.pushNamed(
+                                      'Explore',
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.fade,
+                                        ),
+                                      },
+                                    );
                                   } else {
                                     logFirebaseEvent('Explore_bottom_sheet');
                                     await showModalBottomSheet(
@@ -301,7 +365,16 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                       Navigator.pop(context);
                                       logFirebaseEvent('Explore_navigate_to');
 
-                                      context.pushNamed('Explore');
+                                      context.pushNamed(
+                                        'Explore',
+                                        extra: <String, dynamic>{
+                                          kTransitionInfoKey: TransitionInfo(
+                                            hasTransition: true,
+                                            transitionType:
+                                                PageTransitionType.fade,
+                                          ),
+                                        },
+                                      );
                                     }
                                   }
 
@@ -326,10 +399,27 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 borderRadius: 30.0,
                                 borderWidth: 1.0,
                                 buttonSize: 50.0,
+                                fillColor: valueOrDefault<Color>(
+                                  widget.activePage == 'Settings'
+                                      ? Color(0x4C616161)
+                                      : Colors.transparent,
+                                  Colors.transparent,
+                                ),
+                                hoverColor: Color(0x4C616161),
+                                hoverIconColor: valueOrDefault<Color>(
+                                  widget.activePage == 'Settings'
+                                      ? FFAppState().lightVibrant
+                                      : FFAppState().darkVibrant,
+                                  FlutterFlowTheme.of(context).accent3,
+                                ),
                                 icon: Icon(
                                   Icons.settings_rounded,
                                   color: valueOrDefault<Color>(
-                                    FFAppState().contrasting,
+                                    widget.activePage == 'Settings'
+                                        ? FlutterFlowTheme.of(context)
+                                            .secondaryBackground
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
                                     FlutterFlowTheme.of(context).secondary,
                                   ),
                                   size: 24.0,
