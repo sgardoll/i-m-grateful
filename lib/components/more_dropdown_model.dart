@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/feedback_dropdown/feedback_dropdown_widget.dart';
 import '/components/image_selfie_widget.dart';
 import '/components/location_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -19,30 +20,10 @@ class MoreDropdownModel extends FlutterFlowModel {
 
   String? itemText;
 
-  String? hoverOverColor;
-
   ///  State fields for stateful widgets in this component.
 
-  // State field(s) for MouseRegion widget.
-  bool mouseRegionHovered1 = false;
-  // State field(s) for MouseRegion widget.
-  bool mouseRegionHovered2 = false;
   // Stores action output result for [Backend Call - Create Document] action in regenerate widget.
   FeedbackRecord? addRegenerateAsFeedback;
-  // State field(s) for MouseRegion widget.
-  bool mouseRegionHovered3 = false;
-  // State field(s) for MouseRegion widget.
-  bool mouseRegionHovered4 = false;
-  // State field(s) for MouseRegion widget.
-  bool mouseRegionHovered5 = false;
-  // State field(s) for MouseRegion widget.
-  bool mouseRegionHovered6 = false;
-  // State field(s) for MouseRegion widget.
-  bool mouseRegionHovered7 = false;
-  // State field(s) for MouseRegion widget.
-  bool mouseRegionHovered8 = false;
-  // State field(s) for MouseRegion widget.
-  bool mouseRegionHovered9 = false;
 
   /// Initialization and disposal methods.
 
