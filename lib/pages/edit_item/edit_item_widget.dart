@@ -580,7 +580,11 @@ class _EditItemWidgetState extends State<EditItemWidget> {
                                       children: [
                                         TextSpan(
                                           text: dateTimeFormat(
-                                              'MMMEd', _model.timestamp),
+                                            'MMMEd',
+                                            _model.timestamp,
+                                            locale: FFLocalizations.of(context)
+                                                .languageCode,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -601,7 +605,11 @@ class _EditItemWidgetState extends State<EditItemWidget> {
                                         ),
                                         TextSpan(
                                           text: dateTimeFormat(
-                                              'jm', _model.timestamp),
+                                            'jm',
+                                            _model.timestamp,
+                                            locale: FFLocalizations.of(context)
+                                                .languageCode,
+                                          ),
                                           style: GoogleFonts.getFont(
                                             'Outfit',
                                             color: FlutterFlowTheme.of(context)
@@ -747,7 +755,8 @@ class _EditItemWidgetState extends State<EditItemWidget> {
                             if ((_model.itemTextClean?.succeeded ?? true)) {
                               logFirebaseEvent('Button_backend_call');
 
-                              final itemUpdateData = createItemRecordData(
+                              await editItemItemRecord.reference
+                                  .update(createItemRecordData(
                                 location: _model.addLocation,
                                 timestamp: _model.datePicked,
                                 uploadedImages: updateUploadedImageUrlsStruct(
@@ -757,9 +766,7 @@ class _EditItemWidgetState extends State<EditItemWidget> {
                                 itemText: editItemItemRecord.itemText,
                                 style: valueOrDefault(
                                     currentUserDocument?.style, ''),
-                              );
-                              await editItemItemRecord.reference
-                                  .update(itemUpdateData);
+                              ));
                             } else {
                               logFirebaseEvent('Button_show_snack_bar');
                               ScaffoldMessenger.of(context).showSnackBar(

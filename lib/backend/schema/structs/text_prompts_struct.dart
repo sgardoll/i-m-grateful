@@ -105,10 +105,13 @@ TextPromptsStruct createTextPromptsStruct({
 TextPromptsStruct? updateTextPromptsStruct(
   TextPromptsStruct? textPrompts, {
   bool clearUnsetFields = true,
+  bool create = false,
 }) =>
     textPrompts
-      ?..firestoreUtilData =
-          FirestoreUtilData(clearUnsetFields: clearUnsetFields);
+      ?..firestoreUtilData = FirestoreUtilData(
+        clearUnsetFields: clearUnsetFields,
+        create: create,
+      );
 
 void addTextPromptsStructData(
   Map<String, dynamic> firestoreData,

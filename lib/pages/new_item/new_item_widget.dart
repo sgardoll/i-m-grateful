@@ -1,13 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/components/art_style_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/pages/pages_sub/upload_photo/upload_photo_widget.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/foundation.dart';
@@ -46,8 +45,6 @@ class _NewItemWidgetState extends State<NewItemWidget> {
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       logFirebaseEvent('NewItem_update_widget_state');
       setState(() {
-        _model.addPhoto = false;
-        _model.addMore = false;
         _model.timestamp = getCurrentTimestamp;
       });
       if (currentUserDocument!.settings.locationEnabledByDefault) {
@@ -79,67 +76,43 @@ class _NewItemWidgetState extends State<NewItemWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width * 1.0,
-              decoration: BoxDecoration(
-                color: valueOrDefault<Color>(
-                  FFAppState().primary,
-                  FlutterFlowTheme.of(context).primaryText,
-                ),
-                borderRadius: BorderRadius.circular(0.0),
-              ),
-              child: Column(
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
+              child: Row(
                 mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 48.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 8.0, 16.0),
                     child: Text(
-                      'I\'M',
+                      'I\'M GRATEFUL',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Raleway',
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color: valueOrDefault<Color>(
+                              FFAppState().primary,
+                              FlutterFlowTheme.of(context).primaryText,
+                            ),
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                    child: Text(
+                      'FOR...',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Raleway',
+                            color: valueOrDefault<Color>(
+                              FFAppState().lightVibrant,
+                              FlutterFlowTheme.of(context).primaryText,
+                            ),
                             fontSize: 24.0,
                             fontWeight: FontWeight.normal,
                           ),
                     ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 8.0, 24.0),
-                        child: Text(
-                          'GRATEFUL',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Raleway',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    fontSize: 30.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 20.0),
-                        child: Text(
-                          'FOR...',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Raleway',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
@@ -165,7 +138,7 @@ class _NewItemWidgetState extends State<NewItemWidget> {
                           Expanded(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 8.0),
+                                  0.0, 0.0, 0.0, 16.0),
                               child: TextFormField(
                                 controller: _model.itemTextController,
                                 onChanged: (_) => EasyDebounce.debounce(
@@ -230,7 +203,7 @@ class _NewItemWidgetState extends State<NewItemWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                     ),
-                                maxLines: 5,
+                                maxLines: 3,
                                 validator: _model.itemTextControllerValidator
                                     .asValidator(context),
                               ),
@@ -241,412 +214,614 @@ class _NewItemWidgetState extends State<NewItemWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    8.0, 0.0, 16.0, 0.0),
-                                child: Text(
-                                  'Add images, location or change style',
-                                  textAlign: TextAlign.start,
-                                  maxLines: 6,
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Outfit',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                      ),
-                                ),
-                              ),
-                            ),
-                            if (!(_model.addPhoto! ||
-                                (_model.uploadPhotoBottomSheet != null)))
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30.0,
-                                borderWidth: 1.0,
-                                buttonSize: 50.0,
-                                fillColor: FlutterFlowTheme.of(context)
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        if (valueOrDefault<bool>(
+                          _model.uploadedFileUrl1 == null ||
+                              _model.uploadedFileUrl1 == '',
+                          true,
+                        ))
+                          FFButtonWidget(
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'NEW_ITEM_PAGE_IMAGE_BTN_ON_TAP');
+                              logFirebaseEvent(
+                                  'Button_upload_media_to_firebase');
+                              final selectedMedia =
+                                  await selectMediaWithSourceBottomSheet(
+                                context: context,
+                                maxWidth: 512.00,
+                                imageQuality: 90,
+                                allowPhoto: true,
+                                backgroundColor: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                icon: Icon(
-                                  Icons.add_photo_alternate_outlined,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
-                                ),
-                                onPressed: () async {
-                                  logFirebaseEvent(
-                                      'NEW_ITEM_add_photo_alternate_outlined_IC');
-                                  logFirebaseEvent('IconButton_bottom_sheet');
-                                  await showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    isDismissible: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return Padding(
-                                        padding:
-                                            MediaQuery.of(context).viewInsets,
-                                        child: UploadPhotoWidget(),
-                                      );
-                                    },
-                                  ).then((value) => setState(() =>
-                                      _model.uploadPhotoBottomSheet = value));
+                                textColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                pickerFontFamily: 'Outfit',
+                              );
+                              if (selectedMedia != null &&
+                                  selectedMedia.every((m) => validateFileFormat(
+                                      m.storagePath, context))) {
+                                setState(() => _model.isDataUploading1 = true);
+                                var selectedUploadedFiles = <FFUploadedFile>[];
+                                var downloadUrls = <String>[];
+                                try {
+                                  showUploadMessage(
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
+                                  selectedUploadedFiles = selectedMedia
+                                      .map((m) => FFUploadedFile(
+                                            name: m.storagePath.split('/').last,
+                                            bytes: m.bytes,
+                                            height: m.dimensions?.height,
+                                            width: m.dimensions?.width,
+                                            blurHash: m.blurHash,
+                                          ))
+                                      .toList();
 
-                                  setState(() {});
-                                },
-                              ),
-                            if (_model.addPhoto! ||
-                                (_model.uploadPhotoBottomSheet != null))
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 8.0),
-                                child: FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 50.0,
-                                  fillColor: FFAppState().primary,
-                                  icon: Icon(
-                                    Icons.image_rounded,
-                                    color: valueOrDefault<Color>(
-                                      FFAppState().contrasting,
-                                      FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                  downloadUrls = (await Future.wait(
+                                    selectedMedia.map(
+                                      (m) async => await uploadData(
+                                          m.storagePath, m.bytes),
                                     ),
-                                    size: 24.0,
-                                  ),
-                                  onPressed: () async {
-                                    logFirebaseEvent(
-                                        'NEW_ITEM_PAGE_image_rounded_ICN_ON_TAP');
-                                    logFirebaseEvent('IconButton_bottom_sheet');
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      isDismissible: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.of(context).viewInsets,
-                                          child: UploadPhotoWidget(),
-                                        );
-                                      },
-                                    ).then((value) => setState(() =>
-                                        _model.removePhotoBottomSheet = value));
-
-                                    setState(() {});
-                                  },
-                                ),
-                              ),
-                            if (valueOrDefault<bool>(
-                              _model.addLocation == null,
-                              true,
-                            ))
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30.0,
-                                borderWidth: 1.0,
-                                buttonSize: 50.0,
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                icon: Icon(
-                                  Icons.add_location_alt_outlined,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
-                                ),
-                                onPressed: () async {
-                                  logFirebaseEvent(
-                                      'NEW_ITEM_add_location_alt_outlined_ICN_O');
-                                  currentUserLocationValue =
-                                      await getCurrentUserLocation(
-                                          defaultLocation: LatLng(0.0, 0.0));
-                                  logFirebaseEvent(
-                                      'IconButton_update_widget_state');
+                                  ))
+                                      .where((u) => u != null)
+                                      .map((u) => u!)
+                                      .toList();
+                                } finally {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  _model.isDataUploading1 = false;
+                                }
+                                if (selectedUploadedFiles.length ==
+                                        selectedMedia.length &&
+                                    downloadUrls.length ==
+                                        selectedMedia.length) {
                                   setState(() {
-                                    _model.addLocation =
-                                        currentUserLocationValue;
+                                    _model.uploadedLocalFile1 =
+                                        selectedUploadedFiles.first;
+                                    _model.uploadedFileUrl1 =
+                                        downloadUrls.first;
                                   });
-                                },
-                              ),
-                            if (valueOrDefault<bool>(
-                              _model.addLocation != null,
-                              false,
-                            ))
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 8.0),
-                                child: FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 50.0,
-                                  fillColor: valueOrDefault<Color>(
-                                    FFAppState().primary,
-                                    FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
-                                  icon: Icon(
-                                    Icons.wrong_location,
-                                    color: valueOrDefault<Color>(
-                                      FFAppState().contrasting,
-                                      FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                    ),
-                                    size: 24.0,
-                                  ),
-                                  onPressed: () async {
-                                    logFirebaseEvent(
-                                        'NEW_ITEM_PAGE_wrong_location_ICN_ON_TAP');
-                                    logFirebaseEvent(
-                                        'IconButton_update_widget_state');
-                                    setState(() {
-                                      _model.addLocation = null;
-                                    });
-                                  },
-                                ),
-                              ),
-                            FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 30.0,
-                              borderWidth: 1.0,
-                              buttonSize: 50.0,
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                              icon: Icon(
-                                Icons.format_paint_rounded,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 24.0,
-                              ),
-                              onPressed: () async {
-                                logFirebaseEvent(
-                                    'NEW_ITEM_format_paint_rounded_ICN_ON_TAP');
-                                logFirebaseEvent('IconButton_bottom_sheet');
-                                showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (context) {
-                                    return Padding(
-                                      padding:
-                                          MediaQuery.of(context).viewInsets,
-                                      child: Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.85,
-                                        child: ArtStyleWidget(),
-                                      ),
-                                    );
-                                  },
-                                ).then((value) => setState(() {}));
-                              },
+                                  showUploadMessage(context, 'Success!');
+                                } else {
+                                  setState(() {});
+                                  showUploadMessage(
+                                      context, 'Failed to upload data');
+                                  return;
+                                }
+                              }
+                            },
+                            text: 'Image',
+                            icon: Icon(
+                              Icons.add_photo_alternate,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 15.0,
                             ),
-                          ],
-                        ),
-                      ),
+                            options: FFButtonOptions(
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 12.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                              elevation: 2.0,
+                              borderSide: BorderSide(
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                        if (valueOrDefault<bool>(
+                          _model.uploadedFileUrl1 != null &&
+                              _model.uploadedFileUrl1 != '',
+                          false,
+                        ))
+                          FFButtonWidget(
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'NEW_ITEM_PAGE_IMAGE_BTN_ON_TAP');
+                              logFirebaseEvent('Button_clear_uploaded_data');
+                              setState(() {
+                                _model.isDataUploading1 = false;
+                                _model.uploadedLocalFile1 = FFUploadedFile(
+                                    bytes: Uint8List.fromList([]));
+                                _model.uploadedFileUrl1 = '';
+                              });
+                            },
+                            text: 'Image',
+                            icon: Icon(
+                              Icons.hide_image_outlined,
+                              color: FlutterFlowTheme.of(context).tertiary,
+                              size: 15.0,
+                            ),
+                            options: FFButtonOptions(
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 12.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: valueOrDefault<Color>(
+                                FFAppState().primary,
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                              elevation: 2.0,
+                              borderSide: BorderSide(
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                        if (valueOrDefault<bool>(
+                          _model.uploadedFileUrl2 == null ||
+                              _model.uploadedFileUrl2 == '',
+                          true,
+                        ))
+                          FFButtonWidget(
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'NEW_ITEM_PAGE_SELFIE_BTN_ON_TAP');
+                              logFirebaseEvent(
+                                  'Button_upload_media_to_firebase');
+                              final selectedMedia = await selectMedia(
+                                maxWidth: 512.00,
+                                imageQuality: 90,
+                                multiImage: false,
+                              );
+                              if (selectedMedia != null &&
+                                  selectedMedia.every((m) => validateFileFormat(
+                                      m.storagePath, context))) {
+                                setState(() => _model.isDataUploading2 = true);
+                                var selectedUploadedFiles = <FFUploadedFile>[];
+                                var downloadUrls = <String>[];
+                                try {
+                                  showUploadMessage(
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
+                                  selectedUploadedFiles = selectedMedia
+                                      .map((m) => FFUploadedFile(
+                                            name: m.storagePath.split('/').last,
+                                            bytes: m.bytes,
+                                            height: m.dimensions?.height,
+                                            width: m.dimensions?.width,
+                                            blurHash: m.blurHash,
+                                          ))
+                                      .toList();
+
+                                  downloadUrls = (await Future.wait(
+                                    selectedMedia.map(
+                                      (m) async => await uploadData(
+                                          m.storagePath, m.bytes),
+                                    ),
+                                  ))
+                                      .where((u) => u != null)
+                                      .map((u) => u!)
+                                      .toList();
+                                } finally {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  _model.isDataUploading2 = false;
+                                }
+                                if (selectedUploadedFiles.length ==
+                                        selectedMedia.length &&
+                                    downloadUrls.length ==
+                                        selectedMedia.length) {
+                                  setState(() {
+                                    _model.uploadedLocalFile2 =
+                                        selectedUploadedFiles.first;
+                                    _model.uploadedFileUrl2 =
+                                        downloadUrls.first;
+                                  });
+                                  showUploadMessage(context, 'Success!');
+                                } else {
+                                  setState(() {});
+                                  showUploadMessage(
+                                      context, 'Failed to upload data');
+                                  return;
+                                }
+                              }
+                            },
+                            text: 'Selfie',
+                            icon: Icon(
+                              Icons.add_reaction,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 15.0,
+                            ),
+                            options: FFButtonOptions(
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 12.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                              elevation: 2.0,
+                              borderSide: BorderSide(
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                        if (valueOrDefault<bool>(
+                          _model.uploadedFileUrl2 != null &&
+                              _model.uploadedFileUrl2 != '',
+                          false,
+                        ))
+                          FFButtonWidget(
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'NEW_ITEM_PAGE_SELFIE_BTN_ON_TAP');
+                              logFirebaseEvent('Button_clear_uploaded_data');
+                              setState(() {
+                                _model.isDataUploading2 = false;
+                                _model.uploadedLocalFile2 = FFUploadedFile(
+                                    bytes: Uint8List.fromList([]));
+                                _model.uploadedFileUrl2 = '';
+                              });
+                            },
+                            text: 'Selfie',
+                            icon: Icon(
+                              Icons.face_retouching_off_rounded,
+                              color: FlutterFlowTheme.of(context).tertiary,
+                              size: 15.0,
+                            ),
+                            options: FFButtonOptions(
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 12.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: valueOrDefault<Color>(
+                                FFAppState().primary,
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                              elevation: 2.0,
+                              borderSide: BorderSide(
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                        if (valueOrDefault<bool>(
+                          _model.addLocation == null,
+                          true,
+                        ))
+                          FFButtonWidget(
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'NEW_ITEM_PAGE_LOCATION_BTN_ON_TAP');
+                              currentUserLocationValue =
+                                  await getCurrentUserLocation(
+                                      defaultLocation: LatLng(0.0, 0.0));
+                              logFirebaseEvent('Button_update_widget_state');
+                              setState(() {
+                                _model.addLocation = currentUserLocationValue;
+                              });
+                            },
+                            text: 'Location',
+                            icon: Icon(
+                              Icons.add_location,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 15.0,
+                            ),
+                            options: FFButtonOptions(
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 12.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                              elevation: 2.0,
+                              borderSide: BorderSide(
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                        if (valueOrDefault<bool>(
+                          _model.addLocation != null,
+                          false,
+                        ))
+                          FFButtonWidget(
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'NEW_ITEM_PAGE_LOCATION_BTN_ON_TAP');
+                              logFirebaseEvent('Button_update_widget_state');
+                              setState(() {
+                                _model.addLocation = null;
+                              });
+                            },
+                            text: 'Location',
+                            icon: Icon(
+                              Icons.location_off_rounded,
+                              color: FlutterFlowTheme.of(context).tertiary,
+                              size: 15.0,
+                            ),
+                            options: FFButtonOptions(
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 12.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: valueOrDefault<Color>(
+                                FFAppState().primary,
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                              elevation: 2.0,
+                              borderSide: BorderSide(
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 16.0, 0.0),
-                    child: Text(
-                      'Your entry will use the style: ',
-                      textAlign: TextAlign.start,
-                      maxLines: 6,
-                      style: FlutterFlowTheme.of(context).titleSmall.override(
-                            fontFamily: 'Outfit',
-                            color: FlutterFlowTheme.of(context).secondaryText,
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                        child: Text(
+                          'Current style: ',
+                          textAlign: TextAlign.start,
+                          maxLines: 6,
+                          style: FlutterFlowTheme.of(context)
+                              .titleSmall
+                              .override(
+                                fontFamily: 'Outfit',
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(-1.0, 0.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 8.0, 0.0),
+                          child: AuthUserStreamWidget(
+                            builder: (context) => Text(
+                              valueOrDefault(currentUserDocument?.style, ''),
+                              textAlign: TextAlign.start,
+                              maxLines: 3,
+                              style: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: FFAppState().primary,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
                           ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent('NEW_ITEM_PAGE_CHANGE_STYLE_BTN_ON_TAP');
+                      logFirebaseEvent('Button_bottom_sheet');
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) {
+                          return Padding(
+                            padding: MediaQuery.of(context).viewInsets,
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.85,
+                              child: ArtStyleWidget(),
+                            ),
+                          );
+                        },
+                      ).then((value) => setState(() {}));
+                    },
+                    text: 'Change Style',
+                    icon: Icon(
+                      Icons.format_paint_rounded,
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      size: 15.0,
+                    ),
+                    options: FFButtonOptions(
+                      height: 40.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Outfit',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                      elevation: 2.0,
+                      borderSide: BorderSide(
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(25.0),
                     ),
                   ),
-                  Flexible(
-                    child: Align(
-                      alignment: AlignmentDirectional(-1.0, 0.0),
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 16.0, 0.0),
-                        child: AuthUserStreamWidget(
-                          builder: (context) => Text(
-                            valueOrDefault(currentUserDocument?.style, ''),
-                            textAlign: TextAlign.start,
-                            maxLines: 3,
+                ],
+              ),
+            ),
+            Align(
+              alignment: AlignmentDirectional(-1.0, 0.0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                      child: Icon(
+                        Icons.today_rounded,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 24.0,
+                      ),
+                    ),
+                    Flexible(
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          logFirebaseEvent(
+                              'NEW_ITEM_PAGE_RichText_ithmyr2s_ON_TAP');
+                          logFirebaseEvent('RichText_date_time_picker');
+                          final _datePickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: _model.timestamp!,
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(2050),
+                          );
+
+                          TimeOfDay? _datePickedTime;
+                          if (_datePickedDate != null) {
+                            _datePickedTime = await showTimePicker(
+                              context: context,
+                              initialTime:
+                                  TimeOfDay.fromDateTime(_model.timestamp!),
+                            );
+                          }
+
+                          if (_datePickedDate != null &&
+                              _datePickedTime != null) {
+                            setState(() {
+                              _model.datePicked = DateTime(
+                                _datePickedDate.year,
+                                _datePickedDate.month,
+                                _datePickedDate.day,
+                                _datePickedTime!.hour,
+                                _datePickedTime.minute,
+                              );
+                            });
+                          }
+                          logFirebaseEvent('RichText_update_widget_state');
+                          setState(() {
+                            _model.timestamp = _model.datePicked;
+                          });
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: dateTimeFormat(
+                                  'MMMEd',
+                                  _model.timestamp,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                              TextSpan(
+                                text: ', ',
+                                style: GoogleFonts.getFont(
+                                  'Outfit',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              TextSpan(
+                                text: dateTimeFormat(
+                                  'jm',
+                                  _model.timestamp,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
+                                style: GoogleFonts.getFont(
+                                  'Outfit',
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 11.0,
+                                ),
+                              )
+                            ],
                             style: FlutterFlowTheme.of(context)
-                                .titleSmall
+                                .bodyMedium
                                 .override(
                                   fontFamily: 'Outfit',
-                                  color: FFAppState().primary,
-                                  fontWeight: FontWeight.w500,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                 ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.92,
-                      height: 50.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                          width: 1.0,
-                        ),
-                      ),
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 16.0, 0.0),
-                              child: Icon(
-                                Icons.today_rounded,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 24.0,
-                              ),
-                            ),
-                            Expanded(
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: dateTimeFormat(
-                                          'MMMEd', _model.timestamp),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                    TextSpan(
-                                      text: ', ',
-                                      style: GoogleFonts.getFont(
-                                        'Outfit',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: dateTimeFormat(
-                                          'jm', _model.timestamp),
-                                      style: GoogleFonts.getFont(
-                                        'Outfit',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 11.0,
-                                      ),
-                                    )
-                                  ],
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Outfit',
-                                        color: Color(0x7F555555),
-                                      ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 0.0, 8.0, 0.0),
-                              child: FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30.0,
-                                borderWidth: 1.0,
-                                buttonSize: 50.0,
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                icon: Icon(
-                                  Icons.mode_edit,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
-                                ),
-                                onPressed: () async {
-                                  logFirebaseEvent(
-                                      'NEW_ITEM_PAGE_mode_edit_ICN_ON_TAP');
-                                  logFirebaseEvent(
-                                      'IconButton_date_time_picker');
-                                  final _datePickedDate = await showDatePicker(
-                                    context: context,
-                                    initialDate: _model.timestamp!,
-                                    firstDate: DateTime(1900),
-                                    lastDate: DateTime(2050),
-                                  );
-
-                                  TimeOfDay? _datePickedTime;
-                                  if (_datePickedDate != null) {
-                                    _datePickedTime = await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.fromDateTime(
-                                          _model.timestamp!),
-                                    );
-                                  }
-
-                                  if (_datePickedDate != null &&
-                                      _datePickedTime != null) {
-                                    setState(() {
-                                      _model.datePicked = DateTime(
-                                        _datePickedDate.year,
-                                        _datePickedDate.month,
-                                        _datePickedDate.day,
-                                        _datePickedTime!.hour,
-                                        _datePickedTime.minute,
-                                      );
-                                    });
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -661,6 +836,22 @@ class _NewItemWidgetState extends State<NewItemWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent('NEW_ITEM_PAGE_CANCEL_BTN_ON_TAP');
+                        logFirebaseEvent('Button_clear_uploaded_data');
+                        setState(() {
+                          _model.isDataUploading1 = false;
+                          _model.uploadedLocalFile1 =
+                              FFUploadedFile(bytes: Uint8List.fromList([]));
+                          _model.uploadedFileUrl1 = '';
+                        });
+
+                        logFirebaseEvent('Button_clear_uploaded_data');
+                        setState(() {
+                          _model.isDataUploading2 = false;
+                          _model.uploadedLocalFile2 =
+                              FFUploadedFile(bytes: Uint8List.fromList([]));
+                          _model.uploadedFileUrl2 = '';
+                        });
+
                         // TODO: Delete any Firebase item created
                         logFirebaseEvent('Button_navigate_back');
                         context.safePop();
@@ -696,74 +887,95 @@ class _NewItemWidgetState extends State<NewItemWidget> {
                       onPressed: () async {
                         logFirebaseEvent('NEW_ITEM_PAGE_CREATE_BTN_ON_TAP');
                         var _shouldSetState = false;
-                        logFirebaseEvent('Button_validate_form');
-                        if (_model.formKey.currentState == null ||
-                            !_model.formKey.currentState!.validate()) {
-                          return;
-                        }
-                        logFirebaseEvent('Button_backend_call');
-                        _model.itemTextClean = await BayhouseAPICall.call(
-                          authToken: FFAppState().bayhouseAPI,
-                          textToCheck: _model.itemTextController.text,
-                        );
-                        _shouldSetState = true;
-                        logFirebaseEvent('Button_backend_call');
-
-                        final itemCreateData = createItemRecordData(
-                          itemText: BayhouseAPICall.cleanText(
-                            (_model.itemTextClean?.jsonBody ?? ''),
-                          ).toString(),
-                          timestamp: getCurrentTimestamp,
-                          userRef: currentUserReference,
-                          gender:
-                              valueOrDefault(currentUserDocument?.gender, ''),
-                          style: valueOrDefault(currentUserDocument?.style, ''),
-                        );
-                        var itemRecordReference = ItemRecord.collection.doc();
-                        await itemRecordReference.set(itemCreateData);
-                        _model.createItemWithText =
-                            ItemRecord.getDocumentFromData(
-                                itemCreateData, itemRecordReference);
-                        _shouldSetState = true;
-                        if ((_model.itemTextClean?.succeeded ?? true)) {
+                        final firestoreBatch =
+                            FirebaseFirestore.instance.batch();
+                        try {
+                          logFirebaseEvent('Button_validate_form');
+                          if (_model.formKey.currentState == null ||
+                              !_model.formKey.currentState!.validate()) {
+                            return;
+                          }
                           logFirebaseEvent('Button_backend_call');
-
-                          final itemUpdateData = createItemRecordData(
-                            location: _model.addLocation == null
-                                ? null
-                                : _model.addLocation,
-                            timestamp: getCurrentTimestamp,
-                            uploadedImages: updateUploadedImageUrlsStruct(
-                              _model.uploadPhotoBottomSheet,
-                              clearUnsetFields: false,
-                            ),
+                          _model.itemTextClean = await BayhouseAPICall.call(
+                            authToken: FFAppState().bayhouseAPI,
+                            textToCheck: _model.itemTextController.text,
                           );
-                          await _model.createItemWithText!.reference
-                              .update(itemUpdateData);
-                        } else {
-                          logFirebaseEvent('Button_show_snack_bar');
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Your text did not pass the profanity text correctly',
-                                style: GoogleFonts.getFont(
-                                  'Outfit',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                          _shouldSetState = true;
+                          if ((_model.itemTextClean?.succeeded ?? true)) {
+                            logFirebaseEvent('Button_backend_call');
+
+                            var itemRecordReference =
+                                ItemRecord.collection.doc();
+                            firestoreBatch.set(
+                                itemRecordReference,
+                                createItemRecordData(
+                                  itemText: BayhouseAPICall.cleanText(
+                                    (_model.itemTextClean?.jsonBody ?? ''),
+                                  ).toString(),
+                                  timestamp: getCurrentTimestamp,
+                                  userRef: currentUserReference,
+                                  gender: valueOrDefault(
+                                      currentUserDocument?.gender, ''),
+                                  style: valueOrDefault(
+                                      currentUserDocument?.style, ''),
+                                ));
+                            _model.createItemWithText =
+                                ItemRecord.getDocumentFromData(
+                                    createItemRecordData(
+                                      itemText: BayhouseAPICall.cleanText(
+                                        (_model.itemTextClean?.jsonBody ?? ''),
+                                      ).toString(),
+                                      timestamp: getCurrentTimestamp,
+                                      userRef: currentUserReference,
+                                      gender: valueOrDefault(
+                                          currentUserDocument?.gender, ''),
+                                      style: valueOrDefault(
+                                          currentUserDocument?.style, ''),
+                                    ),
+                                    itemRecordReference);
+                            _shouldSetState = true;
+                            logFirebaseEvent('Button_backend_call');
+
+                            firestoreBatch.update(
+                                _model.createItemWithText!.reference,
+                                createItemRecordData(
+                                  location: _model.addLocation == null
+                                      ? null
+                                      : _model.addLocation,
+                                  timestamp: getCurrentTimestamp,
+                                  uploadedImages: createUploadedImageUrlsStruct(
+                                    image: _model.uploadedFileUrl1,
+                                    selfie: _model.uploadedFileUrl2,
+                                    clearUnsetFields: false,
+                                  ),
+                                ));
+                          } else {
+                            logFirebaseEvent('Button_show_snack_bar');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Your text did not pass the profanity text correctly',
+                                  style: GoogleFonts.getFont(
+                                    'Outfit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
                                 ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).error,
                               ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).error,
-                            ),
-                          );
-                          if (_shouldSetState) setState(() {});
-                          return;
+                            );
+                            if (_shouldSetState) setState(() {});
+                            return;
+                          }
+
+                          logFirebaseEvent('Button_navigate_to');
+
+                          context.pushNamed('Entries');
+                        } finally {
+                          await firestoreBatch.commit();
                         }
-
-                        logFirebaseEvent('Button_navigate_to');
-
-                        context.pushNamed('Entries');
 
                         if (_shouldSetState) setState(() {});
                       },
@@ -776,12 +988,13 @@ class _NewItemWidgetState extends State<NewItemWidget> {
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FFAppState().primary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Outfit',
-                                  color: FlutterFlowTheme.of(context).accent3,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                        textStyle: FlutterFlowTheme.of(context)
+                            .titleSmall
+                            .override(
+                              fontFamily: 'Outfit',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontWeight: FontWeight.bold,
+                            ),
                         elevation: 6.0,
                         borderSide: BorderSide(
                           color: Colors.transparent,

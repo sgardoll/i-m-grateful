@@ -159,14 +159,13 @@ class _OnFirstLoadWidgetState extends State<OnFirstLoadWidget> {
                                       'ON_FIRST_LOAD_COMP_GOT_IT_BTN_ON_TAP');
                                   logFirebaseEvent('Button_backend_call');
 
-                                  final usersUpdateData = createUsersRecordData(
+                                  await currentUserReference!
+                                      .update(createUsersRecordData(
                                     settings: createSettingsStruct(
                                       isFirstLoad: false,
                                       clearUnsetFields: false,
                                     ),
-                                  );
-                                  await currentUserReference!
-                                      .update(usersUpdateData);
+                                  ));
                                   logFirebaseEvent('Button_bottom_sheet');
                                   Navigator.pop(context);
                                 },

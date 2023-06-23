@@ -639,7 +639,9 @@ class _FeedbackDropdownWidgetState extends State<FeedbackDropdownWidget>
                                             logFirebaseEvent(
                                                 'Button_backend_call');
 
-                                            final feedbackCreateData = {
+                                            var feedbackRecordReference =
+                                                FeedbackRecord.collection.doc();
+                                            await feedbackRecordReference.set({
                                               ...createFeedbackRecordData(
                                                 itemRef: widget.itemRef,
                                                 userRef: currentUserReference,
@@ -649,16 +651,20 @@ class _FeedbackDropdownWidgetState extends State<FeedbackDropdownWidget>
                                               ),
                                               'screenshots':
                                                   _model.uploadedFileUrls,
-                                            };
-                                            var feedbackRecordReference =
-                                                FeedbackRecord.collection.doc();
-                                            await feedbackRecordReference
-                                                .set(feedbackCreateData);
+                                            });
                                             _model.createFeedback =
                                                 FeedbackRecord
-                                                    .getDocumentFromData(
-                                                        feedbackCreateData,
-                                                        feedbackRecordReference);
+                                                    .getDocumentFromData({
+                                              ...createFeedbackRecordData(
+                                                itemRef: widget.itemRef,
+                                                userRef: currentUserReference,
+                                                rating: _model.ratingBarValue,
+                                                feedback:
+                                                    _model.textController.text,
+                                              ),
+                                              'screenshots':
+                                                  _model.uploadedFileUrls,
+                                            }, feedbackRecordReference);
                                             logFirebaseEvent(
                                                 'Button_show_snack_bar');
                                             ScaffoldMessenger.of(context)

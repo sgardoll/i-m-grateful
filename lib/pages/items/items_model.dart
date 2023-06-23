@@ -7,6 +7,7 @@ import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -27,25 +28,24 @@ class ItemsModel extends FlutterFlowModel {
           pageViewController!.page != null
       ? pageViewController!.page!.round()
       : 0;
-  // Models for ItemStack dynamic component.
-  late FlutterFlowDynamicModels<ItemStackModel> itemStackModels;
+  // Models for AnimatedText.
+  late FlutterFlowDynamicModels<ItemStackModel> animatedTextModels;
   // Model for NavBar component.
   late NavBarModel navBarModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    itemStackModels = FlutterFlowDynamicModels(() => ItemStackModel());
+    animatedTextModels = FlutterFlowDynamicModels(() => ItemStackModel());
     navBarModel = createModel(context, () => NavBarModel());
   }
 
   void dispose() {
-    itemStackModels.dispose();
+    animatedTextModels.dispose();
     navBarModel.dispose();
   }
 
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
-
 }

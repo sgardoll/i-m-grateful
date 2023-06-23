@@ -306,10 +306,8 @@ class _EditSubscriptionWidgetState extends State<EditSubscriptionWidget> {
                                             'EDIT_SUBSCRIPTION_SAVE_CHANGES_BTN_ON_TA');
                                         logFirebaseEvent('Button_backend_call');
 
-                                        final usersUpdateData =
-                                            createUsersRecordData();
                                         await columnUsersRecord.reference
-                                            .update(usersUpdateData);
+                                            .update(createUsersRecordData());
                                         logFirebaseEvent(
                                             'Button_navigate_back');
                                         context.pop();

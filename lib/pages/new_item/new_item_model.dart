@@ -1,13 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/components/art_style_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/pages/pages_sub/upload_photo/upload_photo_widget.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/foundation.dart';
@@ -47,10 +46,16 @@ class NewItemModel extends FlutterFlowModel {
     return null;
   }
 
-  // Stores action output result for [Bottom Sheet - UploadPhoto] action in IconButton widget.
-  UploadedImageUrlsStruct? uploadPhotoBottomSheet;
-  // Stores action output result for [Bottom Sheet - UploadPhoto] action in IconButton widget.
-  UploadedImageUrlsStruct? removePhotoBottomSheet;
+  bool isDataUploading1 = false;
+  FFUploadedFile uploadedLocalFile1 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl1 = '';
+
+  bool isDataUploading2 = false;
+  FFUploadedFile uploadedLocalFile2 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl2 = '';
+
   DateTime? datePicked;
   // Stores action output result for [Backend Call - API (BayhouseAPI)] action in Button widget.
   ApiCallResponse? itemTextClean;
@@ -70,5 +75,4 @@ class NewItemModel extends FlutterFlowModel {
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
-
 }

@@ -10,7 +10,8 @@ import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 
 import '../../auth/base_auth_user_provider.dart';
-
+import '../../backend/push_notifications/push_notifications_handler.dart'
+    show PushNotificationsHandler;
 import '../../index.dart';
 import '../../main.dart';
 import '../lat_lng.dart';
@@ -87,109 +88,125 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/',
           builder: (context, _) =>
               appStateNotifier.loggedIn ? ItemsWidget() : LoginWidget(),
+          routes: [
+            FFRoute(
+              name: 'Login',
+              path: 'login',
+              builder: (context, params) => LoginWidget(),
+            ),
+            FFRoute(
+              name: 'Items',
+              path: 'items',
+              requireAuth: true,
+              builder: (context, params) => ItemsWidget(),
+            ),
+            FFRoute(
+              name: 'Entries',
+              path: 'entries',
+              requireAuth: true,
+              builder: (context, params) => EntriesWidget(),
+            ),
+            FFRoute(
+              name: 'EditProfile',
+              path: 'editProfile',
+              requireAuth: true,
+              builder: (context, params) => EditProfileWidget(),
+            ),
+            FFRoute(
+              name: 'Details',
+              path: 'details',
+              requireAuth: true,
+              builder: (context, params) => DetailsWidget(
+                itemRef: params.getParam(
+                    'itemRef', ParamType.DocumentReference, false, ['Item']),
+                primary: params.getParam('primary', ParamType.Color),
+                contrasting: params.getParam('contrasting', ParamType.Color),
+                text: params.getParam('text', ParamType.Color),
+              ),
+            ),
+            FFRoute(
+              name: 'Settings',
+              path: 'settings',
+              requireAuth: true,
+              builder: (context, params) => SettingsWidget(),
+            ),
+            FFRoute(
+              name: 'ChangePassword',
+              path: 'changePassword',
+              requireAuth: true,
+              builder: (context, params) => ChangePasswordWidget(),
+            ),
+            FFRoute(
+              name: 'Welcome_Onboard',
+              path: 'welcomeOnboard',
+              builder: (context, params) => WelcomeOnboardWidget(),
+            ),
+            FFRoute(
+              name: 'Register',
+              path: 'register',
+              builder: (context, params) => RegisterWidget(),
+            ),
+            FFRoute(
+              name: 'EditStyle',
+              path: 'editStyle',
+              requireAuth: true,
+              builder: (context, params) => EditStyleWidget(),
+            ),
+            FFRoute(
+              name: 'DeleteAccount',
+              path: 'deleteAccount',
+              requireAuth: true,
+              builder: (context, params) => DeleteAccountWidget(),
+            ),
+            FFRoute(
+              name: 'Explore',
+              path: 'explore',
+              requireAuth: true,
+              builder: (context, params) => ExploreWidget(),
+            ),
+            FFRoute(
+              name: 'StyleChoice',
+              path: 'styleChoice',
+              requireAuth: true,
+              builder: (context, params) => StyleChoiceWidget(),
+            ),
+            FFRoute(
+              name: 'NewItem',
+              path: 'newItem',
+              requireAuth: true,
+              builder: (context, params) => NewItemWidget(),
+            ),
+            FFRoute(
+              name: 'EditItem',
+              path: 'editItem',
+              requireAuth: true,
+              builder: (context, params) => EditItemWidget(
+                itemRef: params.getParam(
+                    'itemRef', ParamType.DocumentReference, false, ['Item']),
+              ),
+            ),
+            FFRoute(
+              name: 'EditSubscription',
+              path: 'editSubscription',
+              requireAuth: true,
+              builder: (context, params) => EditSubscriptionWidget(),
+            ),
+            FFRoute(
+              name: 'EditReminders',
+              path: 'editReminders',
+              requireAuth: true,
+              builder: (context, params) => EditRemindersWidget(),
+            ),
+            FFRoute(
+              name: 'FullscreenImage',
+              path: 'fullscreenImage',
+              requireAuth: true,
+              builder: (context, params) => FullscreenImageWidget(
+                imageUrl: params.getParam('imageUrl', ParamType.String),
+              ),
+            )
+          ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
-        FFRoute(
-          name: 'Login',
-          path: '/login',
-          builder: (context, params) => LoginWidget(),
-        ),
-        FFRoute(
-          name: 'Items',
-          path: '/items',
-          requireAuth: true,
-          builder: (context, params) => ItemsWidget(),
-        ),
-        FFRoute(
-          name: 'Entries',
-          path: '/entries',
-          requireAuth: true,
-          builder: (context, params) => EntriesWidget(),
-        ),
-        FFRoute(
-          name: 'EditProfile',
-          path: '/editProfile',
-          requireAuth: true,
-          builder: (context, params) => EditProfileWidget(),
-        ),
-        FFRoute(
-          name: 'Details',
-          path: '/details',
-          requireAuth: true,
-          builder: (context, params) => DetailsWidget(
-            itemRef: params.getParam(
-                'itemRef', ParamType.DocumentReference, false, ['Item']),
-            primary: params.getParam('primary', ParamType.Color),
-            contrasting: params.getParam('contrasting', ParamType.Color),
-            text: params.getParam('text', ParamType.Color),
-          ),
-        ),
-        FFRoute(
-          name: 'Settings',
-          path: '/settings',
-          requireAuth: true,
-          builder: (context, params) => SettingsWidget(),
-        ),
-        FFRoute(
-          name: 'ChangePassword',
-          path: '/changePassword',
-          requireAuth: true,
-          builder: (context, params) => ChangePasswordWidget(),
-        ),
-        FFRoute(
-          name: 'Welcome_Onboard',
-          path: '/welcomeOnboard',
-          builder: (context, params) => WelcomeOnboardWidget(),
-        ),
-        FFRoute(
-          name: 'Register',
-          path: '/register',
-          builder: (context, params) => RegisterWidget(),
-        ),
-        FFRoute(
-          name: 'EditStyle',
-          path: '/editStyle',
-          requireAuth: true,
-          builder: (context, params) => EditStyleWidget(),
-        ),
-        FFRoute(
-          name: 'DeleteAccount',
-          path: '/deleteAccount',
-          requireAuth: true,
-          builder: (context, params) => DeleteAccountWidget(),
-        ),
-        FFRoute(
-          name: 'Explore',
-          path: '/explore',
-          requireAuth: true,
-          builder: (context, params) => ExploreWidget(),
-        ),
-        FFRoute(
-          name: 'StyleChoice',
-          path: '/styleChoice',
-          requireAuth: true,
-          builder: (context, params) => StyleChoiceWidget(),
-        ),
-        FFRoute(
-          name: 'NewItem',
-          path: '/newItem',
-          requireAuth: true,
-          builder: (context, params) => NewItemWidget(),
-        ),
-        FFRoute(
-          name: 'EditItem',
-          path: '/editItem',
-          requireAuth: true,
-          builder: (context, params) => EditItemWidget(
-            itemRef: params.getParam(
-                'itemRef', ParamType.DocumentReference, false, ['Item']),
-          ),
-        ),
-        FFRoute(
-          name: 'EditSubscription',
-          path: '/editSubscription',
-          requireAuth: true,
-          builder: (context, params) => EditSubscriptionWidget(),
-        )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
     );
@@ -380,7 +397,7 @@ class FFRoute {
                     ),
                   ),
                 )
-              : page;
+              : PushNotificationsHandler(child: page);
 
           final transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition
@@ -415,5 +432,9 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(
+        hasTransition: true,
+        transitionType: PageTransitionType.fade,
+        duration: Duration(milliseconds: 300),
+      );
 }

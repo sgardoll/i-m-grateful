@@ -11,9 +11,11 @@ class SettingsStruct extends FFFirebaseStruct {
   SettingsStruct({
     bool? locationEnabledByDefault,
     bool? isFirstLoad,
+    List<ReminderStruct>? reminders,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _locationEnabledByDefault = locationEnabledByDefault,
         _isFirstLoad = isFirstLoad,
+        _reminders = reminders,
         super(firestoreUtilData);
 
   // "locationEnabledByDefault" field.
@@ -28,9 +30,21 @@ class SettingsStruct extends FFFirebaseStruct {
   set isFirstLoad(bool? val) => _isFirstLoad = val;
   bool hasIsFirstLoad() => _isFirstLoad != null;
 
+  // "reminders" field.
+  List<ReminderStruct>? _reminders;
+  List<ReminderStruct> get reminders => _reminders ?? const [];
+  set reminders(List<ReminderStruct>? val) => _reminders = val;
+  void updateReminders(Function(List<ReminderStruct>) updateFn) =>
+      updateFn(_reminders ??= []);
+  bool hasReminders() => _reminders != null;
+
   static SettingsStruct fromMap(Map<String, dynamic> data) => SettingsStruct(
         locationEnabledByDefault: data['locationEnabledByDefault'] as bool?,
         isFirstLoad: data['isFirstLoad'] as bool?,
+        reminders: getStructList(
+          data['reminders'],
+          ReminderStruct.fromMap,
+        ),
       );
 
   static SettingsStruct? maybeFromMap(dynamic data) =>
@@ -39,6 +53,7 @@ class SettingsStruct extends FFFirebaseStruct {
   Map<String, dynamic> toMap() => {
         'locationEnabledByDefault': _locationEnabledByDefault,
         'isFirstLoad': _isFirstLoad,
+        'reminders': _reminders?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -50,6 +65,11 @@ class SettingsStruct extends FFFirebaseStruct {
         'isFirstLoad': serializeParam(
           _isFirstLoad,
           ParamType.bool,
+        ),
+        'reminders': serializeParam(
+          _reminders,
+          ParamType.DataStruct,
+          true,
         ),
       }.withoutNulls;
 
@@ -65,6 +85,12 @@ class SettingsStruct extends FFFirebaseStruct {
           ParamType.bool,
           false,
         ),
+        reminders: deserializeStructParam<ReminderStruct>(
+          data['reminders'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: ReminderStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -72,14 +98,16 @@ class SettingsStruct extends FFFirebaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is SettingsStruct &&
         locationEnabledByDefault == other.locationEnabledByDefault &&
-        isFirstLoad == other.isFirstLoad;
+        isFirstLoad == other.isFirstLoad &&
+        listEquality.equals(reminders, other.reminders);
   }
 
   @override
-  int get hashCode =>
-      const ListEquality().hash([locationEnabledByDefault, isFirstLoad]);
+  int get hashCode => const ListEquality()
+      .hash([locationEnabledByDefault, isFirstLoad, reminders]);
 }
 
 SettingsStruct createSettingsStruct({
@@ -104,10 +132,13 @@ SettingsStruct createSettingsStruct({
 SettingsStruct? updateSettingsStruct(
   SettingsStruct? settings, {
   bool clearUnsetFields = true,
+  bool create = false,
 }) =>
     settings
-      ?..firestoreUtilData =
-          FirestoreUtilData(clearUnsetFields: clearUnsetFields);
+      ?..firestoreUtilData = FirestoreUtilData(
+        clearUnsetFields: clearUnsetFields,
+        create: create,
+      );
 
 void addSettingsStructData(
   Map<String, dynamic> firestoreData,

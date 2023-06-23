@@ -1,7 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
-import '/components/unlimited_circle_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -78,7 +77,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 48.0, 0.0, 24.0),
                           child: Text(
-                            'I\'M\nGRATEFUL',
+                            'SETTINGS',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -130,6 +129,140 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           endIndent: 0.0,
                           color: FlutterFlowTheme.of(context).lineColor,
                         ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            logFirebaseEvent(
+                                'SETTINGS_PAGE_Row_9brzf7yh_ON_TAP');
+                            logFirebaseEvent('Row_navigate_to');
+
+                            context.pushNamed(
+                              'EditReminders',
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType:
+                                      PageTransitionType.rightToLeft,
+                                  duration: Duration(milliseconds: 300),
+                                ),
+                              },
+                            );
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 12.0, 0.0),
+                                child: Icon(
+                                  Icons.alarm_rounded,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 20.0, 0.0, 20.0),
+                                  child: Text(
+                                    'Reminders',
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyMedium,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 12.0, 0.0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          height: 2.0,
+                          thickness: 1.0,
+                          indent: 0.0,
+                          endIndent: 0.0,
+                          color: FlutterFlowTheme.of(context).lineColor,
+                        ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            logFirebaseEvent(
+                                'SETTINGS_PAGE_Row_3vblm1j0_ON_TAP');
+                            logFirebaseEvent('Row_navigate_to');
+
+                            context.pushNamed(
+                              'EditStyle',
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType:
+                                      PageTransitionType.rightToLeft,
+                                  duration: Duration(milliseconds: 300),
+                                ),
+                              },
+                            );
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 12.0, 0.0),
+                                child: Icon(
+                                  Icons.format_paint_rounded,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 20.0, 0.0, 20.0),
+                                  child: Text(
+                                    'Art Style Preference',
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyMedium,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 12.0, 0.0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          height: 2.0,
+                          thickness: 1.0,
+                          indent: 0.0,
+                          endIndent: 0.0,
+                          color: FlutterFlowTheme.of(context).lineColor,
+                        ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +284,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                           .switchListTileValue1 = newValue!);
                                       if (newValue!) {
                                         logFirebaseEvent(
-                                            'SETTINGS_SwitchListTile_ruwrxv9u_ON_TOGG');
+                                            'SETTINGS_SwitchListTile_ljc10qvf_ON_TOGG');
                                         logFirebaseEvent(
                                             'SwitchListTile_request_permissions');
                                         await requestPermission(
@@ -159,34 +292,30 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                         logFirebaseEvent(
                                             'SwitchListTile_backend_call');
 
-                                        final usersUpdateData =
-                                            createUsersRecordData(
+                                        await currentUserReference!
+                                            .update(createUsersRecordData(
                                           settings: createSettingsStruct(
                                             locationEnabledByDefault: true,
                                             clearUnsetFields: true,
                                           ),
-                                        );
-                                        await currentUserReference!
-                                            .update(usersUpdateData);
+                                        ));
                                       } else {
                                         logFirebaseEvent(
-                                            'SETTINGS_SwitchListTile_ruwrxv9u_ON_TOGG');
+                                            'SETTINGS_SwitchListTile_ljc10qvf_ON_TOGG');
                                         logFirebaseEvent(
                                             'SwitchListTile_backend_call');
 
-                                        final usersUpdateData =
-                                            createUsersRecordData(
+                                        await currentUserReference!
+                                            .update(createUsersRecordData(
                                           settings: createSettingsStruct(
                                             locationEnabledByDefault: false,
                                             clearUnsetFields: true,
                                           ),
-                                        );
-                                        await currentUserReference!
-                                            .update(usersUpdateData);
+                                        ));
                                       }
                                     },
                                     title: Text(
-                                      'Add Location to Entries',
+                                      'Add Location to New Entries',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium,
                                     ),
@@ -259,7 +388,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                       }
                                     },
                                     title: Text(
-                                      'Toggle Light / Dark Mode',
+                                      valueOrDefault<String>(
+                                        'Switch to ${Theme.of(context).brightness == Brightness.dark ? 'Light Mode' : 'Dark Mode'}',
+                                        'Light Mode / Dark Mode',
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium,
                                     ),
@@ -283,53 +415,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          height: 2.0,
-                          thickness: 1.0,
-                          indent: 0.0,
-                          endIndent: 0.0,
-                          color: FlutterFlowTheme.of(context).lineColor,
-                        ),
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            logFirebaseEvent(
-                                'SETTINGS_PAGE_Row_3vblm1j0_ON_TAP');
-                            logFirebaseEvent('Row_navigate_to');
-
-                            context.pushNamed('EditStyle');
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 20.0, 0.0, 20.0),
-                                  child: Text(
-                                    'Art Style Preference',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 12.0, 0.0),
-                                child: Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
                                 ),
                               ),
                             ],
@@ -397,17 +482,18 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 4.0, 0.0, 4.0),
-                                child: wrapWithModel(
-                                  model: _model.unlimitedCircleModel,
-                                  updateCallback: () => setState(() {}),
-                                  child: UnlimitedCircleWidget(),
+                                    16.0, 0.0, 16.0, 0.0),
+                                child: Icon(
+                                  FFIcons.kinfinity,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
                                 ),
                               ),
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 20.0, 0.0, 20.0),
+                                      24.0, 20.0, 0.0, 20.0),
                                   child: Text(
                                     ' Subscription Settings',
                                     style:
@@ -451,10 +537,20 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 12.0, 0.0),
+                                child: Icon(
+                                  Icons.person_2,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
+                              ),
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 20.0, 0.0, 20.0),
+                                      8.0, 20.0, 0.0, 20.0),
                                   child: Text(
                                     'Personal Details',
                                     style:
@@ -498,10 +594,20 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 12.0, 0.0),
+                                child: Icon(
+                                  Icons.password_rounded,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
+                              ),
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 20.0, 0.0, 20.0),
+                                      8.0, 20.0, 0.0, 20.0),
                                   child: Text(
                                     'Change Password',
                                     style:
@@ -545,10 +651,19 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 12.0, 0.0),
+                                child: Icon(
+                                  Icons.delete_forever_rounded,
+                                  color: FlutterFlowTheme.of(context).tertiary,
+                                  size: 24.0,
+                                ),
+                              ),
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 20.0, 0.0, 20.0),
+                                      8.0, 20.0, 0.0, 20.0),
                                   child: Text(
                                     'Delete Account',
                                     style: FlutterFlowTheme.of(context)

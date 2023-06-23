@@ -533,19 +533,19 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   return;
                                 }
 
-                                final usersCreateData = createUsersRecordData(
-                                  displayName: _model.fullNameController.text,
-                                  settings: createSettingsStruct(
-                                    locationEnabledByDefault: true,
-                                    isFirstLoad: true,
-                                    clearUnsetFields: false,
-                                    create: true,
-                                  ),
-                                  gender: _model.genderValue,
-                                );
                                 await UsersRecord.collection
                                     .doc(user.uid)
-                                    .update(usersCreateData);
+                                    .update(createUsersRecordData(
+                                      displayName:
+                                          _model.fullNameController.text,
+                                      settings: createSettingsStruct(
+                                        locationEnabledByDefault: true,
+                                        isFirstLoad: true,
+                                        clearUnsetFields: false,
+                                        create: true,
+                                      ),
+                                      gender: _model.genderValue,
+                                    ));
 
                                 logFirebaseEvent('Button_navigate_to');
 

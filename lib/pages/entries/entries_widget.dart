@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/components/empty_list_no_bg/empty_list_no_bg_widget.dart';
 import '/components/more_dropdown_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -13,6 +14,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -26,10 +29,38 @@ class EntriesWidget extends StatefulWidget {
   _EntriesWidgetState createState() => _EntriesWidgetState();
 }
 
-class _EntriesWidgetState extends State<EntriesWidget> {
+class _EntriesWidgetState extends State<EntriesWidget>
+    with TickerProviderStateMixin {
   late EntriesModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'cardOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 300.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'imageOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 300.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -410,10 +441,6 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                             logFirebaseEvent(
                                                 'Button_backend_call');
 
-                                            final itemUpdateData1 = {
-                                              'itemText': FieldValue.delete(),
-                                              'status': FieldValue.delete(),
-                                            };
                                             await entriesItemRecordList
                                                 .where((e) =>
                                                     e.reference ==
@@ -421,20 +448,13 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                                 .toList()
                                                 .first
                                                 .reference
-                                                .update(itemUpdateData1);
+                                                .update({
+                                              'itemText': FieldValue.delete(),
+                                              'status': FieldValue.delete(),
+                                            });
                                             logFirebaseEvent(
                                                 'Button_backend_call');
 
-                                            final itemUpdateData2 =
-                                                createItemRecordData(
-                                              itemText: entriesItemRecordList
-                                                  .where((e) =>
-                                                      e.reference ==
-                                                      _model.itemRefs.first)
-                                                  .toList()
-                                                  .first
-                                                  .itemText,
-                                            );
                                             await entriesItemRecordList
                                                 .where((e) =>
                                                     e.reference ==
@@ -442,7 +462,17 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                                 .toList()
                                                 .first
                                                 .reference
-                                                .update(itemUpdateData2);
+                                                .update(createItemRecordData(
+                                                  itemText:
+                                                      entriesItemRecordList
+                                                          .where((e) =>
+                                                              e.reference ==
+                                                              _model.itemRefs
+                                                                  .first)
+                                                          .toList()
+                                                          .first
+                                                          .itemText,
+                                                ));
                                           },
                                           text: 'Retry',
                                           options: FFButtonOptions(
@@ -796,9 +826,13 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                                                   ),
                                                                   Text(
                                                                     dateTimeFormat(
-                                                                        'MMMEd',
-                                                                        itemsItem
-                                                                            .timestamp!),
+                                                                      'MMMEd',
+                                                                      itemsItem
+                                                                          .timestamp!,
+                                                                      locale: FFLocalizations.of(
+                                                                              context)
+                                                                          .languageCode,
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .titleMedium
@@ -825,9 +859,12 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                                                             0.0),
                                                                     child: Text(
                                                                       dateTimeFormat(
-                                                                          'jm',
-                                                                          itemsItem
-                                                                              .timestamp!),
+                                                                        'jm',
+                                                                        itemsItem
+                                                                            .timestamp!,
+                                                                        locale:
+                                                                            FFLocalizations.of(context).languageCode,
+                                                                      ),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .titleSmall
@@ -1279,7 +1316,8 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                       ],
                                     ),
                                   ),
-                                ),
+                                ).animateOnPageLoad(
+                                    animationsMap['cardOnPageLoadAnimation']!),
                               );
                             },
                           );
@@ -1379,7 +1417,8 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                     fit: BoxFit.cover,
                                   ),
                                 ),
-                              );
+                              ).animateOnPageLoad(
+                                  animationsMap['imageOnPageLoadAnimation']!);
                             },
                           );
                         },

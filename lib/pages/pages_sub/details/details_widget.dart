@@ -1,12 +1,13 @@
 import '/backend/backend.dart';
 import '/components/image_selfie_widget.dart';
 import '/components/location_widget.dart';
+import '/components/more_dropdown_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'details_model.dart';
 export 'details_model.dart';
@@ -80,7 +80,6 @@ class _DetailsWidgetState extends State<DetailsWidget> {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
           return Scaffold(
-            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
                 width: 50.0,
@@ -96,43 +95,65 @@ class _DetailsWidgetState extends State<DetailsWidget> {
         final detailsItemRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           body: Stack(
             children: [
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  logFirebaseEvent('DETAILS_PAGE_Image_d3kjgi3m_ON_TAP');
-                  logFirebaseEvent('Image_expand_image');
-                  await Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.fade,
-                      child: FlutterFlowExpandedImageView(
-                        image: CachedNetworkImage(
-                          imageUrl: valueOrDefault<String>(
-                            detailsItemRecord.mainImage,
-                            'https://www.connectio.com.au/grateful/loading.png',
-                          ),
-                          fit: BoxFit.contain,
+              Builder(
+                builder: (context) => InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    logFirebaseEvent('DETAILS_PAGE_Image_d3kjgi3m_ON_TAP');
+                    logFirebaseEvent('Image_navigate_to');
+
+                    context.pushNamed(
+                      'FullscreenImage',
+                      queryParameters: {
+                        'imageUrl': serializeParam(
+                          detailsItemRecord.mainImage,
+                          ParamType.String,
                         ),
-                        allowRotation: false,
-                        useHeroAnimation: false,
-                      ),
+                      }.withoutNulls,
+                    );
+                  },
+                  onLongPress: () async {
+                    logFirebaseEvent('DETAILS_Image_d3kjgi3m_ON_LONG_PRESS');
+                    logFirebaseEvent('Image_alert_dialog');
+                    showAlignedDialog(
+                      context: context,
+                      isGlobal: false,
+                      avoidOverflow: true,
+                      targetAnchor: AlignmentDirectional(0.0, 0.0)
+                          .resolve(Directionality.of(context)),
+                      followerAnchor: AlignmentDirectional(0.0, 0.0)
+                          .resolve(Directionality.of(context)),
+                      builder: (dialogContext) {
+                        return Material(
+                          color: Colors.transparent,
+                          child: MoreDropdownWidget(
+                            item: detailsItemRecord,
+                          ),
+                        );
+                      },
+                    ).then((value) => setState(() {}));
+                  },
+                  child: Hero(
+                    tag: valueOrDefault<String>(
+                      detailsItemRecord.mainImage,
+                      'https://www.connectio.com.au/grateful/loading.png',
                     ),
-                  );
-                },
-                child: CachedNetworkImage(
-                  imageUrl: valueOrDefault<String>(
-                    detailsItemRecord.mainImage,
-                    'https://www.connectio.com.au/grateful/loading.png',
+                    transitionOnUserGestures: true,
+                    child: CachedNetworkImage(
+                      imageUrl: valueOrDefault<String>(
+                        detailsItemRecord.mainImage,
+                        'https://www.connectio.com.au/grateful/loading.png',
+                      ),
+                      width: MediaQuery.of(context).size.width * 1.0,
+                      height: MediaQuery.of(context).size.height * 1.0,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  width: MediaQuery.of(context).size.width * 1.0,
-                  height: MediaQuery.of(context).size.height * 1.0,
-                  fit: BoxFit.cover,
                 ),
               ),
               Row(
@@ -158,8 +179,8 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              FlutterFlowTheme.of(context).primaryBackground,
-                              Color(0x00FFFFFF)
+                              FlutterFlowTheme.of(context).primaryBlack,
+                              Colors.transparent
                             ],
                             stops: [0.0, 1.0],
                             begin: AlignmentDirectional(0.0, -1.0),
@@ -206,7 +227,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                         children: [
                           Text(
                             dateTimeFormat(
-                                'MMMEd', detailsItemRecord.timestamp!),
+                              'MMMEd',
+                              detailsItemRecord.timestamp!,
+                              locale: FFLocalizations.of(context).languageCode,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .titleMedium
                                 .override(
@@ -223,7 +247,11 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                 4.0, 4.0, 0.0, 0.0),
                             child: Text(
                               dateTimeFormat(
-                                  'jm', detailsItemRecord.timestamp!),
+                                'jm',
+                                detailsItemRecord.timestamp!,
+                                locale:
+                                    FFLocalizations.of(context).languageCode,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
@@ -239,22 +267,44 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                         ],
                       ),
                     ),
-                    FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 60.0,
-                      icon: Icon(
-                        Icons.more_vert_rounded,
-                        color: valueOrDefault<Color>(
-                          FFAppState().contrasting,
-                          FlutterFlowTheme.of(context).secondary,
+                    Builder(
+                      builder: (context) => FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 60.0,
+                        icon: Icon(
+                          Icons.more_vert_rounded,
+                          color: valueOrDefault<Color>(
+                            FFAppState().contrasting,
+                            FlutterFlowTheme.of(context).secondary,
+                          ),
+                          size: 30.0,
                         ),
-                        size: 30.0,
+                        onPressed: () async {
+                          logFirebaseEvent(
+                              'DETAILS_more_vert_rounded_ICN_ON_TAP');
+                          logFirebaseEvent('IconButton_alert_dialog');
+                          showAlignedDialog(
+                            barrierColor: Color(0x811A1A1A),
+                            context: context,
+                            isGlobal: false,
+                            avoidOverflow: true,
+                            targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            builder: (dialogContext) {
+                              return Material(
+                                color: Colors.transparent,
+                                child: MoreDropdownWidget(
+                                  item: detailsItemRecord,
+                                ),
+                              );
+                            },
+                          ).then((value) => setState(() {}));
+                        },
                       ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                      },
                     ),
                   ],
                 ),
@@ -292,11 +342,11 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
                                       colors: [
-                                        Color(0x00FFFFFF),
+                                        Colors.transparent,
                                         FlutterFlowTheme.of(context)
-                                            .primaryBackground
+                                            .primaryBlack
                                       ],
-                                      stops: [0.0, 0.5],
+                                      stops: [0.0, 0.75],
                                       begin: AlignmentDirectional(0.0, -1.0),
                                       end: AlignmentDirectional(0, 1.0),
                                     ),
@@ -408,51 +458,61 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                       detailsItemRecord.location != null,
                                       false,
                                     ))
-                                      FlutterFlowIconButton(
-                                        borderColor: valueOrDefault<Color>(
-                                          widget.primary,
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
-                                        borderRadius: 20.0,
-                                        borderWidth: 2.0,
-                                        buttonSize: 40.0,
-                                        icon: Icon(
-                                          Icons.location_on_outlined,
-                                          color: valueOrDefault<Color>(
-                                            widget.contrasting,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 8.0, 0.0),
+                                        child: FlutterFlowIconButton(
+                                          borderColor: valueOrDefault<Color>(
+                                            widget.primary,
                                             FlutterFlowTheme.of(context)
-                                                .secondary,
+                                                .primary,
                                           ),
-                                          size: 24.0,
-                                        ),
-                                        onPressed: () async {
-                                          logFirebaseEvent(
-                                              'DETAILS_PAGE_locationButton_ON_TAP');
-                                          logFirebaseEvent(
-                                              'locationButton_bottom_sheet');
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            barrierColor: Color(0x80000000),
-                                            context: context,
-                                            builder: (context) {
-                                              return Padding(
-                                                padding: MediaQuery.of(context)
-                                                    .viewInsets,
-                                                child: Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.85,
-                                                  child: LocationWidget(
-                                                    location: detailsItemRecord
-                                                        .location!,
+                                          borderRadius: 30.0,
+                                          borderWidth: 1.0,
+                                          buttonSize: 40.0,
+                                          fillColor: Color(0x33090F13),
+                                          icon: Icon(
+                                            Icons.location_on_sharp,
+                                            color: valueOrDefault<Color>(
+                                              widget.contrasting,
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                            ),
+                                            size: 20.0,
+                                          ),
+                                          onPressed: () async {
+                                            logFirebaseEvent(
+                                                'DETAILS_PAGE_locationButton_ON_TAP');
+                                            logFirebaseEvent(
+                                                'locationButton_bottom_sheet');
+                                            showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              barrierColor: Color(0x80000000),
+                                              context: context,
+                                              builder: (context) {
+                                                return Padding(
+                                                  padding:
+                                                      MediaQuery.of(context)
+                                                          .viewInsets,
+                                                  child: Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.85,
+                                                    child: LocationWidget(
+                                                      location:
+                                                          detailsItemRecord
+                                                              .location!,
+                                                    ),
                                                   ),
-                                                ),
-                                              );
-                                            },
-                                          ).then((value) => setState(() {}));
-                                        },
+                                                );
+                                              },
+                                            ).then((value) => setState(() {}));
+                                          },
+                                        ),
                                       ),
                                     if (valueOrDefault<bool>(
                                       detailsItemRecord.uploadedImages.image !=
@@ -464,24 +524,25 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                     ))
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 0.0, 0.0),
+                                            0.0, 0.0, 8.0, 0.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: valueOrDefault<Color>(
                                             widget.primary,
                                             FlutterFlowTheme.of(context)
                                                 .primary,
                                           ),
-                                          borderRadius: 20.0,
-                                          borderWidth: 2.0,
+                                          borderRadius: 30.0,
+                                          borderWidth: 1.0,
                                           buttonSize: 40.0,
+                                          fillColor: Color(0x33090F13),
                                           icon: Icon(
-                                            Icons.photo_outlined,
+                                            Icons.image_outlined,
                                             color: valueOrDefault<Color>(
                                               widget.contrasting,
                                               FlutterFlowTheme.of(context)
                                                   .secondary,
                                             ),
-                                            size: 24.0,
+                                            size: 20.0,
                                           ),
                                           onPressed: () async {
                                             logFirebaseEvent(
@@ -526,54 +587,46 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                               '',
                                       false,
                                     ))
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 0.0, 0.0),
-                                        child: FlutterFlowIconButton(
-                                          borderColor: valueOrDefault<Color>(
-                                            widget.primary,
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
-                                          borderRadius: 20.0,
-                                          borderWidth: 2.0,
-                                          buttonSize: 40.0,
-                                          icon: Icon(
-                                            Icons.portrait_rounded,
-                                            color: valueOrDefault<Color>(
-                                              widget.contrasting,
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                            ),
-                                            size: 24.0,
-                                          ),
-                                          onPressed: () async {
-                                            logFirebaseEvent(
-                                                'DETAILS_PAGE_locationButton_ON_TAP');
-                                            logFirebaseEvent(
-                                                'locationButton_bottom_sheet');
-                                            showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              barrierColor: Color(0x7F000000),
-                                              context: context,
-                                              builder: (context) {
-                                                return Padding(
-                                                  padding:
-                                                      MediaQuery.of(context)
-                                                          .viewInsets,
-                                                  child: ImageSelfieWidget(
-                                                    imageSelfie:
-                                                        detailsItemRecord
-                                                            .uploadedImages
-                                                            .selfie,
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => setState(() {}));
-                                          },
+                                      FlutterFlowIconButton(
+                                        borderColor: valueOrDefault<Color>(
+                                          widget.primary,
+                                          FlutterFlowTheme.of(context).primary,
                                         ),
+                                        borderRadius: 30.0,
+                                        borderWidth: 1.0,
+                                        buttonSize: 40.0,
+                                        fillColor: Color(0x33090F13),
+                                        icon: Icon(
+                                          Icons.portrait_rounded,
+                                          color: valueOrDefault<Color>(
+                                            widget.contrasting,
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                          ),
+                                          size: 20.0,
+                                        ),
+                                        onPressed: () async {
+                                          logFirebaseEvent(
+                                              'DETAILS_PAGE_locationButton_ON_TAP');
+                                          logFirebaseEvent(
+                                              'locationButton_bottom_sheet');
+                                          showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            barrierColor: Color(0x7F000000),
+                                            context: context,
+                                            builder: (context) {
+                                              return Padding(
+                                                padding: MediaQuery.of(context)
+                                                    .viewInsets,
+                                                child: ImageSelfieWidget(
+                                                  imageSelfie: detailsItemRecord
+                                                      .uploadedImages.selfie,
+                                                ),
+                                              );
+                                            },
+                                          ).then((value) => setState(() {}));
+                                        },
                                       ),
                                   ],
                                 ),

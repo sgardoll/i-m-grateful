@@ -3,14 +3,11 @@ import '/backend/backend.dart';
 import '/components/feedback_dropdown/feedback_dropdown_widget.dart';
 import '/components/image_selfie_widget.dart';
 import '/components/location_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -29,128 +26,8 @@ class MoreDropdownWidget extends StatefulWidget {
   _MoreDropdownWidgetState createState() => _MoreDropdownWidgetState();
 }
 
-class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
-    with TickerProviderStateMixin {
+class _MoreDropdownWidgetState extends State<MoreDropdownWidget> {
   late MoreDropdownModel _model;
-
-  final animationsMap = {
-    'rowOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.7),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.7),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.7),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation4': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.7),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation5': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.7),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'rowOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.7),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation6': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.7),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation7': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.7),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation8': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        ScaleEffect(
-          curve: Curves.elasticOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 0.7),
-          end: Offset(1.0, 1.0),
-        ),
-      ],
-    ),
-  };
 
   @override
   void setState(VoidCallback callback) {
@@ -162,13 +39,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => MoreDropdownModel());
-
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
   }
 
   @override
@@ -210,14 +80,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   logFirebaseEvent('MORE_DROPDOWN_COMP_feedback_ON_TAP');
-                  logFirebaseEvent('feedback_widget_animation');
-                  if (animationsMap['rowOnActionTriggerAnimation8'] != null) {
-                    animationsMap['rowOnActionTriggerAnimation8']!
-                        .controller
-                        .forward(from: 0.0);
-                  }
-                  logFirebaseEvent('feedback_custom_action');
-                  await actions.inkwellClick();
                   logFirebaseEvent('feedback_bottom_sheet');
                   showModalBottomSheet(
                     isScrollControlled: true,
@@ -233,9 +95,7 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                     },
                   ).then((value) => setState(() {}));
                 },
-                child: AnimatedContainer(
-                  duration: Duration(milliseconds: 200),
-                  curve: Curves.elasticOut,
+                child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -266,8 +126,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                           ),
                         ),
                       ],
-                    ).animateOnActionTrigger(
-                      animationsMap['rowOnActionTriggerAnimation1']!,
                     ),
                   ),
                 ),
@@ -279,15 +137,10 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   logFirebaseEvent('MORE_DROPDOWN_COMP_regenerate_ON_TAP');
-                  logFirebaseEvent('regenerate_widget_animation');
-                  if (animationsMap['rowOnActionTriggerAnimation8'] != null) {
-                    animationsMap['rowOnActionTriggerAnimation8']!
-                        .controller
-                        .forward(from: 0.0);
-                  }
                   logFirebaseEvent('regenerate_backend_call');
 
-                  final feedbackCreateData = {
+                  var feedbackRecordReference = FeedbackRecord.collection.doc();
+                  await feedbackRecordReference.set({
                     ...createFeedbackRecordData(
                       itemRef: widget.item!.reference,
                       userRef: currentUserReference,
@@ -299,30 +152,37 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                         '0',
                       )
                     ],
-                  };
-                  var feedbackRecordReference = FeedbackRecord.collection.doc();
-                  await feedbackRecordReference.set(feedbackCreateData);
+                  });
                   _model.addRegenerateAsFeedback =
-                      FeedbackRecord.getDocumentFromData(
-                          feedbackCreateData, feedbackRecordReference);
+                      FeedbackRecord.getDocumentFromData({
+                    ...createFeedbackRecordData(
+                      itemRef: widget.item!.reference,
+                      userRef: currentUserReference,
+                      feedback: 'Regenerated',
+                    ),
+                    'screenshots': [
+                      valueOrDefault<String>(
+                        widget.item!.stable.imageUrls.first,
+                        '0',
+                      )
+                    ],
+                  }, feedbackRecordReference);
                   logFirebaseEvent('regenerate_update_widget_state');
                   _model.itemText = widget.item!.itemText;
                   logFirebaseEvent('regenerate_backend_call');
 
-                  final itemUpdateData1 = {
+                  await widget.item!.reference.update({
                     'itemText': FieldValue.delete(),
                     'status': FieldValue.delete(),
                     'stableImg2Img': FieldValue.delete(),
                     'instructPix2Pix': FieldValue.delete(),
                     'mainImage': FieldValue.delete(),
-                  };
-                  await widget.item!.reference.update(itemUpdateData1);
+                  });
                   logFirebaseEvent('regenerate_backend_call');
 
-                  final itemUpdateData2 = createItemRecordData(
+                  await widget.item!.reference.update(createItemRecordData(
                     itemText: _model.itemText,
-                  );
-                  await widget.item!.reference.update(itemUpdateData2);
+                  ));
                   logFirebaseEvent('regenerate_navigate_to');
 
                   context.goNamed('Items');
@@ -360,8 +220,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                           ),
                         ),
                       ],
-                    ).animateOnActionTrigger(
-                      animationsMap['rowOnActionTriggerAnimation2']!,
                     ),
                   ),
                 ),
@@ -373,12 +231,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   logFirebaseEvent('MORE_DROPDOWN_COMP_detail_ON_TAP');
-                  logFirebaseEvent('detail_widget_animation');
-                  if (animationsMap['rowOnActionTriggerAnimation8'] != null) {
-                    animationsMap['rowOnActionTriggerAnimation8']!
-                        .controller
-                        .forward(from: 0.0);
-                  }
                   logFirebaseEvent('detail_navigate_to');
 
                   context.pushNamed(
@@ -448,8 +300,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                           ),
                         ),
                       ],
-                    ).animateOnActionTrigger(
-                      animationsMap['rowOnActionTriggerAnimation3']!,
                     ),
                   ),
                 ),
@@ -461,12 +311,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   logFirebaseEvent('MORE_DROPDOWN_COMP_share_ON_TAP');
-                  logFirebaseEvent('share_widget_animation');
-                  if (animationsMap['rowOnActionTriggerAnimation8'] != null) {
-                    animationsMap['rowOnActionTriggerAnimation8']!
-                        .controller
-                        .forward(from: 0.0);
-                  }
                   logFirebaseEvent('share_custom_action');
                   await actions.shareFirebaseImage(
                     widget.item!.mainImage,
@@ -504,8 +348,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                           ),
                         ),
                       ],
-                    ).animateOnActionTrigger(
-                      animationsMap['rowOnActionTriggerAnimation4']!,
                     ),
                   ),
                 ),
@@ -517,12 +359,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   logFirebaseEvent('MORE_DROPDOWN_COMP_edit_ON_TAP');
-                  logFirebaseEvent('edit_widget_animation');
-                  if (animationsMap['rowOnActionTriggerAnimation8'] != null) {
-                    animationsMap['rowOnActionTriggerAnimation8']!
-                        .controller
-                        .forward(from: 0.0);
-                  }
                   logFirebaseEvent('edit_navigate_to');
 
                   context.pushNamed(
@@ -566,8 +402,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                           ),
                         ),
                       ],
-                    ).animateOnActionTrigger(
-                      animationsMap['rowOnActionTriggerAnimation5']!,
                     ),
                   ),
                 ),
@@ -583,12 +417,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     logFirebaseEvent('MORE_DROPDOWN_COMP_locatio_ON_TAP');
-                    logFirebaseEvent('locatio_widget_animation');
-                    if (animationsMap['rowOnActionTriggerAnimation8'] != null) {
-                      animationsMap['rowOnActionTriggerAnimation8']!
-                          .controller
-                          .forward(from: 0.0);
-                    }
                     logFirebaseEvent('locatio_bottom_sheet');
                     await showModalBottomSheet(
                       isScrollControlled: true,
@@ -636,8 +464,7 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                             ),
                           ),
                         ],
-                      ).animateOnPageLoad(
-                          animationsMap['rowOnPageLoadAnimation']!),
+                      ),
                     ),
                   ),
                 ),
@@ -653,12 +480,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     logFirebaseEvent('MORE_DROPDOWN_COMP_uploadedImage_ON_TAP');
-                    logFirebaseEvent('uploadedImage_widget_animation');
-                    if (animationsMap['rowOnActionTriggerAnimation8'] != null) {
-                      animationsMap['rowOnActionTriggerAnimation8']!
-                          .controller
-                          .forward(from: 0.0);
-                    }
                     logFirebaseEvent('uploadedImage_bottom_sheet');
                     showModalBottomSheet(
                       isScrollControlled: true,
@@ -709,8 +530,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                             ),
                           ),
                         ],
-                      ).animateOnActionTrigger(
-                        animationsMap['rowOnActionTriggerAnimation6']!,
                       ),
                     ),
                   ),
@@ -728,12 +547,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                   onTap: () async {
                     logFirebaseEvent(
                         'MORE_DROPDOWN_COMP_uploadedSelfie_ON_TAP');
-                    logFirebaseEvent('uploadedSelfie_widget_animation');
-                    if (animationsMap['rowOnActionTriggerAnimation8'] != null) {
-                      animationsMap['rowOnActionTriggerAnimation8']!
-                          .controller
-                          .forward(from: 0.0);
-                    }
                     logFirebaseEvent('uploadedSelfie_bottom_sheet');
                     showModalBottomSheet(
                       isScrollControlled: true,
@@ -781,8 +594,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                             ),
                           ),
                         ],
-                      ).animateOnActionTrigger(
-                        animationsMap['rowOnActionTriggerAnimation7']!,
                       ),
                     ),
                   ),
@@ -794,12 +605,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   logFirebaseEvent('MORE_DROPDOWN_COMP_delete_ON_TAP');
-                  logFirebaseEvent('delete_widget_animation');
-                  if (animationsMap['rowOnActionTriggerAnimation8'] != null) {
-                    animationsMap['rowOnActionTriggerAnimation8']!
-                        .controller
-                        .forward(from: 0.0);
-                  }
                   logFirebaseEvent('delete_backend_call');
                   await widget.item!.reference.delete();
                   logFirebaseEvent('delete_navigate_to');
@@ -843,8 +648,6 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                           ),
                         ),
                       ],
-                    ).animateOnActionTrigger(
-                      animationsMap['rowOnActionTriggerAnimation8']!,
                     ),
                   ),
                 ),

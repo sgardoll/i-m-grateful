@@ -52,3 +52,24 @@ List<dynamic> createTextPrompts(
     {"text": text, "weight": weight}
   ];
 }
+
+int frequencyInDays(String dropdownChoice) {
+  switch (dropdownChoice) {
+    case 'Every Day':
+      return 1;
+    case 'Every Week':
+      return 7;
+    case 'Every Fortnight':
+      return 14;
+    case 'Mondays':
+    case 'Tuesdays':
+    case 'Wednesdays':
+    case 'Thursdays':
+    case 'Fridays':
+    case 'Saturdays':
+    case 'Sundays':
+      return 7;
+    default:
+      return 0; // return 0 if the input is not recognized
+  }
+}

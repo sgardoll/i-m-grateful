@@ -155,26 +155,26 @@ class _ArtStyleWidgetState extends State<ArtStyleWidget> {
                                     _model.customArtStyle != '') {
                                   logFirebaseEvent('Button_backend_call');
 
-                                  final customStylesCreateData =
-                                      createCustomStylesRecordData(
-                                    style: _model.customArtStyle,
-                                    userRef: currentUserReference,
-                                  );
                                   var customStylesRecordReference =
                                       CustomStylesRecord.collection.doc();
                                   await customStylesRecordReference
-                                      .set(customStylesCreateData);
+                                      .set(createCustomStylesRecordData(
+                                    style: _model.customArtStyle,
+                                    userRef: currentUserReference,
+                                  ));
                                   _model.createCustomArtStyle =
                                       CustomStylesRecord.getDocumentFromData(
-                                          customStylesCreateData,
+                                          createCustomStylesRecordData(
+                                            style: _model.customArtStyle,
+                                            userRef: currentUserReference,
+                                          ),
                                           customStylesRecordReference);
                                   logFirebaseEvent('Button_backend_call');
 
-                                  final usersUpdateData = createUsersRecordData(
-                                    style: _model.customArtStyle,
-                                  );
                                   await currentUserReference!
-                                      .update(usersUpdateData);
+                                      .update(createUsersRecordData(
+                                    style: _model.customArtStyle,
+                                  ));
                                   logFirebaseEvent('Button_show_snack_bar');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -302,13 +302,12 @@ class _ArtStyleWidgetState extends State<ArtStyleWidget> {
                                                 logFirebaseEvent(
                                                     'Image_backend_call');
 
-                                                final usersUpdateData =
-                                                    createUsersRecordData(
+                                                await currentUserReference!
+                                                    .update(
+                                                        createUsersRecordData(
                                                   style: gridViewStylesRecord
                                                       .style,
-                                                );
-                                                await currentUserReference!
-                                                    .update(usersUpdateData);
+                                                ));
                                                 logFirebaseEvent(
                                                     'Image_show_snack_bar');
                                                 ScaffoldMessenger.of(context)
@@ -369,13 +368,12 @@ class _ArtStyleWidgetState extends State<ArtStyleWidget> {
                                                   logFirebaseEvent(
                                                       'Button_backend_call');
 
-                                                  final usersUpdateData =
-                                                      createUsersRecordData(
+                                                  await currentUserReference!
+                                                      .update(
+                                                          createUsersRecordData(
                                                     style: gridViewStylesRecord
                                                         .style,
-                                                  );
-                                                  await currentUserReference!
-                                                      .update(usersUpdateData);
+                                                  ));
                                                   logFirebaseEvent(
                                                       'Button_show_snack_bar');
                                                   ScaffoldMessenger.of(context)

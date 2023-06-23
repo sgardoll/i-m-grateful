@@ -107,10 +107,13 @@ UploadedImageUrlsStruct createUploadedImageUrlsStruct({
 UploadedImageUrlsStruct? updateUploadedImageUrlsStruct(
   UploadedImageUrlsStruct? uploadedImageUrls, {
   bool clearUnsetFields = true,
+  bool create = false,
 }) =>
     uploadedImageUrls
-      ?..firestoreUtilData =
-          FirestoreUtilData(clearUnsetFields: clearUnsetFields);
+      ?..firestoreUtilData = FirestoreUtilData(
+        clearUnsetFields: clearUnsetFields,
+        create: create,
+      );
 
 void addUploadedImageUrlsStructData(
   Map<String, dynamic> firestoreData,

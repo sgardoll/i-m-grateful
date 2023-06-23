@@ -199,10 +199,13 @@ StableStruct createStableStruct({
 StableStruct? updateStableStruct(
   StableStruct? stable, {
   bool clearUnsetFields = true,
+  bool create = false,
 }) =>
     stable
-      ?..firestoreUtilData =
-          FirestoreUtilData(clearUnsetFields: clearUnsetFields);
+      ?..firestoreUtilData = FirestoreUtilData(
+        clearUnsetFields: clearUnsetFields,
+        create: create,
+      );
 
 void addStableStructData(
   Map<String, dynamic> firestoreData,

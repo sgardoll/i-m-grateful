@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -108,78 +107,19 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
         final stackItemRecord = snapshot.data!;
         return Stack(
           children: [
-            Hero(
-              tag: valueOrDefault<String>(
-                stackItemRecord.mainImage,
-                'https://www.connectio.com.au/grateful/loading.png',
-              ),
-              transitionOnUserGestures: true,
-              child: CachedNetworkImage(
-                imageUrl: valueOrDefault<String>(
-                  stackItemRecord.mainImage,
-                  'https://www.connectio.com.au/grateful/loading.png',
-                ),
-                width: MediaQuery.of(context).size.width * 1.0,
-                height: MediaQuery.of(context).size.height * 1.0,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Stack(
-              children: [
-                Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: ClipRect(
-                          child: ImageFiltered(
-                            imageFilter: ImageFilter.blur(
-                              sigmaX: 4.0,
-                              sigmaY: 4.0,
-                            ),
-                            child: Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.8,
-                                child: custom_widgets.AnimatedText(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.9,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.8,
-                                  text: stackItemRecord.itemText,
-                                  fontSize: valueOrDefault<double>(
-                                    functions.fontsize(
-                                        MediaQuery.of(context).size.width * 0.6,
-                                        stackItemRecord.itemText,
-                                        MediaQuery.of(context).size.height *
-                                            0.9),
-                                    40.0,
-                                  ),
-                                  colour: valueOrDefault<Color>(
-                                    FFAppState().lightVibrant,
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                  ),
-                                  fontFamily: 'Aldo',
-                                ),
-                              ),
-                            ),
-                          ),
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: ClipRect(
+                      child: ImageFiltered(
+                        imageFilter: ImageFilter.blur(
+                          sigmaX: 5.0,
+                          sigmaY: 15.0,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
                         child: Align(
                           alignment: AlignmentDirectional(0.0, 0.0),
                           child: Container(
@@ -196,19 +136,51 @@ class _ItemStackWidgetState extends State<ItemStackWidget> {
                                     MediaQuery.of(context).size.height * 0.9),
                                 40.0,
                               ),
-                              colour: valueOrDefault<Color>(
-                                FFAppState().primary,
-                                FlutterFlowTheme.of(context).primary,
-                              ),
+                              colour: Colors.black,
                               fontFamily: 'Aldo',
                             ),
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.8,
+                        child: custom_widgets.AnimatedText(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          text: stackItemRecord.itemText,
+                          fontSize: valueOrDefault<double>(
+                            functions.fontsize(
+                                MediaQuery.of(context).size.width * 0.6,
+                                stackItemRecord.itemText,
+                                MediaQuery.of(context).size.height * 0.9),
+                            40.0,
+                          ),
+                          colour: valueOrDefault<Color>(
+                            FFAppState().primary,
+                            FlutterFlowTheme.of(context).primary,
+                          ),
+                          fontFamily: 'Aldo',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         );

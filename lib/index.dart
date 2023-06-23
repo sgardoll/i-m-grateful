@@ -19,3 +19,7 @@ export '/pages/new_item/new_item_widget.dart' show NewItemWidget;
 export '/pages/edit_item/edit_item_widget.dart' show EditItemWidget;
 export '/settings/edit_subscription/edit_subscription_widget.dart'
     show EditSubscriptionWidget;
+export '/settings/edit_reminders/edit_reminders_widget.dart'
+    show EditRemindersWidget;
+export '/pages/fullscreen_image/fullscreen_image_widget.dart'
+    show FullscreenImageWidget;

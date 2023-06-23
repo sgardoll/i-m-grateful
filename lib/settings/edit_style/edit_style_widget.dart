@@ -130,25 +130,26 @@ class _EditStyleWidgetState extends State<EditStyleWidget> {
                               _model.customArtStyle != '') {
                             logFirebaseEvent('Button_backend_call');
 
-                            final customStylesCreateData =
-                                createCustomStylesRecordData(
-                              style: _model.customArtStyle,
-                              userRef: currentUserReference,
-                            );
                             var customStylesRecordReference =
                                 CustomStylesRecord.collection.doc();
                             await customStylesRecordReference
-                                .set(customStylesCreateData);
+                                .set(createCustomStylesRecordData(
+                              style: _model.customArtStyle,
+                              userRef: currentUserReference,
+                            ));
                             _model.createCustomArtStyle =
                                 CustomStylesRecord.getDocumentFromData(
-                                    customStylesCreateData,
+                                    createCustomStylesRecordData(
+                                      style: _model.customArtStyle,
+                                      userRef: currentUserReference,
+                                    ),
                                     customStylesRecordReference);
                             logFirebaseEvent('Button_backend_call');
 
-                            final usersUpdateData = createUsersRecordData(
+                            await currentUserReference!
+                                .update(createUsersRecordData(
                               style: _model.customArtStyle,
-                            );
-                            await currentUserReference!.update(usersUpdateData);
+                            ));
                             logFirebaseEvent('Button_show_snack_bar');
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -265,12 +266,10 @@ class _EditStyleWidgetState extends State<EditStyleWidget> {
                                             'EDIT_STYLE_PAGE_Image_dbw8gzyg_ON_TAP');
                                         logFirebaseEvent('Image_backend_call');
 
-                                        final usersUpdateData =
-                                            createUsersRecordData(
-                                          style: gridViewStylesRecord.style,
-                                        );
                                         await currentUserReference!
-                                            .update(usersUpdateData);
+                                            .update(createUsersRecordData(
+                                          style: gridViewStylesRecord.style,
+                                        ));
                                         logFirebaseEvent(
                                             'Image_show_snack_bar');
                                         ScaffoldMessenger.of(context)
@@ -323,12 +322,10 @@ class _EditStyleWidgetState extends State<EditStyleWidget> {
                                           logFirebaseEvent(
                                               'Button_backend_call');
 
-                                          final usersUpdateData =
-                                              createUsersRecordData(
-                                            style: gridViewStylesRecord.style,
-                                          );
                                           await currentUserReference!
-                                              .update(usersUpdateData);
+                                              .update(createUsersRecordData(
+                                            style: gridViewStylesRecord.style,
+                                          ));
                                           logFirebaseEvent(
                                               'Button_show_snack_bar');
                                           ScaffoldMessenger.of(context)

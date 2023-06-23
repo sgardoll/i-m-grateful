@@ -267,12 +267,10 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                                           'STYLE_CHOICE_PAGE_LOGIN_BTN_ON_TAP');
                                       logFirebaseEvent('Button_backend_call');
 
-                                      final usersUpdateData =
-                                          createUsersRecordData(
-                                        style: gridViewStylesRecord.style,
-                                      );
                                       await currentUserReference!
-                                          .update(usersUpdateData);
+                                          .update(createUsersRecordData(
+                                        style: gridViewStylesRecord.style,
+                                      ));
                                       logFirebaseEvent('Button_show_snack_bar');
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(

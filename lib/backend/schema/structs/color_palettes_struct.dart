@@ -149,10 +149,13 @@ ColorPalettesStruct createColorPalettesStruct({
 ColorPalettesStruct? updateColorPalettesStruct(
   ColorPalettesStruct? colorPalettes, {
   bool clearUnsetFields = true,
+  bool create = false,
 }) =>
     colorPalettes
-      ?..firestoreUtilData =
-          FirestoreUtilData(clearUnsetFields: clearUnsetFields);
+      ?..firestoreUtilData = FirestoreUtilData(
+        clearUnsetFields: clearUnsetFields,
+        create: create,
+      );
 
 void addColorPalettesStructData(
   Map<String, dynamic> firestoreData,

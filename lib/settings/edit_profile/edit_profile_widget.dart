@@ -264,12 +264,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       'EDIT_PROFILE_SAVE_CHANGES_BTN_ON_TAP');
                                   logFirebaseEvent('Button_backend_call');
 
-                                  final usersUpdateData = createUsersRecordData(
+                                  await currentUserReference!
+                                      .update(createUsersRecordData(
                                     displayName: _model.textController.text,
                                     gender: _model.dropDownValue,
-                                  );
-                                  await currentUserReference!
-                                      .update(usersUpdateData);
+                                  ));
                                   logFirebaseEvent('Button_navigate_to');
 
                                   context.pushNamed('Items');

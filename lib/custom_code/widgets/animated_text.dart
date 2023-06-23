@@ -20,7 +20,7 @@ class AnimatedText extends StatefulWidget {
     this.text,
     this.fontSize = 32.0,
     this.colour = Colors.white,
-    this.fontFamily = 'OxfordStreet',
+    this.fontFamily = 'Aldo',
   }) : super(key: key);
 
   final double? width;
@@ -35,6 +35,20 @@ class AnimatedText extends StatefulWidget {
 }
 
 class _AnimatedTextState extends State<AnimatedText> {
+  double calculateFontSize(String? text) {
+    if (text == null) return widget.fontSize;
+    List<String> words = text.split(' ');
+    if (words.length == 1) {
+      int length = words[0].length;
+      if (length == 6) return 72;
+      if (length == 7) return 71;
+      if (length >= 8 && length <= 10) return 70;
+      if (length == 11) return 68;
+      if (length == 12) return 65;
+    }
+    return widget.fontSize;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -46,7 +60,7 @@ class _AnimatedTextState extends State<AnimatedText> {
             fontFamily: widget.fontFamily,
             letterSpacing: 0.0,
             color: widget.colour,
-            fontSize: widget.fontSize,
+            fontSize: calculateFontSize(widget.text),
             fontWeight: FontWeight.bold,
             height: 0.8, // Hard-coded line spacing value
           ),
