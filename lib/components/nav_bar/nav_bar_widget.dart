@@ -251,8 +251,10 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 ),
                                 icon: Icon(
                                   Icons.add,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: valueOrDefault<Color>(
+                                    FFAppState().lightVibrant,
+                                    Colors.white,
+                                  ),
                                   size: 30.0,
                                 ),
                                 onPressed: () async {

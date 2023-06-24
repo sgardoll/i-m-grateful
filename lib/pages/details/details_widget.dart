@@ -229,10 +229,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
                       buttonSize: 60.0,
                       icon: Icon(
                         Icons.arrow_back_rounded,
-                        color: valueOrDefault<Color>(
-                          FFAppState().contrasting,
-                          FlutterFlowTheme.of(context).secondary,
-                        ),
+                        color: Colors.white,
                         size: 30.0,
                       ),
                       onPressed: () async {
@@ -257,11 +254,8 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                 .titleMedium
                                 .override(
                                   fontFamily: 'Outfit',
-                                  color: valueOrDefault<Color>(
-                                    FFAppState().contrasting,
-                                    FlutterFlowTheme.of(context).secondary,
-                                  ),
-                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                           Padding(
@@ -278,33 +272,48 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                   .titleSmall
                                   .override(
                                     fontFamily: 'Outfit',
-                                    color: valueOrDefault<Color>(
-                                      FFAppState().contrasting,
-                                      FlutterFlowTheme.of(context).secondary,
-                                    ),
-                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal,
                                   ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 60.0,
-                      icon: Icon(
-                        Icons.tablet,
-                        color: valueOrDefault<Color>(
-                          FFAppState().contrasting,
-                          FlutterFlowTheme.of(context).secondary,
+                    Builder(
+                      builder: (context) => FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 60.0,
+                        icon: Icon(
+                          Icons.more_vert_sharp,
+                          color: Colors.white,
+                          size: 30.0,
                         ),
-                        size: 30.0,
+                        onPressed: () async {
+                          logFirebaseEvent(
+                              'DETAILS_PAGE_more_vert_sharp_ICN_ON_TAP');
+                          logFirebaseEvent('IconButton_alert_dialog');
+                          showAlignedDialog(
+                            context: context,
+                            isGlobal: false,
+                            avoidOverflow: true,
+                            targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            builder: (dialogContext) {
+                              return Material(
+                                color: Colors.transparent,
+                                child: MoreDropdownWidget(
+                                  item: detailsItemRecord,
+                                ),
+                              );
+                            },
+                          ).then((value) => setState(() {}));
+                        },
                       ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                      },
                     ),
                   ],
                 ),
@@ -399,8 +408,8 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                     Icon(
                                       Icons.format_paint_rounded,
                                       color: valueOrDefault<Color>(
-                                        widget.contrasting,
-                                        FlutterFlowTheme.of(context).secondary,
+                                        FFAppState().lightVibrant,
+                                        Colors.white,
                                       ),
                                       size: 20.0,
                                     ),
@@ -416,9 +425,8 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                               .override(
                                                 fontFamily: 'Outfit',
                                                 color: valueOrDefault<Color>(
-                                                  widget.contrasting,
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
+                                                  FFAppState().lightVibrant,
+                                                  Colors.white,
                                                 ),
                                               ),
                                         ),
@@ -444,9 +452,8 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                           icon: Icon(
                                             Icons.location_on_sharp,
                                             color: valueOrDefault<Color>(
-                                              widget.contrasting,
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
+                                              FFAppState().lightVibrant,
+                                              Colors.white,
                                             ),
                                             size: 20.0,
                                           ),
@@ -508,9 +515,8 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                           icon: Icon(
                                             Icons.image_outlined,
                                             color: valueOrDefault<Color>(
-                                              widget.contrasting,
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
+                                              FFAppState().lightVibrant,
+                                              Colors.white,
                                             ),
                                             size: 20.0,
                                           ),
@@ -569,9 +575,8 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                         icon: Icon(
                                           Icons.portrait_rounded,
                                           color: valueOrDefault<Color>(
-                                            widget.contrasting,
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
+                                            FFAppState().lightVibrant,
+                                            Colors.white,
                                           ),
                                           size: 20.0,
                                         ),

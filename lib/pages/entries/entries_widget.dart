@@ -611,6 +611,54 @@ class _EntriesWidgetState extends State<EntriesWidget>
                                       logFirebaseEvent(
                                           'ENTRIES_PAGE_StackCardView_ON_TAP');
                                       logFirebaseEvent(
+                                          'StackCardView_update_app_state');
+                                      FFAppState().primary = colorFromCssString(
+                                        itemsItem.primaryColor,
+                                        defaultColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                      );
+                                      FFAppState().contrasting =
+                                          colorFromCssString(
+                                        itemsItem.contrastingColor,
+                                        defaultColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      );
+                                      FFAppState().bodyTextColor =
+                                          valueOrDefault<Color>(
+                                        Theme.of(context).brightness ==
+                                                Brightness.light
+                                            ? colorFromCssString(
+                                                itemsItem.lightVibrant,
+                                                defaultColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                              )
+                                            : colorFromCssString(
+                                                itemsItem.darkVibrant,
+                                                defaultColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                              ),
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                      );
+                                      FFAppState().lightVibrant =
+                                          colorFromCssString(
+                                        itemsItem.lightVibrant,
+                                        defaultColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                      );
+                                      FFAppState().darkVibrant =
+                                          colorFromCssString(
+                                        itemsItem.darkVibrant,
+                                        defaultColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                      );
+                                      logFirebaseEvent(
                                           'StackCardView_navigate_to');
 
                                       context.pushNamed(
