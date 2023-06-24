@@ -120,6 +120,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 itemRef: params.getParam(
                     'itemRef', ParamType.DocumentReference, false, ['Item']),
                 primary: params.getParam('primary', ParamType.Color),
+                secondary: params.getParam('secondary', ParamType.Color),
                 contrasting: params.getParam('contrasting', ParamType.Color),
                 text: params.getParam('text', ParamType.Color),
               ),

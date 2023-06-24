@@ -121,6 +121,7 @@ final parametersBuilderMap =
         allParams: {
           'itemRef': getParameter<DocumentReference>(data, 'itemRef'),
           'primary': getParameter<Color>(data, 'primary'),
+          'secondary': getParameter<Color>(data, 'secondary'),
           'contrasting': getParameter<Color>(data, 'contrasting'),
           'text': getParameter<Color>(data, 'text'),
         },

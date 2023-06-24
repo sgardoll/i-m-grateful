@@ -3,16 +3,19 @@ import '/components/image_selfie_widget.dart';
 import '/components/location_widget.dart';
 import '/components/more_dropdown_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,16 +26,18 @@ class DetailsWidget extends StatefulWidget {
   const DetailsWidget({
     Key? key,
     required this.itemRef,
-    Color? primary,
+    required this.primary,
+    Color? secondary,
     Color? contrasting,
     Color? text,
-  })  : this.primary = primary ?? const Color(0xFFFCB769),
-        this.contrasting = contrasting ?? const Color(0xFF406C88),
-        this.text = text ?? const Color(0x1AFFFFFF),
+  })  : this.secondary = secondary ?? const Color(0xFF6E2626),
+        this.contrasting = contrasting ?? const Color(0xFF721515),
+        this.text = text ?? const Color(0xFFE5A8A8),
         super(key: key);
 
   final DocumentReference? itemRef;
-  final Color primary;
+  final Color? primary;
+  final Color secondary;
   final Color contrasting;
   final Color text;
 
@@ -40,10 +45,38 @@ class DetailsWidget extends StatefulWidget {
   _DetailsWidgetState createState() => _DetailsWidgetState();
 }
 
-class _DetailsWidgetState extends State<DetailsWidget> {
+class _DetailsWidgetState extends State<DetailsWidget>
+    with TickerProviderStateMixin {
   late DetailsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'rowOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 1000.ms,
+          begin: Offset(0.0, -100.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'rowOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 1000.ms,
+          begin: Offset(0.0, 100.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -54,12 +87,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('DETAILS_PAGE_Details_ON_INIT_STATE');
-      logFirebaseEvent('Details_update_app_state');
-      setState(() {
-        FFAppState().primary = widget.primary;
-        FFAppState().contrasting = widget.contrasting;
-        FFAppState().bodyTextColor = widget.text;
-      });
+      logFirebaseEvent('Details_custom_action');
+      await actions.gestureDetectorWidget(
+        FlutterFlowTheme.of(context).tertiary,
+      );
     });
   }
 
@@ -192,7 +223,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                     ),
                   ),
                 ],
-              ),
+              ).animateOnPageLoad(animationsMap['rowOnPageLoadAnimation1']!),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                 child: Row(
@@ -267,44 +298,22 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                         ],
                       ),
                     ),
-                    Builder(
-                      builder: (context) => FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 30.0,
-                        borderWidth: 1.0,
-                        buttonSize: 60.0,
-                        icon: Icon(
-                          Icons.more_vert_rounded,
-                          color: valueOrDefault<Color>(
-                            FFAppState().contrasting,
-                            FlutterFlowTheme.of(context).secondary,
-                          ),
-                          size: 30.0,
+                    FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30.0,
+                      borderWidth: 1.0,
+                      buttonSize: 60.0,
+                      icon: Icon(
+                        Icons.more_vert_rounded,
+                        color: valueOrDefault<Color>(
+                          FFAppState().contrasting,
+                          FlutterFlowTheme.of(context).secondary,
                         ),
-                        onPressed: () async {
-                          logFirebaseEvent(
-                              'DETAILS_more_vert_rounded_ICN_ON_TAP');
-                          logFirebaseEvent('IconButton_alert_dialog');
-                          showAlignedDialog(
-                            barrierColor: Color(0x811A1A1A),
-                            context: context,
-                            isGlobal: false,
-                            avoidOverflow: true,
-                            targetAnchor: AlignmentDirectional(0.0, 0.0)
-                                .resolve(Directionality.of(context)),
-                            followerAnchor: AlignmentDirectional(0.0, 0.0)
-                                .resolve(Directionality.of(context)),
-                            builder: (dialogContext) {
-                              return Material(
-                                color: Colors.transparent,
-                                child: MoreDropdownWidget(
-                                  item: detailsItemRecord,
-                                ),
-                              );
-                            },
-                          ).then((value) => setState(() {}));
-                        },
+                        size: 30.0,
                       ),
+                      onPressed: () {
+                        print('IconButton pressed ...');
+                      },
                     ),
                   ],
                 ),
@@ -356,7 +365,8 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                               ),
                             ),
                           ],
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['rowOnPageLoadAnimation2']!),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 100.0),
@@ -389,37 +399,6 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                   ],
                                 ),
                               ),
-                              if (valueOrDefault<bool>(
-                                detailsItemRecord.moreText != null &&
-                                    detailsItemRecord.moreText != '',
-                                false,
-                              ))
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 16.0, 16.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: AutoSizeText(
-                                          detailsItemRecord.moreText,
-                                          maxLines: 10,
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleLarge
-                                              .override(
-                                                fontFamily: 'Aldo',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.normal,
-                                                useGoogleFonts: false,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 10.0),

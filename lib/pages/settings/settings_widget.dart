@@ -487,7 +487,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                   FFIcons.kinfinity,
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
-                                  size: 24.0,
+                                  size: 18.0,
                                 ),
                               ),
                               Expanded(
