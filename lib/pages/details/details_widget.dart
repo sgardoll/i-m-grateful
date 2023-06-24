@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -84,12 +83,6 @@ class _DetailsWidgetState extends State<DetailsWidget>
     _model = createModel(context, () => DetailsModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Details'});
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('DETAILS_PAGE_Details_ON_INIT_STATE');
-      logFirebaseEvent('Details_custom_action');
-      await actions.speechToText();
-    });
   }
 
   @override
