@@ -3,7 +3,7 @@ export '/login/login/login_widget.dart' show LoginWidget;
 export '/pages/items/items_widget.dart' show ItemsWidget;
 export '/pages/entries/entries_widget.dart' show EntriesWidget;
 export '/settings/edit_profile/edit_profile_widget.dart' show EditProfileWidget;
-export '/pages/pages_sub/details/details_widget.dart' show DetailsWidget;
+export '/pages/details/details_widget.dart' show DetailsWidget;
 export '/pages/settings/settings_widget.dart' show SettingsWidget;
 export '/login/change_password/change_password_widget.dart'
     show ChangePasswordWidget;

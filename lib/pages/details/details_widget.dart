@@ -88,9 +88,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('DETAILS_PAGE_Details_ON_INIT_STATE');
       logFirebaseEvent('Details_custom_action');
-      await actions.gestureDetectorWidget(
-        FlutterFlowTheme.of(context).tertiary,
-      );
+      await actions.speechToText();
     });
   }
 
@@ -304,7 +302,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
                       borderWidth: 1.0,
                       buttonSize: 60.0,
                       icon: Icon(
-                        Icons.more_vert_rounded,
+                        Icons.tablet,
                         color: valueOrDefault<Color>(
                           FFAppState().contrasting,
                           FlutterFlowTheme.of(context).secondary,
