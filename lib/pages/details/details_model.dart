@@ -1,7 +1,7 @@
 import '/backend/backend.dart';
-import '/components/image_selfie_widget.dart';
-import '/components/location_widget.dart';
-import '/components/more_dropdown_widget.dart';
+import '/components/image_selfie/image_selfie_widget.dart';
+import '/components/location/location_widget.dart';
+import '/components/more_dropdown/more_dropdown_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';

@@ -43,8 +43,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: Container(
-        width: MediaQuery.of(context).size.width * 1.0,
-        height: MediaQuery.of(context).size.height * 1.0,
+        width: MediaQuery.sizeOf(context).width * 1.0,
+        height: MediaQuery.sizeOf(context).height * 1.0,
         child: Stack(
           children: [
             SingleChildScrollView(
@@ -52,7 +52,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
+                    width: MediaQuery.sizeOf(context).width * 1.0,
                     decoration: BoxDecoration(
                       color: valueOrDefault<Color>(
                         FFAppState().primary,
@@ -86,10 +86,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                           width: 100.0,
                           height: 100.0,
                           decoration: BoxDecoration(
-                            color: valueOrDefault<Color>(
-                              FFAppState().primary,
-                              FlutterFlowTheme.of(context).primary,
-                            ),
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                         ),
@@ -97,10 +95,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                           width: 100.0,
                           height: 100.0,
                           decoration: BoxDecoration(
-                            color: valueOrDefault<Color>(
-                              FFAppState().primary,
-                              FlutterFlowTheme.of(context).primary,
-                            ),
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                         ),
@@ -108,56 +104,10 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                           width: 100.0,
                           height: 100.0,
                           decoration: BoxDecoration(
-                            color: valueOrDefault<Color>(
-                              FFAppState().primary,
-                              FlutterFlowTheme.of(context).primary,
-                            ),
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             borderRadius: BorderRadius.circular(25.0),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 8.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'INSIGHTS',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Raleway',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 8.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'INSIGHTS',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Raleway',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.w500,
-                              ),
                         ),
                       ],
                     ),

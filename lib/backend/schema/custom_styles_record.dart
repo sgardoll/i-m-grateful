@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -89,4 +91,25 @@ Map<String, dynamic> createCustomStylesRecordData({
   );
 
   return firestoreData;
+}
+
+class CustomStylesRecordDocumentEquality
+    implements Equality<CustomStylesRecord> {
+  const CustomStylesRecordDocumentEquality();
+
+  @override
+  bool equals(CustomStylesRecord? e1, CustomStylesRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.style == e2?.style &&
+        listEquality.equals(e1?.stableT2I, e2?.stableT2I) &&
+        e1?.image == e2?.image &&
+        e1?.userRef == e2?.userRef;
+  }
+
+  @override
+  int hash(CustomStylesRecord? e) =>
+      const ListEquality().hash([e?.style, e?.stableT2I, e?.image, e?.userRef]);
+
+  @override
+  bool isValidKey(Object? o) => o is CustomStylesRecord;
 }

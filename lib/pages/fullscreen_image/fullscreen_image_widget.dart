@@ -1,6 +1,5 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,17 +60,17 @@ class _FullscreenImageWidgetState extends State<FullscreenImageWidget> {
           context.safePop();
         },
         child: Container(
-          width: double.infinity,
-          height: double.infinity,
+          width: MediaQuery.sizeOf(context).width * 1.0,
+          height: MediaQuery.sizeOf(context).height * 1.0,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.contain,
-              image: CachedNetworkImageProvider(
+              image: Image.network(
                 valueOrDefault<String>(
                   widget.imageUrl,
                   'https://www.connectio.com.au/grateful/loading.png',
                 ),
-              ),
+              ).image,
             ),
           ),
         ),

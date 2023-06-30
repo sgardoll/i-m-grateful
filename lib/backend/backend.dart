@@ -7,10 +7,8 @@ import 'schema/util/firestore_util.dart';
 
 import 'schema/users_record.dart';
 import 'schema/item_record.dart';
-import 'schema/stable_t2_i_record.dart';
 import 'schema/styles_record.dart';
 import 'schema/feedback_record.dart';
-import 'schema/replicate_no_bg_record.dart';
 import 'schema/custom_styles_record.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -21,10 +19,8 @@ export 'schema/util/schema_util.dart';
 
 export 'schema/users_record.dart';
 export 'schema/item_record.dart';
-export 'schema/stable_t2_i_record.dart';
 export 'schema/styles_record.dart';
 export 'schema/feedback_record.dart';
-export 'schema/replicate_no_bg_record.dart';
 export 'schema/custom_styles_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
@@ -131,58 +127,6 @@ Future<FFFirestorePage<ItemRecord>> queryItemRecordPage({
       isStream: isStream,
     );
 
-/// Functions to query StableT2IRecords (as a Stream and as a Future).
-Future<int> queryStableT2IRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      StableT2IRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<StableT2IRecord>> queryStableT2IRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      StableT2IRecord.collection,
-      StableT2IRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<StableT2IRecord>> queryStableT2IRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      StableT2IRecord.collection,
-      StableT2IRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<StableT2IRecord>> queryStableT2IRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      StableT2IRecord.collection,
-      StableT2IRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
 /// Functions to query StylesRecords (as a Stream and as a Future).
 Future<int> queryStylesRecordCount({
   Query Function(Query)? queryBuilder,
@@ -281,58 +225,6 @@ Future<FFFirestorePage<FeedbackRecord>> queryFeedbackRecordPage({
     queryCollectionPage(
       FeedbackRecord.collection,
       FeedbackRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
-/// Functions to query ReplicateNoBgRecords (as a Stream and as a Future).
-Future<int> queryReplicateNoBgRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      ReplicateNoBgRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<ReplicateNoBgRecord>> queryReplicateNoBgRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      ReplicateNoBgRecord.collection,
-      ReplicateNoBgRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<ReplicateNoBgRecord>> queryReplicateNoBgRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      ReplicateNoBgRecord.collection,
-      ReplicateNoBgRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<ReplicateNoBgRecord>> queryReplicateNoBgRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      ReplicateNoBgRecord.collection,
-      ReplicateNoBgRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

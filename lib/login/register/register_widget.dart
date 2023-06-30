@@ -75,8 +75,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).accent3,
           body: Container(
-            width: MediaQuery.of(context).size.width * 1.99,
-            height: MediaQuery.of(context).size.height * 1.0,
+            width: MediaQuery.sizeOf(context).width * 1.99,
+            height: MediaQuery.sizeOf(context).height * 1.0,
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
@@ -91,7 +91,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 10.0,
+                    width: MediaQuery.sizeOf(context).width * 10.0,
                     height: 169.0,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(

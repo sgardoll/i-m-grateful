@@ -61,7 +61,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width * 1.0,
+                        width: MediaQuery.sizeOf(context).width * 1.0,
                         decoration: BoxDecoration(
                           color: valueOrDefault<Color>(
                             FFAppState().primary,
@@ -106,7 +106,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     ],
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
+                    width: MediaQuery.sizeOf(context).width * 1.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       boxShadow: [
@@ -448,7 +448,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
+                    width: MediaQuery.sizeOf(context).width * 1.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       boxShadow: [

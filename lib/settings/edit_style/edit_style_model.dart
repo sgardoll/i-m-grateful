@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/custom_style_widget.dart';
+import '/components/custom_style/custom_style_widget.dart';
+import '/components/small_infinity_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -19,12 +20,18 @@ class EditStyleModel extends FlutterFlowModel {
   String? customArtStyle;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   CustomStylesRecord? createCustomArtStyle;
+  // Model for SmallInfinity component.
+  late SmallInfinityModel smallInfinityModel;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    smallInfinityModel = createModel(context, () => SmallInfinityModel());
+  }
 
-  void dispose() {}
+  void dispose() {
+    smallInfinityModel.dispose();
+  }
 
   /// Action blocks are added here.
 

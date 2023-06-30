@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -127,11 +129,6 @@ class ItemRecord extends FirestoreRecord {
   String get mainImage => _mainImage ?? '';
   bool hasMainImage() => _mainImage != null;
 
-  // "video" field.
-  String? _video;
-  String get video => _video ?? '';
-  bool hasVideo() => _video != null;
-
   void _initializeFields() {
     _itemText = snapshotData['itemText'] as String?;
     _moreText = snapshotData['moreText'] as String?;
@@ -158,7 +155,6 @@ class ItemRecord extends FirestoreRecord {
     _instructPix2Pix = snapshotData['instructPix2Pix'] as String?;
     _stableImg2Img = snapshotData['stableImg2Img'] as String?;
     _mainImage = snapshotData['mainImage'] as String?;
-    _video = snapshotData['video'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -216,7 +212,6 @@ Map<String, dynamic> createItemRecordData({
   String? instructPix2Pix,
   String? stableImg2Img,
   String? mainImage,
-  String? video,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -241,7 +236,6 @@ Map<String, dynamic> createItemRecordData({
       'instructPix2Pix': instructPix2Pix,
       'stableImg2Img': stableImg2Img,
       'mainImage': mainImage,
-      'video': video,
     }.withoutNulls,
   );
 
@@ -253,4 +247,65 @@ Map<String, dynamic> createItemRecordData({
       firestoreData, uploadedImages, 'uploadedImages');
 
   return firestoreData;
+}
+
+class ItemRecordDocumentEquality implements Equality<ItemRecord> {
+  const ItemRecordDocumentEquality();
+
+  @override
+  bool equals(ItemRecord? e1, ItemRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.itemText == e2?.itemText &&
+        e1?.moreText == e2?.moreText &&
+        e1?.location == e2?.location &&
+        e1?.photo == e2?.photo &&
+        e1?.selfie == e2?.selfie &&
+        e1?.timestamp == e2?.timestamp &&
+        e1?.userRef == e2?.userRef &&
+        e1?.style == e2?.style &&
+        e1?.stable == e2?.stable &&
+        e1?.contrastingColor == e2?.contrastingColor &&
+        e1?.darkVibrant == e2?.darkVibrant &&
+        e1?.lightVibrant == e2?.lightVibrant &&
+        e1?.primaryColor == e2?.primaryColor &&
+        e1?.status == e2?.status &&
+        e1?.uploadedImages == e2?.uploadedImages &&
+        e1?.gender == e2?.gender &&
+        listEquality.equals(e1?.replicateSelfieEdgeOfRealismV20Img2Img,
+            e2?.replicateSelfieEdgeOfRealismV20Img2Img) &&
+        e1?.edgeOfRealismV20Img2img == e2?.edgeOfRealismV20Img2img &&
+        e1?.replicateNoBgCreate == e2?.replicateNoBgCreate &&
+        e1?.instructPix2Pix == e2?.instructPix2Pix &&
+        e1?.stableImg2Img == e2?.stableImg2Img &&
+        e1?.mainImage == e2?.mainImage;
+  }
+
+  @override
+  int hash(ItemRecord? e) => const ListEquality().hash([
+        e?.itemText,
+        e?.moreText,
+        e?.location,
+        e?.photo,
+        e?.selfie,
+        e?.timestamp,
+        e?.userRef,
+        e?.style,
+        e?.stable,
+        e?.contrastingColor,
+        e?.darkVibrant,
+        e?.lightVibrant,
+        e?.primaryColor,
+        e?.status,
+        e?.uploadedImages,
+        e?.gender,
+        e?.replicateSelfieEdgeOfRealismV20Img2Img,
+        e?.edgeOfRealismV20Img2img,
+        e?.replicateNoBgCreate,
+        e?.instructPix2Pix,
+        e?.stableImg2Img,
+        e?.mainImage
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is ItemRecord;
 }

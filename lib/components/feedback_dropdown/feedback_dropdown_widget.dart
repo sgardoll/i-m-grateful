@@ -453,6 +453,7 @@ class _FeedbackDropdownWidgetState extends State<FeedbackDropdownWidget>
                                                   .isDataUploading = true);
                                               var selectedUploadedFiles =
                                                   <FFUploadedFile>[];
+
                                               var downloadUrls = <String>[];
                                               try {
                                                 showUploadMessage(

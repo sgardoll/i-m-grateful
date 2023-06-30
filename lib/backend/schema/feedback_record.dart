@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -97,4 +99,25 @@ Map<String, dynamic> createFeedbackRecordData({
   );
 
   return firestoreData;
+}
+
+class FeedbackRecordDocumentEquality implements Equality<FeedbackRecord> {
+  const FeedbackRecordDocumentEquality();
+
+  @override
+  bool equals(FeedbackRecord? e1, FeedbackRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.itemRef == e2?.itemRef &&
+        e1?.userRef == e2?.userRef &&
+        e1?.rating == e2?.rating &&
+        e1?.feedback == e2?.feedback &&
+        listEquality.equals(e1?.screenshots, e2?.screenshots);
+  }
+
+  @override
+  int hash(FeedbackRecord? e) => const ListEquality()
+      .hash([e?.itemRef, e?.userRef, e?.rating, e?.feedback, e?.screenshots]);
+
+  @override
+  bool isValidKey(Object? o) => o is FeedbackRecord;
 }

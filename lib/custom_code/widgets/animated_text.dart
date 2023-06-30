@@ -38,13 +38,15 @@ class _AnimatedTextState extends State<AnimatedText> {
   double calculateFontSize(String? text) {
     if (text == null) return widget.fontSize;
     List<String> words = text.split(' ');
-    if (words.length == 1) {
+    if (words.length <= 2) {
       int length = words[0].length;
       if (length == 6) return 72;
       if (length == 7) return 71;
-      if (length >= 8 && length <= 10) return 70;
-      if (length == 11) return 68;
-      if (length == 12) return 65;
+      if (length == 8) return 70;
+      if (length == 9) return 68;
+      if (length == 10) return 68;
+      if (length == 11) return 66;
+      if (length == 12) return 64;
     }
     return widget.fontSize;
   }

@@ -50,8 +50,8 @@ class _LoginWidgetState extends State<LoginWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).accent3,
       body: Container(
-        width: MediaQuery.of(context).size.width * 1.0,
-        height: MediaQuery.of(context).size.height * 1.0,
+        width: MediaQuery.sizeOf(context).width * 1.0,
+        height: MediaQuery.sizeOf(context).height * 1.0,
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
@@ -66,7 +66,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * 10.0,
+                width: MediaQuery.sizeOf(context).width * 10.0,
                 height: 169.0,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -165,6 +165,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             child: TextFormField(
                                               controller:
                                                   _model.emailController,
+                                              autofocus: true,
                                               obscureText: false,
                                               decoration: InputDecoration(
                                                 hintText: 'Your email...',
@@ -249,6 +250,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             child: TextFormField(
                                               controller:
                                                   _model.passwordController,
+                                              autofocus: true,
                                               obscureText:
                                                   !_model.passwordVisibility,
                                               decoration: InputDecoration(
@@ -355,94 +357,175 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 8.0, 0.0),
-                                                  child: FFButtonWidget(
-                                                    onPressed: () async {
-                                                      logFirebaseEvent(
-                                                          'LOGIN_PAGE_LOGIN_BTN_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Button_auth');
-                                                      GoRouter.of(context)
-                                                          .prepareAuthEvent();
+                                                Flexible(
+                                                  flex: 4,
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                16.0, 0.0),
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        logFirebaseEvent(
+                                                            'LOGIN_PAGE_LOGIN_BTN_ON_TAP');
+                                                        logFirebaseEvent(
+                                                            'Button_auth');
+                                                        GoRouter.of(context)
+                                                            .prepareAuthEvent();
 
-                                                      final user =
-                                                          await authManager
-                                                              .signInWithEmail(
-                                                        context,
-                                                        _model.emailController
-                                                            .text,
-                                                        _model
-                                                            .passwordController
-                                                            .text,
-                                                      );
-                                                      if (user == null) {
-                                                        return;
-                                                      }
+                                                        final user =
+                                                            await authManager
+                                                                .signInWithEmail(
+                                                          context,
+                                                          _model.emailController
+                                                              .text,
+                                                          _model
+                                                              .passwordController
+                                                              .text,
+                                                        );
+                                                        if (user == null) {
+                                                          return;
+                                                        }
 
-                                                      logFirebaseEvent(
-                                                          'Button_navigate_to');
+                                                        logFirebaseEvent(
+                                                            'Button_navigate_to');
 
-                                                      context.pushNamedAuth(
-                                                          'Items',
-                                                          context.mounted);
-                                                    },
-                                                    text: 'Login',
-                                                    options: FFButtonOptions(
-                                                      width: 230.0,
-                                                      height: 40.0,
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                      elevation: 6.0,
-                                                      borderSide: BorderSide(
+                                                        context.pushNamedAuth(
+                                                            'Items',
+                                                            context.mounted);
+                                                      },
+                                                      text: 'Login',
+                                                      options: FFButtonOptions(
+                                                        width: 150.0,
+                                                        height: 40.0,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
                                                         color:
-                                                            Colors.transparent,
-                                                        width: 1.0,
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .accent3,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                        elevation: 6.0,
+                                                        borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25.0),
                                                       ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              25.0),
                                                     ),
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 8.0, 0.0),
+                                                Flexible(
+                                                  flex: 1,
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                8.0, 0.0),
+                                                    child: Material(
+                                                      color: Colors.transparent,
+                                                      elevation: 6.0,
+                                                      shape:
+                                                          const CircleBorder(),
+                                                      child: Container(
+                                                        width: 40.0,
+                                                        height: 40.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors
+                                                              .transparent,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 4.0,
+                                                              color: Color(
+                                                                  0x33000000),
+                                                              offset: Offset(
+                                                                  0.0, 2.0),
+                                                            )
+                                                          ],
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child:
+                                                            FlutterFlowIconButton(
+                                                          borderColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                          borderRadius: 20.0,
+                                                          borderWidth: 1.0,
+                                                          buttonSize: 40.0,
+                                                          fillColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                          icon: FaIcon(
+                                                            FontAwesomeIcons
+                                                                .google,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .accent3,
+                                                            size: 20.0,
+                                                          ),
+                                                          showLoadingIndicator:
+                                                              true,
+                                                          onPressed: () async {
+                                                            logFirebaseEvent(
+                                                                'LOGIN_PAGE_google_ICN_ON_TAP');
+                                                            logFirebaseEvent(
+                                                                'IconButton_auth');
+                                                            GoRouter.of(context)
+                                                                .prepareAuthEvent();
+                                                            final user =
+                                                                await authManager
+                                                                    .signInWithGoogle(
+                                                                        context);
+                                                            if (user == null) {
+                                                              return;
+                                                            }
+
+                                                            context.goNamedAuth(
+                                                                'Items',
+                                                                context
+                                                                    .mounted);
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  flex: 1,
                                                   child: Material(
                                                     color: Colors.transparent,
                                                     elevation: 6.0,
@@ -479,7 +562,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                                 .primary,
                                                         icon: FaIcon(
                                                           FontAwesomeIcons
-                                                              .google,
+                                                              .apple,
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .accent3,
@@ -489,93 +572,24 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                             true,
                                                         onPressed: () async {
                                                           logFirebaseEvent(
-                                                              'LOGIN_PAGE_google_ICN_ON_TAP');
+                                                              'LOGIN_PAGE_apple_ICN_ON_TAP');
                                                           logFirebaseEvent(
                                                               'IconButton_auth');
                                                           GoRouter.of(context)
                                                               .prepareAuthEvent();
                                                           final user =
                                                               await authManager
-                                                                  .signInWithGoogle(
+                                                                  .signInWithApple(
                                                                       context);
                                                           if (user == null) {
                                                             return;
                                                           }
-                                                          logFirebaseEvent(
-                                                              'IconButton_navigate_to');
 
-                                                          context.pushNamedAuth(
+                                                          context.goNamedAuth(
                                                               'Items',
                                                               context.mounted);
                                                         },
                                                       ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Material(
-                                                  color: Colors.transparent,
-                                                  elevation: 6.0,
-                                                  shape: const CircleBorder(),
-                                                  child: Container(
-                                                    width: 40.0,
-                                                    height: 40.0,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.transparent,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          blurRadius: 4.0,
-                                                          color:
-                                                              Color(0x33000000),
-                                                          offset:
-                                                              Offset(0.0, 2.0),
-                                                        )
-                                                      ],
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child:
-                                                        FlutterFlowIconButton(
-                                                      borderColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      borderRadius: 20.0,
-                                                      borderWidth: 1.0,
-                                                      buttonSize: 40.0,
-                                                      fillColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      icon: FaIcon(
-                                                        FontAwesomeIcons.apple,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .accent3,
-                                                        size: 20.0,
-                                                      ),
-                                                      showLoadingIndicator:
-                                                          true,
-                                                      onPressed: () async {
-                                                        logFirebaseEvent(
-                                                            'LOGIN_PAGE_apple_ICN_ON_TAP');
-                                                        logFirebaseEvent(
-                                                            'IconButton_auth');
-                                                        GoRouter.of(context)
-                                                            .prepareAuthEvent();
-                                                        final user =
-                                                            await authManager
-                                                                .signInWithApple(
-                                                                    context);
-                                                        if (user == null) {
-                                                          return;
-                                                        }
-                                                        logFirebaseEvent(
-                                                            'IconButton_navigate_to');
-
-                                                        context.pushNamedAuth(
-                                                            'Items',
-                                                            context.mounted);
-                                                      },
                                                     ),
                                                   ),
                                                 ),
@@ -585,41 +599,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 44.0, 0.0, 30.0),
+                                                    0.0, 40.0, 0.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
-                                                Flexible(
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                16.0, 0.0),
-                                                    child: Text(
-                                                      'New here?',
-                                                      maxLines: 4,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                                fontSize: 18.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                    ),
-                                                  ),
-                                                ),
                                                 FFButtonWidget(
                                                   onPressed: () async {
                                                     logFirebaseEvent(
@@ -676,6 +661,50 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                         BorderRadius.circular(
                                                             25.0),
                                                   ),
+                                                ),
+                                                FFButtonWidget(
+                                                  onPressed: () async {
+                                                    logFirebaseEvent(
+                                                        'LOGIN_PAGE_FORGOT_PASSWORD_BTN_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Button_navigate_to');
+
+                                                    context.pushNamed(
+                                                        'ChangePassword');
+                                                  },
+                                                  text: 'Forgot Password',
+                                                  options: FFButtonOptions(
+                                                    height: 32.0,
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(16.0, 0.0,
+                                                                16.0, 0.0),
+                                                    iconPadding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily: 'Outfit',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .accent3,
+                                                        ),
+                                                    elevation: 6.0,
+                                                    borderSide: BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25.0),
+                                                  ),
+                                                  showLoadingIndicator: false,
                                                 ),
                                               ],
                                             ),

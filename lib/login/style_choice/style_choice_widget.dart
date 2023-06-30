@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'style_choice_model.dart';
 export 'style_choice_model.dart';
@@ -70,8 +68,8 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).accent3,
       body: Container(
-        width: MediaQuery.of(context).size.width * 1.0,
-        height: MediaQuery.of(context).size.height * 1.0,
+        width: MediaQuery.sizeOf(context).width * 1.0,
+        height: MediaQuery.sizeOf(context).height * 1.0,
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
@@ -86,7 +84,7 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * 1.0,
+                width: MediaQuery.sizeOf(context).width * 1.0,
                 height: 170.0,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -157,7 +155,7 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: MediaQuery.sizeOf(context).height * 0.6,
                 decoration: BoxDecoration(),
                 child: Padding(
                   padding:
@@ -206,6 +204,15 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                               width: 100.0,
                               height: 125.0,
                               decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: Image.network(
+                                    valueOrDefault<String>(
+                                      gridViewStylesRecord.image,
+                                      'https://www.connectio.com.au/grateful/Loading.png',
+                                    ),
+                                  ).image,
+                                ),
                                 boxShadow: [
                                   BoxShadow(
                                     blurRadius: 4.0,
@@ -215,108 +222,54 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                                 ],
                                 borderRadius: BorderRadius.circular(25.0),
                               ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      logFirebaseEvent(
-                                          'STYLE_CHOICE_PAGE_Image_0mjwg9jh_ON_TAP');
-                                      logFirebaseEvent('Image_expand_image');
-                                      await Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.fade,
-                                          child: FlutterFlowExpandedImageView(
-                                            image: Image.network(
-                                              gridViewStylesRecord.image,
-                                              fit: BoxFit.contain,
-                                            ),
-                                            allowRotation: false,
-                                            tag: gridViewStylesRecord.image,
-                                            useHeroAnimation: true,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Hero(
-                                      tag: gridViewStylesRecord.image,
-                                      transitionOnUserGestures: true,
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
-                                        child: Image.network(
-                                          gridViewStylesRecord.image,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              1.0,
-                                          height: 162.0,
-                                          fit: BoxFit.cover,
+                              alignment: AlignmentDirectional(0.0, 1.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'STYLE_CHOICE_PAGE_LOGIN_BTN_ON_TAP');
+                                  logFirebaseEvent('Button_backend_call');
+
+                                  await currentUserReference!
+                                      .update(createUsersRecordData(
+                                    style: gridViewStylesRecord.style,
+                                  ));
+                                  logFirebaseEvent('Button_show_snack_bar');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Style preference changed to ${valueOrDefault(currentUserDocument?.style, '')}',
+                                        style: GoogleFonts.getFont(
+                                          'Outfit',
+                                          color: FlutterFlowTheme.of(context)
+                                              .accent3,
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                  FFButtonWidget(
-                                    onPressed: () async {
-                                      logFirebaseEvent(
-                                          'STYLE_CHOICE_PAGE_LOGIN_BTN_ON_TAP');
-                                      logFirebaseEvent('Button_backend_call');
-
-                                      await currentUserReference!
-                                          .update(createUsersRecordData(
-                                        style: gridViewStylesRecord.style,
-                                      ));
-                                      logFirebaseEvent('Button_show_snack_bar');
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Style preference changed to ${valueOrDefault(currentUserDocument?.style, '')}',
-                                            style: GoogleFonts.getFont(
-                                              'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .accent3,
-                                            ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
-                                        ),
-                                      );
-                                      logFirebaseEvent('Button_navigate_to');
-
-                                      context.goNamed('Items');
-                                    },
-                                    text: gridViewStylesRecord.style,
-                                    options: FFButtonOptions(
-                                      width: 200.0,
-                                      height: 30.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color:
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
                                           FlutterFlowTheme.of(context).primary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium,
-                                      elevation: 2.0,
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(25.0),
                                     ),
+                                  );
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.goNamed('Items');
+                                },
+                                text: gridViewStylesRecord.style,
+                                options: FFButtonOptions(
+                                  width: 200.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 16.0, 0.0, 16.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  textStyle:
+                                      FlutterFlowTheme.of(context).labelMedium,
+                                  elevation: 2.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
                                   ),
-                                ],
+                                  borderRadius: BorderRadius.circular(25.0),
+                                ),
                               ),
                             );
                           },

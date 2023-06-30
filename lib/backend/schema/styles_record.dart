@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -74,4 +76,19 @@ Map<String, dynamic> createStylesRecordData({
   );
 
   return firestoreData;
+}
+
+class StylesRecordDocumentEquality implements Equality<StylesRecord> {
+  const StylesRecordDocumentEquality();
+
+  @override
+  bool equals(StylesRecord? e1, StylesRecord? e2) {
+    return e1?.style == e2?.style && e1?.image == e2?.image;
+  }
+
+  @override
+  int hash(StylesRecord? e) => const ListEquality().hash([e?.style, e?.image]);
+
+  @override
+  bool isValidKey(Object? o) => o is StylesRecord;
 }

@@ -44,8 +44,8 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
     return Stack(
       children: [
         Container(
-          width: MediaQuery.of(context).size.width * 1.0,
-          height: MediaQuery.of(context).size.height * 1.0,
+          width: MediaQuery.sizeOf(context).width * 1.0,
+          height: MediaQuery.sizeOf(context).height * 1.0,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,

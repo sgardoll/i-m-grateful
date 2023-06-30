@@ -1,8 +1,8 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/empty_list/empty_list_widget.dart';
-import '/components/item_stack_widget.dart';
-import '/components/more_dropdown_widget.dart';
+import '/components/item_stack/item_stack_widget.dart';
+import '/components/more_dropdown/more_dropdown_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -123,8 +123,8 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                 );
               }
               return Container(
-                width: MediaQuery.of(context).size.width * 1.0,
-                height: MediaQuery.of(context).size.height * 1.0,
+                width: MediaQuery.sizeOf(context).width * 1.0,
+                height: MediaQuery.sizeOf(context).height * 1.0,
                 child: PageView.builder(
                   controller: _model.pageViewController ??= PageController(
                       initialPage: min(0, pageViewItemRecordList.length - 1)),
@@ -175,96 +175,79 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                   itemBuilder: (context, pageViewIndex) {
                     final pageViewItemRecord =
                         pageViewItemRecordList[pageViewIndex];
-                    return Stack(
-                      children: [
-                        Builder(
-                          builder: (context) => InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'ITEMS_PAGE_Container_gylkey1z_ON_TAP');
-                              logFirebaseEvent('Container_navigate_to');
+                    return Builder(
+                      builder: (context) => InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          logFirebaseEvent('ITEMS_PAGE_Stack_poyb5l6o_ON_TAP');
+                          logFirebaseEvent('Stack_navigate_to');
 
-                              context.pushNamed(
-                                'FullscreenImage',
-                                queryParameters: {
-                                  'imageUrl': serializeParam(
-                                    pageViewItemRecord.mainImage,
-                                    ParamType.String,
-                                  ),
-                                }.withoutNulls,
-                                extra: <String, dynamic>{
-                                  kTransitionInfoKey: TransitionInfo(
-                                    hasTransition: true,
-                                    transitionType: PageTransitionType.scale,
-                                    alignment: Alignment.bottomCenter,
-                                  ),
-                                },
+                          context.pushNamed(
+                            'FullscreenImage',
+                            queryParameters: {
+                              'imageUrl': serializeParam(
+                                pageViewItemRecord.mainImage,
+                                ParamType.String,
+                              ),
+                            }.withoutNulls,
+                          );
+                        },
+                        onLongPress: () async {
+                          logFirebaseEvent(
+                              'ITEMS_PAGE_Stack_poyb5l6o_ON_LONG_PRESS');
+                          logFirebaseEvent('Stack_alert_dialog');
+                          showAlignedDialog(
+                            context: context,
+                            isGlobal: false,
+                            avoidOverflow: true,
+                            targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            builder: (dialogContext) {
+                              return Material(
+                                color: Colors.transparent,
+                                child: MoreDropdownWidget(
+                                  item: pageViewItemRecord,
+                                ),
                               );
                             },
-                            onLongPress: () async {
-                              logFirebaseEvent(
-                                  'ITEMS_Container_gylkey1z_ON_LONG_PRESS');
-                              logFirebaseEvent('Container_alert_dialog');
-                              showAlignedDialog(
-                                context: context,
-                                isGlobal: false,
-                                avoidOverflow: true,
-                                targetAnchor: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                followerAnchor: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                builder: (dialogContext) {
-                                  return Material(
-                                    color: Colors.transparent,
-                                    child: MoreDropdownWidget(
-                                      item: pageViewItemRecord,
-                                    ),
-                                  );
-                                },
-                              ).then((value) => setState(() {}));
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 1.0,
-                              height: MediaQuery.of(context).size.height * 1.0,
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: CachedNetworkImage(
-                                  imageUrl: valueOrDefault<String>(
-                                    pageViewItemRecord.mainImage,
-                                    'https://www.connectio.com.au/grateful/loading.png',
-                                  ),
-                                  width:
-                                      MediaQuery.of(context).size.width * 1.0,
-                                  height:
-                                      MediaQuery.of(context).size.height * 1.0,
-                                  fit: BoxFit.cover,
+                          ).then((value) => setState(() {}));
+                        },
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(0.0),
+                              child: CachedNetworkImage(
+                                imageUrl: valueOrDefault<String>(
+                                  pageViewItemRecord.mainImage,
+                                  'https://www.connectio.com.au/grateful/loading.png',
                                 ),
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                height: MediaQuery.sizeOf(context).height * 1.0,
+                                fit: BoxFit.cover,
                               ),
                             ),
-                          ),
-                        ),
-                        wrapWithModel(
-                          model: _model.animatedTextModels.getModel(
-                            pageViewItemRecord.reference.id,
-                            pageViewIndex,
-                          ),
-                          updateCallback: () => setState(() {}),
-                          updateOnChange: true,
-                          child: ItemStackWidget(
-                            key: Key(
-                              'Keyjjz_${pageViewItemRecord.reference.id}',
+                            wrapWithModel(
+                              model: _model.animatedTextModels.getModel(
+                                pageViewItemRecord.reference.id,
+                                pageViewIndex,
+                              ),
+                              updateCallback: () => setState(() {}),
+                              updateOnChange: true,
+                              child: ItemStackWidget(
+                                key: Key(
+                                  'Keyjjz_${pageViewItemRecord.reference.id}',
+                                ),
+                                item: pageViewItemRecord,
+                              ),
                             ),
-                            item: pageViewItemRecord,
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     );
                   },
                 ),

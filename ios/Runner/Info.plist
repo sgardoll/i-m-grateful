@@ -37,10 +37,10 @@
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>app</string>
+        <string>grateful</string>
         <key>CFBundleURLSchemes</key>
         <array>
-        <string>grateful</string>
+        <string>com.connectio.imgrateful</string>
         </array>
         </dict>
     </array>

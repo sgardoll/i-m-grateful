@@ -1,7 +1,7 @@
 import '/backend/backend.dart';
-import '/components/image_selfie_widget.dart';
-import '/components/location_widget.dart';
-import '/components/more_dropdown_widget.dart';
+import '/components/image_selfie/image_selfie_widget.dart';
+import '/components/location/location_widget.dart';
+import '/components/more_dropdown/more_dropdown_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -171,8 +171,8 @@ class _DetailsWidgetState extends State<DetailsWidget>
                         detailsItemRecord.mainImage,
                         'https://www.connectio.com.au/grateful/loading.png',
                       ),
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      height: MediaQuery.of(context).size.height * 1.0,
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: MediaQuery.sizeOf(context).height * 1.0,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -196,8 +196,8 @@ class _DetailsWidgetState extends State<DetailsWidget>
                         sigmaY: 2.0,
                       ),
                       child: Container(
-                        width: MediaQuery.of(context).size.width * 1.0,
-                        height: MediaQuery.of(context).size.height * 0.161,
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: MediaQuery.sizeOf(context).height * 0.161,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
@@ -344,10 +344,9 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                   sigmaY: 2.0,
                                 ),
                                 child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 1.0,
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
                                   height:
-                                      MediaQuery.of(context).size.height * 0.4,
+                                      MediaQuery.sizeOf(context).height * 0.4,
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
                                       colors: [
@@ -438,7 +437,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                     ))
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 8.0, 0.0),
+                                            8.0, 0.0, 8.0, 0.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: valueOrDefault<Color>(
                                             widget.primary,
@@ -471,14 +470,13 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                               builder: (context) {
                                                 return Padding(
                                                   padding:
-                                                      MediaQuery.of(context)
-                                                          .viewInsets,
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
                                                   child: Container(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.85,
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.85,
                                                     child: LocationWidget(
                                                       location:
                                                           detailsItemRecord
@@ -501,7 +499,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                     ))
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 8.0, 0.0),
+                                            8.0, 0.0, 8.0, 0.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: valueOrDefault<Color>(
                                             widget.primary,
@@ -534,14 +532,13 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                               builder: (context) {
                                                 return Padding(
                                                   padding:
-                                                      MediaQuery.of(context)
-                                                          .viewInsets,
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
                                                   child: Container(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.85,
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.85,
                                                     child: ImageSelfieWidget(
                                                       imageSelfie:
                                                           detailsItemRecord
@@ -563,45 +560,54 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                               '',
                                       false,
                                     ))
-                                      FlutterFlowIconButton(
-                                        borderColor: valueOrDefault<Color>(
-                                          widget.primary,
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
-                                        borderRadius: 30.0,
-                                        borderWidth: 1.0,
-                                        buttonSize: 40.0,
-                                        fillColor: Color(0x33090F13),
-                                        icon: Icon(
-                                          Icons.portrait_rounded,
-                                          color: valueOrDefault<Color>(
-                                            FFAppState().lightVibrant,
-                                            Colors.white,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8.0, 0.0, 8.0, 0.0),
+                                        child: FlutterFlowIconButton(
+                                          borderColor: valueOrDefault<Color>(
+                                            widget.primary,
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
                                           ),
-                                          size: 20.0,
+                                          borderRadius: 30.0,
+                                          borderWidth: 1.0,
+                                          buttonSize: 40.0,
+                                          fillColor: Color(0x33090F13),
+                                          icon: Icon(
+                                            Icons.portrait_rounded,
+                                            color: valueOrDefault<Color>(
+                                              FFAppState().lightVibrant,
+                                              Colors.white,
+                                            ),
+                                            size: 20.0,
+                                          ),
+                                          onPressed: () async {
+                                            logFirebaseEvent(
+                                                'DETAILS_PAGE_locationButton_ON_TAP');
+                                            logFirebaseEvent(
+                                                'locationButton_bottom_sheet');
+                                            showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              barrierColor: Color(0x7F000000),
+                                              context: context,
+                                              builder: (context) {
+                                                return Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child: ImageSelfieWidget(
+                                                    imageSelfie:
+                                                        detailsItemRecord
+                                                            .uploadedImages
+                                                            .selfie,
+                                                  ),
+                                                );
+                                              },
+                                            ).then((value) => setState(() {}));
+                                          },
                                         ),
-                                        onPressed: () async {
-                                          logFirebaseEvent(
-                                              'DETAILS_PAGE_locationButton_ON_TAP');
-                                          logFirebaseEvent(
-                                              'locationButton_bottom_sheet');
-                                          showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            barrierColor: Color(0x7F000000),
-                                            context: context,
-                                            builder: (context) {
-                                              return Padding(
-                                                padding: MediaQuery.of(context)
-                                                    .viewInsets,
-                                                child: ImageSelfieWidget(
-                                                  imageSelfie: detailsItemRecord
-                                                      .uploadedImages.selfie,
-                                                ),
-                                              );
-                                            },
-                                          ).then((value) => setState(() {}));
-                                        },
                                       ),
                                   ],
                                 ),

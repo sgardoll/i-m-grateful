@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
@@ -20,6 +21,8 @@ import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
+export '/backend/firebase_dynamic_links/firebase_dynamic_links.dart'
+    show generateCurrentPageLink;
 
 const kTransitionInfoKey = '__transition_info__';
 
@@ -80,8 +83,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? ItemsWidget() : LoginWidget(),
+      errorBuilder: (context, state) => _RouteErrorBuilder(
+        state: state,
+        child: appStateNotifier.loggedIn ? ItemsWidget() : LoginWidget(),
+      ),
       routes: [
         FFRoute(
           name: '_initialize',
@@ -134,7 +139,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'ChangePassword',
               path: 'changePassword',
-              requireAuth: true,
               builder: (context, params) => ChangePasswordWidget(),
             ),
             FFRoute(
@@ -178,15 +182,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => NewItemWidget(),
             ),
             FFRoute(
-              name: 'EditItem',
-              path: 'editItem',
-              requireAuth: true,
-              builder: (context, params) => EditItemWidget(
-                itemRef: params.getParam(
-                    'itemRef', ParamType.DocumentReference, false, ['Item']),
-              ),
-            ),
-            FFRoute(
               name: 'EditSubscription',
               path: 'editSubscription',
               requireAuth: true,
@@ -204,6 +199,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => FullscreenImageWidget(
                 imageUrl: params.getParam('imageUrl', ParamType.String),
+              ),
+            ),
+            FFRoute(
+              name: 'EditItem',
+              path: 'editItem',
+              requireAuth: true,
+              builder: (context, params) => EditItemWidget(
+                docRef: params.getParam(
+                    'docRef', ParamType.DocumentReference, false, ['Item']),
               ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
@@ -392,8 +396,8 @@ class FFRoute {
                   child: Center(
                     child: Image.asset(
                       'assets/images/12-splash.jpg',
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      height: MediaQuery.of(context).size.height * 1.0,
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: MediaQuery.sizeOf(context).height * 1.0,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -438,4 +442,32 @@ class TransitionInfo {
         transitionType: PageTransitionType.fade,
         duration: Duration(milliseconds: 300),
       );
+}
+
+class _RouteErrorBuilder extends StatefulWidget {
+  const _RouteErrorBuilder({
+    Key? key,
+    required this.state,
+    required this.child,
+  }) : super(key: key);
+
+  final GoRouterState state;
+  final Widget child;
+
+  @override
+  State<_RouteErrorBuilder> createState() => _RouteErrorBuilderState();
+}
+
+class _RouteErrorBuilderState extends State<_RouteErrorBuilder> {
+  @override
+  void initState() {
+    super.initState();
+    // Handle erroneous links from Firebase Dynamic Links.
+    if (widget.state.location.startsWith('/link?request_ip_version')) {
+      SchedulerBinding.instance.addPostFrameCallback((_) => context.go('/'));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }

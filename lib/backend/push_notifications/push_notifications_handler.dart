@@ -83,8 +83,8 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
           child: Center(
             child: Image.asset(
               'assets/images/12-splash.jpg',
-              width: MediaQuery.of(context).size.width * 1.0,
-              height: MediaQuery.of(context).size.height * 1.0,
+              width: MediaQuery.sizeOf(context).width * 1.0,
+              height: MediaQuery.sizeOf(context).height * 1.0,
               fit: BoxFit.cover,
             ),
           ),
@@ -135,16 +135,16 @@ final parametersBuilderMap =
   'Explore': ParameterData.none(),
   'StyleChoice': ParameterData.none(),
   'NewItem': ParameterData.none(),
-  'EditItem': (data) async => ParameterData(
-        allParams: {
-          'itemRef': getParameter<DocumentReference>(data, 'itemRef'),
-        },
-      ),
   'EditSubscription': ParameterData.none(),
   'EditReminders': ParameterData.none(),
   'FullscreenImage': (data) async => ParameterData(
         allParams: {
           'imageUrl': getParameter<String>(data, 'imageUrl'),
+        },
+      ),
+  'EditItem': (data) async => ParameterData(
+        allParams: {
+          'docRef': getParameter<DocumentReference>(data, 'docRef'),
         },
       ),
 };

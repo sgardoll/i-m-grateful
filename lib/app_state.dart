@@ -70,6 +70,13 @@ class FFAppState extends ChangeNotifier {
       _videoFiles =
           (await secureStorage.getStringList('ff_videoFiles')) ?? _videoFiles;
     });
+    await _safeInitAsync(() async {
+      _subMonths = await secureStorage.getInt('ff_subMonths') ?? _subMonths;
+    });
+    await _safeInitAsync(() async {
+      _showListView =
+          await secureStorage.getBool('ff_showListView') ?? _showListView;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -338,6 +345,28 @@ class FFAppState extends ChangeNotifier {
   ) {
     _videoFiles[_index] = updateFn(_videoFiles[_index]);
     secureStorage.setStringList('ff_videoFiles', _videoFiles);
+  }
+
+  int _subMonths = 6;
+  int get subMonths => _subMonths;
+  set subMonths(int _value) {
+    _subMonths = _value;
+    secureStorage.setInt('ff_subMonths', _value);
+  }
+
+  void deleteSubMonths() {
+    secureStorage.delete(key: 'ff_subMonths');
+  }
+
+  bool _showListView = true;
+  bool get showListView => _showListView;
+  set showListView(bool _value) {
+    _showListView = _value;
+    secureStorage.setBool('ff_showListView', _value);
+  }
+
+  void deleteShowListView() {
+    secureStorage.delete(key: 'ff_showListView');
   }
 
   final _itemsManager = StreamRequestManager<List<ItemRecord>>();
