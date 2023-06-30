@@ -188,32 +188,14 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           if (valueOrDefault<bool>(
-                            valueOrDefault<bool>(
-                                  entriesItemRecordList
-                                          .where((e) => valueOrDefault<bool>(
-                                                e.status == 'Error',
-                                                false,
-                                              ))
-                                          .toList()
-                                          .length >=
-                                      1,
-                                  false,
-                                ) &&
-                                valueOrDefault<bool>(
-                                  entriesItemRecordList
-                                          .where((e) => (e.timestamp!
-                                                      .millisecondsSinceEpoch !=
-                                                  null &&
-                                              (DateTime.now()
-                                                          .millisecondsSinceEpoch -
-                                                      e.timestamp!
-                                                          .millisecondsSinceEpoch) >
-                                                  120000))
-                                          .toList()
-                                          .length >=
-                                      1,
-                                  false,
-                                ),
+                            entriesItemRecordList
+                                    .where((e) => valueOrDefault<bool>(
+                                          e.status == 'Error',
+                                          false,
+                                        ))
+                                    .toList()
+                                    .length >=
+                                1,
                             false,
                           ))
                             Padding(

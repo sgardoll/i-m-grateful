@@ -245,17 +245,21 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                   fit: BoxFit.fitWidth,
                                 ),
                               ),
-                              FlutterFlowVideoPlayer(
-                                path:
-                                    'https://www.connectio.com.au/grateful/newOn/4.webm',
-                                videoType: VideoType.network,
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                autoPlay: true,
-                                looping: true,
-                                showControls: false,
-                                allowFullScreen: false,
-                                allowPlaybackSpeedMenu: false,
-                              ),
+                              if (valueOrDefault<bool>(
+                                isAndroid || isiOS,
+                                false,
+                              ))
+                                FlutterFlowVideoPlayer(
+                                  path:
+                                      'https://www.connectio.com.au/grateful/newOn/4.webm',
+                                  videoType: VideoType.network,
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
+                                  autoPlay: true,
+                                  looping: true,
+                                  showControls: false,
+                                  allowFullScreen: false,
+                                  allowPlaybackSpeedMenu: false,
+                                ),
                               Align(
                                 alignment: AlignmentDirectional(0.0, -1.0),
                                 child: Padding(
@@ -280,7 +284,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                 MainAxisAlignment.spaceAround,
                                             children: [
                                               Text(
-                                                'Discover',
+                                                'Mindful',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .headlineLarge
@@ -298,7 +302,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                       .fromSTEB(
                                                           16.0, 8.0, 16.0, 0.0),
                                                   child: AutoSizeText(
-                                                    'Whether starting or ending your day, identify and focus on the positive moments.',
+                                                    'Embrace mindfulness effortlessly, taking moments each day to acknowledge and appreciate your blessings.',
                                                     textAlign: TextAlign.center,
                                                     maxLines: 5,
                                                     style: FlutterFlowTheme.of(
@@ -393,16 +397,20 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                   fit: BoxFit.fitWidth,
                                 ),
                               ),
-                              FlutterFlowVideoPlayer(
-                                path:
-                                    'https://www.connectio.com.au/grateful/newOn/2.webm',
-                                videoType: VideoType.network,
-                                autoPlay: true,
-                                looping: true,
-                                showControls: false,
-                                allowFullScreen: false,
-                                allowPlaybackSpeedMenu: false,
-                              ),
+                              if (valueOrDefault<bool>(
+                                isAndroid || isiOS,
+                                false,
+                              ))
+                                FlutterFlowVideoPlayer(
+                                  path:
+                                      'https://www.connectio.com.au/grateful/newOn/2.webm',
+                                  videoType: VideoType.network,
+                                  autoPlay: true,
+                                  looping: true,
+                                  showControls: false,
+                                  allowFullScreen: false,
+                                  allowPlaybackSpeedMenu: false,
+                                ),
                               Align(
                                 alignment: AlignmentDirectional(0.0, -1.0),
                                 child: Padding(
@@ -427,7 +435,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                 MainAxisAlignment.spaceAround,
                                             children: [
                                               Text(
-                                                'Record',
+                                                'Manifest',
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -446,7 +454,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                       .fromSTEB(
                                                           16.0, 8.0, 16.0, 0.0),
                                                   child: AutoSizeText(
-                                                    'Use words, pictures or even selfies and have your entries come to life in a highly personalised creation',
+                                                    'Capture your gratitude in vivid detail - through words, images, or expressive selfies, creating your personal tapestry of thankfulness.',
                                                     textAlign: TextAlign.center,
                                                     maxLines: 5,
                                                     style: FlutterFlowTheme.of(
@@ -456,7 +464,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                           fontFamily: 'Outfit',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .secondary,
+                                                              .lineColor,
                                                         ),
                                                   ).animateOnPageLoad(animationsMap[
                                                       'textOnPageLoadAnimation4']!),
@@ -537,16 +545,20 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              FlutterFlowVideoPlayer(
-                                path:
-                                    'https://www.connectio.com.au/grateful/newOn/3.webm',
-                                videoType: VideoType.network,
-                                autoPlay: true,
-                                looping: true,
-                                showControls: false,
-                                allowFullScreen: false,
-                                allowPlaybackSpeedMenu: false,
-                              ),
+                              if (valueOrDefault<bool>(
+                                isAndroid || isiOS,
+                                false,
+                              ))
+                                FlutterFlowVideoPlayer(
+                                  path:
+                                      'https://www.connectio.com.au/grateful/newOn/3.webm',
+                                  videoType: VideoType.network,
+                                  autoPlay: true,
+                                  looping: true,
+                                  showControls: false,
+                                  allowFullScreen: false,
+                                  allowPlaybackSpeedMenu: false,
+                                ),
                               Align(
                                 alignment: AlignmentDirectional(0.0, -1.0),
                                 child: Padding(
@@ -572,7 +584,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                 MainAxisAlignment.spaceAround,
                                             children: [
                                               Text(
-                                                'Visualise',
+                                                'Illuminate',
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -591,7 +603,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                       .fromSTEB(
                                                           16.0, 8.0, 16.0, 0.0),
                                                   child: AutoSizeText(
-                                                    'Witness your positive moments come to life in a unique visual display, thanks to the power of AI.',
+                                                    'Revisit your gratitude entries, rekindling positive memories and reinforcing your optimism, anytime.',
                                                     textAlign: TextAlign.center,
                                                     maxLines: 5,
                                                     style: FlutterFlowTheme.of(
@@ -682,16 +694,20 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              FlutterFlowVideoPlayer(
-                                path:
-                                    'https://www.connectio.com.au/grateful/newOn/5.webm',
-                                videoType: VideoType.network,
-                                autoPlay: true,
-                                looping: true,
-                                showControls: false,
-                                allowFullScreen: false,
-                                allowPlaybackSpeedMenu: false,
-                              ),
+                              if (valueOrDefault<bool>(
+                                isAndroid || isiOS,
+                                false,
+                              ))
+                                FlutterFlowVideoPlayer(
+                                  path:
+                                      'https://www.connectio.com.au/grateful/newOn/5.webm',
+                                  videoType: VideoType.network,
+                                  autoPlay: true,
+                                  looping: true,
+                                  showControls: false,
+                                  allowFullScreen: false,
+                                  allowPlaybackSpeedMenu: false,
+                                ),
                               Align(
                                 alignment: AlignmentDirectional(0.0, -1.0),
                                 child: Padding(
@@ -717,7 +733,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                 MainAxisAlignment.spaceAround,
                                             children: [
                                               Text(
-                                                'Review',
+                                                'Insight',
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -736,7 +752,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                       .fromSTEB(
                                                           16.0, 8.0, 16.0, 0.0),
                                                   child: AutoSizeText(
-                                                    'Powerful copy goes here about the insights the app gives you',
+                                                    'Transform your entries into meaningful insights, tracking your gratitude journey and highlighting your growth over time.',
                                                     textAlign: TextAlign.center,
                                                     maxLines: 5,
                                                     style: FlutterFlowTheme.of(

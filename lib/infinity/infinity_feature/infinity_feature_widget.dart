@@ -160,15 +160,20 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      FlutterFlowVideoPlayer(
-                                        path: 'assets/videos/on2.webm',
-                                        videoType: VideoType.asset,
-                                        autoPlay: true,
-                                        looping: true,
-                                        showControls: false,
-                                        allowFullScreen: false,
-                                        allowPlaybackSpeedMenu: false,
-                                      ),
+                                      if (valueOrDefault<bool>(
+                                        isAndroid || isiOS,
+                                        false,
+                                      ))
+                                        FlutterFlowVideoPlayer(
+                                          path:
+                                              'https://www.connectio.com.au/grateful/newOn/2.webm',
+                                          videoType: VideoType.network,
+                                          autoPlay: true,
+                                          looping: true,
+                                          showControls: false,
+                                          allowFullScreen: false,
+                                          allowPlaybackSpeedMenu: false,
+                                        ),
                                     ],
                                   ),
                                   Align(
@@ -188,16 +193,25 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                           alignment:
                                               AlignmentDirectional(0.0, 0.0),
                                           child: Builder(builder: (_) {
-                                            final child = wrapWithModel(
-                                              model:
-                                                  _model.keySellingPointModel1,
-                                              updateCallback: () =>
-                                                  setState(() {}),
-                                              child: KeySellingPointWidget(
-                                                heading: 'Insightful Journey',
-                                                copy:
-                                                    'Uncover deep insights from your entries and share your gratitude journey with our community',
-                                                icon: 'exp',
+                                            final child = Visibility(
+                                              visible: responsiveVisibility(
+                                                context: context,
+                                                phone: false,
+                                                tablet: false,
+                                                tabletLandscape: false,
+                                                desktop: false,
+                                              ),
+                                              child: wrapWithModel(
+                                                model: _model
+                                                    .keySellingPointModel1,
+                                                updateCallback: () =>
+                                                    setState(() {}),
+                                                child: KeySellingPointWidget(
+                                                  heading: 'Insightful Journey',
+                                                  copy:
+                                                      'Uncover deep insights from your entries and share your gratitude journey with our community',
+                                                  icon: 'exp',
+                                                ),
                                               ),
                                             );
                                             if (true) {
@@ -228,30 +242,42 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      FlutterFlowVideoPlayer(
-                                        path: 'assets/videos/on3.webm',
-                                        videoType: VideoType.asset,
-                                        autoPlay: true,
-                                        looping: true,
-                                        showControls: false,
-                                        allowFullScreen: false,
-                                        allowPlaybackSpeedMenu: false,
-                                      ),
+                                      if (valueOrDefault<bool>(
+                                        isAndroid || isiOS,
+                                        false,
+                                      ))
+                                        FlutterFlowVideoPlayer(
+                                          path:
+                                              'https://www.connectio.com.au/grateful/newOn/2.webm',
+                                          videoType: VideoType.network,
+                                          autoPlay: true,
+                                          looping: true,
+                                          showControls: false,
+                                          allowFullScreen: false,
+                                          allowPlaybackSpeedMenu: false,
+                                        ),
                                     ],
                                   ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: wrapWithModel(
-                                      model: _model.keySellingPointModel2,
-                                      updateCallback: () => setState(() {}),
-                                      child: KeySellingPointWidget(
-                                        heading: 'Boundless Gratitude',
-                                        copy:
-                                            'Store and revisit endless moments of joy and thankfulness',
-                                        icon: 'cal',
+                                  if (responsiveVisibility(
+                                    context: context,
+                                    phone: false,
+                                    tablet: false,
+                                    tabletLandscape: false,
+                                    desktop: false,
+                                  ))
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      child: wrapWithModel(
+                                        model: _model.keySellingPointModel2,
+                                        updateCallback: () => setState(() {}),
+                                        child: KeySellingPointWidget(
+                                          heading: 'Boundless Gratitude',
+                                          copy:
+                                              'Store and revisit endless moments of joy and thankfulness',
+                                          icon: 'cal',
+                                        ),
                                       ),
                                     ),
-                                  ),
                                 ],
                               ),
                               Stack(
@@ -260,30 +286,42 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      FlutterFlowVideoPlayer(
-                                        path: 'assets/videos/on4.webm',
-                                        videoType: VideoType.asset,
-                                        autoPlay: true,
-                                        looping: true,
-                                        showControls: false,
-                                        allowFullScreen: false,
-                                        allowPlaybackSpeedMenu: false,
-                                      ),
+                                      if (valueOrDefault<bool>(
+                                        isAndroid || isiOS,
+                                        false,
+                                      ))
+                                        FlutterFlowVideoPlayer(
+                                          path:
+                                              'https://www.connectio.com.au/grateful/newOn/4.webm',
+                                          videoType: VideoType.network,
+                                          autoPlay: true,
+                                          looping: true,
+                                          showControls: false,
+                                          allowFullScreen: false,
+                                          allowPlaybackSpeedMenu: false,
+                                        ),
                                     ],
                                   ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: wrapWithModel(
-                                      model: _model.keySellingPointModel3,
-                                      updateCallback: () => setState(() {}),
-                                      child: KeySellingPointWidget(
-                                        heading: 'Personalized Expression',
-                                        copy:
-                                            'Tailor your entries with unique styles that mirror your gratitude journey',
-                                        icon: 'sty',
+                                  if (responsiveVisibility(
+                                    context: context,
+                                    phone: false,
+                                    tablet: false,
+                                    tabletLandscape: false,
+                                    desktop: false,
+                                  ))
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      child: wrapWithModel(
+                                        model: _model.keySellingPointModel3,
+                                        updateCallback: () => setState(() {}),
+                                        child: KeySellingPointWidget(
+                                          heading: 'Personalized Expression',
+                                          copy:
+                                              'Tailor your entries with unique styles that mirror your gratitude journey',
+                                          icon: 'sty',
+                                        ),
                                       ),
                                     ),
-                                  ),
                                 ],
                               ),
                               Stack(
@@ -292,15 +330,20 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      FlutterFlowVideoPlayer(
-                                        path: 'assets/videos/on5.webm',
-                                        videoType: VideoType.asset,
-                                        autoPlay: true,
-                                        looping: true,
-                                        showControls: false,
-                                        allowFullScreen: false,
-                                        allowPlaybackSpeedMenu: false,
-                                      ),
+                                      if (valueOrDefault<bool>(
+                                        isAndroid || isiOS,
+                                        false,
+                                      ))
+                                        FlutterFlowVideoPlayer(
+                                          path:
+                                              'https://www.connectio.com.au/grateful/newOn/5.webm',
+                                          videoType: VideoType.network,
+                                          autoPlay: true,
+                                          looping: true,
+                                          showControls: false,
+                                          allowFullScreen: false,
+                                          allowPlaybackSpeedMenu: false,
+                                        ),
                                     ],
                                   ),
                                   Align(
@@ -495,7 +538,8 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                       borderRadius: BorderRadius.circular(25.0),
                                       border: Border.all(
                                         color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                            .alternate,
+                                        width: 2.0,
                                       ),
                                     ),
                                     child: Column(
@@ -509,15 +553,8 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                   1.0,
                                           height: 30.0,
                                           decoration: BoxDecoration(
-                                            color: valueOrDefault<Color>(
-                                              _model.numMonths == '6'
-                                                  ? FlutterFlowTheme.of(context)
-                                                      .alternate
-                                                  : FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryBackground,
-                                            ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
                                             borderRadius: BorderRadius.only(
                                               bottomLeft: Radius.circular(0.0),
                                               bottomRight: Radius.circular(0.0),
@@ -525,10 +562,8 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                               topRight: Radius.circular(25.0),
                                             ),
                                             border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 2.0,
+                                              color: Colors.transparent,
+                                              width: 1.0,
                                             ),
                                           ),
                                           child: Row(
@@ -567,6 +602,13 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
+                                              Divider(
+                                                height: 2.0,
+                                                thickness: 2.0,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                              ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
@@ -700,11 +742,11 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                     activeColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .primary,
+                                                            .accent3,
                                                     checkColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .accent3,
+                                                            .alternate,
                                                   ),
                                                 ),
                                               ),
@@ -743,6 +785,11 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                         )
                                       ],
                                       borderRadius: BorderRadius.circular(25.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 2.0,
+                                      ),
                                     ),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -764,10 +811,8 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                               topRight: Radius.circular(25.0),
                                             ),
                                             border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 2.0,
+                                              color: Colors.transparent,
+                                              width: 1.0,
                                             ),
                                           ),
                                           child: Row(
@@ -798,6 +843,12 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                               ),
                                             ].divide(SizedBox(width: 8.0)),
                                           ),
+                                        ),
+                                        Divider(
+                                          height: 2.0,
+                                          thickness: 2.0,
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
                                         ),
                                         Expanded(
                                           child: Column(
@@ -938,11 +989,11 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                     activeColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .primary,
+                                                            .accent3,
                                                     checkColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .accent3,
+                                                            .alternate,
                                                   ),
                                                 ),
                                               ),
@@ -981,6 +1032,11 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                         )
                                       ],
                                       borderRadius: BorderRadius.circular(25.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 2.0,
+                                      ),
                                     ),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -1143,11 +1199,11 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                     activeColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .primary,
+                                                            .accent3,
                                                     checkColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .accent3,
+                                                            .alternate,
                                                   ),
                                                 ),
                                               ),
@@ -1218,7 +1274,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                   child: FFButtonWidget(
                                     onPressed: () async {
                                       logFirebaseEvent(
-                                          'INFINITY_FEATURE_START_TRIAL_BTN_ON_TAP');
+                                          'INFINITY_FEATURE_START_FREE_TRIAL_BTN_ON');
                                       if (_model.numMonths != null &&
                                           _model.numMonths != '') {
                                         logFirebaseEvent('Button_revenue_cat');
@@ -1288,7 +1344,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
 
                                       setState(() {});
                                     },
-                                    text: 'Start Trial',
+                                    text: 'Start Free Trial',
                                     options: FFButtonOptions(
                                       width: 100.0,
                                       height: 40.0,
