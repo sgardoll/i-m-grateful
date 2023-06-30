@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/more_dropdown/more_dropdown_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
+import '/components/timer_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -724,34 +725,24 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                                                               EdgeInsets.zero,
                                                                         ),
                                                                       ),
-                                                                    if (valueOrDefault<
-                                                                        bool>(
-                                                                      (startedItem.timestamp!.millisecondsSinceEpoch !=
-                                                                              null &&
-                                                                          (DateTime.now().millisecondsSinceEpoch - startedItem.timestamp!.millisecondsSinceEpoch) <
-                                                                              600000),
-                                                                      false,
-                                                                    ))
-                                                                      Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            ClipRRect(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(8.0),
-                                                                          child:
-                                                                              Image.asset(
-                                                                            'assets/images/3face8da2a6c3dcd27cb4a1aaa32c926_w200.gif',
-                                                                            width:
-                                                                                24.0,
-                                                                            height:
-                                                                                24.0,
-                                                                            fit:
-                                                                                BoxFit.cover,
-                                                                          ),
-                                                                        ),
+                                                                    Align(
+                                                                      alignment:
+                                                                          AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0),
+                                                                      child:
+                                                                          TimerWidget(
+                                                                        key: Key(
+                                                                            'Key68m_${startedIndex}_of_${started.length}'),
+                                                                        parameter1: startedItem
+                                                                            .timestamp
+                                                                            ?.millisecondsSinceEpoch,
+                                                                        timestamp:
+                                                                            DateTime.fromMillisecondsSinceEpoch(getCurrentTimestamp.millisecondsSinceEpoch),
+                                                                        docRef:
+                                                                            startedItem.reference,
                                                                       ),
+                                                                    ),
                                                                   ],
                                                                 ),
                                                               ),

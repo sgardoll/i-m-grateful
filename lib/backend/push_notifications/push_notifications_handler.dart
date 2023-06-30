@@ -147,6 +147,7 @@ final parametersBuilderMap =
           'docRef': getParameter<DocumentReference>(data, 'docRef'),
         },
       ),
+  'infinCatElements': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

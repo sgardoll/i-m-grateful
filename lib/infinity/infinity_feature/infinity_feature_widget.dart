@@ -8,6 +8,7 @@ import 'dart:ui';
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -462,9 +463,9 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 24.0, 0.0, 0.0),
+                              16.0, 8.0, 16.0, 0.0),
                           child: Text(
-                            'Unlock ${widget.premiumFeature} with an',
+                            'Unlock \'Explore\' and much more',
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             style: FlutterFlowTheme.of(context)
@@ -481,7 +482,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 8.0),
                           child: Text(
-                            'Unlimited Subscription',
+                            'with an Unlimited Subscription',
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             style: FlutterFlowTheme.of(context)
@@ -601,6 +602,8 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                             children: [
                                               Divider(
                                                 height: 2.0,
@@ -662,15 +665,36 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                   ],
                                                 ),
                                               ),
-                                              Text(
-                                                '${revenue_cat.offerings!.current!.sixMonth!.storeProduct.priceString} / month',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          fontSize: 12.0,
-                                                        ),
+                                              RichText(
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text: 'just ',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodySmall,
+                                                    ),
+                                                    TextSpan(
+                                                      text: '\$29.99',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineSmall,
+                                                    ),
+                                                    TextSpan(
+                                                      text: '',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodySmall,
+                                                    )
+                                                  ],
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium,
+                                                ),
+                                                textAlign: TextAlign.center,
                                               ),
                                               Text(
                                                 'Save x%',
@@ -687,67 +711,58 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                               FontWeight.w500,
                                                         ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        4.0, 4.0, 4.0, 4.0),
-                                                child: Theme(
-                                                  data: ThemeData(
-                                                    checkboxTheme:
-                                                        CheckboxThemeData(
-                                                      visualDensity:
-                                                          VisualDensity
-                                                              .standard,
-                                                      materialTapTargetSize:
-                                                          MaterialTapTargetSize
-                                                              .padded,
-                                                      shape: CircleBorder(),
-                                                    ),
-                                                    unselectedWidgetColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondaryText,
+                                              Theme(
+                                                data: ThemeData(
+                                                  checkboxTheme:
+                                                      CheckboxThemeData(
+                                                    visualDensity:
+                                                        VisualDensity.standard,
+                                                    materialTapTargetSize:
+                                                        MaterialTapTargetSize
+                                                            .padded,
+                                                    shape: CircleBorder(),
                                                   ),
-                                                  child: Checkbox(
-                                                    value: _model
-                                                            .checkbox6mthValue ??=
-                                                        _model.numMonths == '6'
-                                                            ? true
-                                                            : false,
-                                                    onChanged:
-                                                        (newValue) async {
-                                                      setState(() => _model
-                                                              .checkbox6mthValue =
-                                                          newValue!);
-                                                      if (newValue!) {
-                                                        logFirebaseEvent(
-                                                            'INFINITY_FEATURE_Checkbox-6mth_ON_TOGGLE');
-                                                        logFirebaseEvent(
-                                                            'Checkbox-6mth_update_widget_state');
-                                                        setState(() {
-                                                          _model.numMonths =
-                                                              '6';
-                                                        });
-                                                      } else {
-                                                        logFirebaseEvent(
-                                                            'INFINITY_FEATURE_Checkbox-6mth_ON_TOGGLE');
-                                                        logFirebaseEvent(
-                                                            'Checkbox-6mth_update_widget_state');
-                                                        setState(() {
-                                                          _model.numMonths =
-                                                              '6';
-                                                        });
-                                                      }
-                                                    },
-                                                    activeColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .accent3,
-                                                    checkColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .alternate,
-                                                  ),
+                                                  unselectedWidgetColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondaryText,
+                                                ),
+                                                child: Checkbox(
+                                                  value: _model
+                                                          .checkbox6mthValue ??=
+                                                      _model.numMonths == '6'
+                                                          ? true
+                                                          : false,
+                                                  onChanged: (newValue) async {
+                                                    setState(() => _model
+                                                            .checkbox6mthValue =
+                                                        newValue!);
+                                                    if (newValue!) {
+                                                      logFirebaseEvent(
+                                                          'INFINITY_FEATURE_Checkbox-6mth_ON_TOGGLE');
+                                                      logFirebaseEvent(
+                                                          'Checkbox-6mth_update_widget_state');
+                                                      setState(() {
+                                                        _model.numMonths = '6';
+                                                      });
+                                                    } else {
+                                                      logFirebaseEvent(
+                                                          'INFINITY_FEATURE_Checkbox-6mth_ON_TOGGLE');
+                                                      logFirebaseEvent(
+                                                          'Checkbox-6mth_update_widget_state');
+                                                      setState(() {
+                                                        _model.numMonths = '6';
+                                                      });
+                                                    }
+                                                  },
+                                                  activeColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .accent3,
+                                                  checkColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .alternate,
                                                 ),
                                               ),
                                             ],
@@ -910,7 +925,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                 ),
                                               ),
                                               Text(
-                                                '${revenue_cat.offerings!.current!.annual!.storeProduct.priceString} / month',
+                                                '\$X  / month',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -1122,7 +1137,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                 ),
                                               ),
                                               Text(
-                                                '${revenue_cat.offerings!.current!.monthly!.storeProduct.priceString} / month',
+                                                '\$X  / month',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -1257,113 +1272,6 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                 .primaryText,
                                           ),
                                       elevation: 2.0,
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(25.0),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 0.0, 0.0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      logFirebaseEvent(
-                                          'INFINITY_FEATURE_START_FREE_TRIAL_BTN_ON');
-                                      if (_model.numMonths != null &&
-                                          _model.numMonths != '') {
-                                        logFirebaseEvent('Button_revenue_cat');
-                                        _model.revenueCatConfirmPurchase =
-                                            await revenue_cat
-                                                .purchasePackage(() {
-                                          if (_model.numMonths == '6') {
-                                            return revenue_cat.offerings!
-                                                .current!.sixMonth!.identifier;
-                                          } else if (_model.numMonths == '12') {
-                                            return revenue_cat.offerings!
-                                                .current!.annual!.identifier;
-                                          } else {
-                                            return revenue_cat.offerings!
-                                                .current!.monthly!.identifier;
-                                          }
-                                        }());
-                                        if (_model.revenueCatConfirmPurchase!) {
-                                          logFirebaseEvent(
-                                              'Button_navigate_to');
-
-                                          context.pushNamed('Explore');
-                                        } else {
-                                          logFirebaseEvent(
-                                              'Button_show_snack_bar');
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                'Subscription unsuccessful',
-                                                style: TextStyle(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                ),
-                                              ),
-                                              duration:
-                                                  Duration(milliseconds: 4000),
-                                              backgroundColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
-                                            ),
-                                          );
-                                        }
-                                      } else {
-                                        logFirebaseEvent(
-                                            'Button_show_snack_bar');
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Please select a subscription option above',
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
-                                      }
-
-                                      setState(() {});
-                                    },
-                                    text: 'Start Free Trial',
-                                    options: FFButtonOptions(
-                                      width: 100.0,
-                                      height: 40.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                      elevation: 6.0,
                                       borderSide: BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,

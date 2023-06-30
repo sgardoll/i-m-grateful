@@ -8,6 +8,7 @@ import 'dart:ui';
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -43,8 +44,6 @@ class InfinityFeatureModel extends FlutterFlowModel {
   bool? checkbox12mthValue;
   // State field(s) for Checkbox-1mth widget.
   bool? checkbox1mthValue;
-  // Stores action output result for [RevenueCat - Purchase] action in Button widget.
-  bool? revenueCatConfirmPurchase;
 
   /// Initialization and disposal methods.
 

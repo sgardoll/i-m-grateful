@@ -23,3 +23,5 @@ export '/settings/edit_reminders/edit_reminders_widget.dart'
 export '/pages/fullscreen_image/fullscreen_image_widget.dart'
     show FullscreenImageWidget;
 export '/pages/edit_item/edit_item_widget.dart' show EditItemWidget;
+export '/infin_cat_elements/infin_cat_elements_widget.dart'
+    show InfinCatElementsWidget;

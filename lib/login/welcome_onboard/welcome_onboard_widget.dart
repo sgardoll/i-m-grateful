@@ -30,20 +30,32 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final animationsMap = {
+    'containerOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        SaturateEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 1000.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
     'textOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
-        VisibilityEffect(duration: 1.ms),
+        VisibilityEffect(duration: 600.ms),
         MoveEffect(
           curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 400.ms,
+          delay: 600.ms,
+          duration: 200.ms,
           begin: Offset(10.0, 0.0),
           end: Offset(0.0, 0.0),
         ),
         FadeEffect(
           curve: Curves.easeInOut,
-          delay: 0.ms,
+          delay: 600.ms,
           duration: 200.ms,
           begin: 0.0,
           end: 1.0,
@@ -53,18 +65,18 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
     'textOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
-        VisibilityEffect(duration: 50.ms),
+        VisibilityEffect(duration: 1000.ms),
         MoveEffect(
           curve: Curves.easeOut,
-          delay: 50.ms,
+          delay: 1000.ms,
           duration: 400.ms,
           begin: Offset(22.0, 0.0),
           end: Offset(0.0, 0.0),
         ),
         FadeEffect(
           curve: Curves.easeInOut,
-          delay: 50.ms,
-          duration: 200.ms,
+          delay: 1000.ms,
+          duration: 400.ms,
           begin: 0.0,
           end: 1.0,
         ),
@@ -216,7 +228,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         key: scaffoldKey,
         body: Column(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
               child: Container(
@@ -239,8 +251,9 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                             children: [
                               Align(
                                 alignment: AlignmentDirectional(0.0, -1.0),
-                                child: Image.asset(
-                                  'assets/images/0kjbt_4.jpg',
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://www.connectio.com.au/grateful/newOn/4.jpg',
                                   width: MediaQuery.sizeOf(context).width * 1.0,
                                   fit: BoxFit.fitWidth,
                                 ),
@@ -276,7 +289,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   1.0,
-                                          height: 133.0,
+                                          height: 200.0,
                                           decoration: BoxDecoration(),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -289,10 +302,12 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .headlineLarge
                                                         .override(
-                                                          fontFamily: 'Outfit',
+                                                          fontFamily: 'Aldo',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
+                                                          fontSize: 65.0,
+                                                          useGoogleFonts: false,
                                                         ),
                                               ).animateOnPageLoad(animationsMap[
                                                   'textOnPageLoadAnimation1']!),
@@ -312,7 +327,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                           fontFamily: 'Outfit',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .secondary,
+                                                              .lineColor,
                                                         ),
                                                   ).animateOnPageLoad(animationsMap[
                                                       'textOnPageLoadAnimation2']!),
@@ -380,7 +395,8 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                               ),
                             ],
                           ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['containerOnPageLoadAnimation']!),
                         Container(
                           width: MediaQuery.sizeOf(context).width * 1.0,
                           height: MediaQuery.sizeOf(context).height * 1.0,
@@ -391,8 +407,9 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                             children: [
                               Align(
                                 alignment: AlignmentDirectional(0.0, -1.0),
-                                child: Image.asset(
-                                  'assets/images/l2q14_2.jpg',
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://www.connectio.com.au/grateful/newOn/2.jpg',
                                   width: MediaQuery.sizeOf(context).width * 1.0,
                                   fit: BoxFit.fitWidth,
                                 ),
@@ -427,7 +444,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   1.0,
-                                          height: 133.0,
+                                          height: 200.0,
                                           decoration: BoxDecoration(),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -441,10 +458,12 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .headlineLarge
                                                         .override(
-                                                          fontFamily: 'Outfit',
+                                                          fontFamily: 'Aldo',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
+                                                          fontSize: 65.0,
+                                                          useGoogleFonts: false,
                                                         ),
                                               ).animateOnPageLoad(animationsMap[
                                                   'textOnPageLoadAnimation3']!),
@@ -539,8 +558,9 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                             children: [
                               Align(
                                 alignment: AlignmentDirectional(0.0, -1.0),
-                                child: Image.asset(
-                                  'assets/images/bg8uv_3.jpg',
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://www.connectio.com.au/grateful/newOn/3.jpg',
                                   width: MediaQuery.sizeOf(context).width * 1.0,
                                   fit: BoxFit.cover,
                                 ),
@@ -572,7 +592,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                         width:
                                             MediaQuery.sizeOf(context).width *
                                                 1.0,
-                                        height: 133.0,
+                                        height: 200.0,
                                         decoration: BoxDecoration(),
                                         child: Padding(
                                           padding:
@@ -590,10 +610,12 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .headlineLarge
                                                         .override(
-                                                          fontFamily: 'Outfit',
+                                                          fontFamily: 'Aldo',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
+                                                          fontSize: 65.0,
+                                                          useGoogleFonts: false,
                                                         ),
                                               ).animateOnPageLoad(animationsMap[
                                                   'textOnPageLoadAnimation5']!),
@@ -688,8 +710,9 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                             children: [
                               Align(
                                 alignment: AlignmentDirectional(0.0, -1.0),
-                                child: Image.asset(
-                                  'assets/images/ao5bk_5.jpg',
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://www.connectio.com.au/grateful/newOn/5.jpg',
                                   width: MediaQuery.sizeOf(context).width * 1.0,
                                   fit: BoxFit.cover,
                                 ),
@@ -721,7 +744,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                         width:
                                             MediaQuery.sizeOf(context).width *
                                                 1.0,
-                                        height: 133.0,
+                                        height: 200.0,
                                         decoration: BoxDecoration(),
                                         child: Padding(
                                           padding:
@@ -737,12 +760,16 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .headlineLarge
+                                                        .displayLarge
                                                         .override(
-                                                          fontFamily: 'Outfit',
+                                                          fontFamily: 'Aldo',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
+                                                          fontSize: 65.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          useGoogleFonts: false,
                                                         ),
                                               ).animateOnPageLoad(animationsMap[
                                                   'textOnPageLoadAnimation7']!),

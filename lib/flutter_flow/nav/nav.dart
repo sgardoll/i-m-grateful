@@ -209,6 +209,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 docRef: params.getParam(
                     'docRef', ParamType.DocumentReference, false, ['Item']),
               ),
+            ),
+            FFRoute(
+              name: 'infinCatElements',
+              path: 'infinCatElements',
+              requireAuth: true,
+              builder: (context, params) => InfinCatElementsWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
