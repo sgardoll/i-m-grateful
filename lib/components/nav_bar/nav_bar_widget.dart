@@ -369,11 +369,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(
-                                        () => _model.paywallOutput = value));
+                                    ).then((value) => setState(() {}));
                                   }
-
-                                  setState(() {});
                                 },
                               ),
                             ),

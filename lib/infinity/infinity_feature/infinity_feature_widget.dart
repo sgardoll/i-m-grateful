@@ -1238,8 +1238,9 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                         }());
                                         if (_model.revenueCatConfirmPurchase!) {
                                           logFirebaseEvent(
-                                              'Button_bottom_sheet');
-                                          Navigator.pop(context, true);
+                                              'Button_navigate_to');
+
+                                          context.pushNamed('Explore');
                                         } else {
                                           logFirebaseEvent(
                                               'Button_show_snack_bar');
