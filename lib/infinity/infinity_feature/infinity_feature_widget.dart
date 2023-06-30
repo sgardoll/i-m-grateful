@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/infinity/key_selling_point/key_selling_point_widget.dart';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
@@ -161,20 +162,45 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      if (valueOrDefault<bool>(
-                                        isAndroid || isiOS,
-                                        false,
-                                      ))
-                                        FlutterFlowVideoPlayer(
-                                          path:
-                                              'https://www.connectio.com.au/grateful/newOn/2.webm',
-                                          videoType: VideoType.network,
-                                          autoPlay: true,
-                                          looping: true,
-                                          showControls: false,
-                                          allowFullScreen: false,
-                                          allowPlaybackSpeedMenu: false,
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(25.0),
+                                            bottomRight: Radius.circular(25.0),
+                                            topLeft: Radius.circular(0.0),
+                                            topRight: Radius.circular(0.0),
+                                          ),
+                                          child: Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                1.0,
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                1.0,
+                                            decoration: BoxDecoration(
+                                              color: Colors.transparent,
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft:
+                                                    Radius.circular(25.0),
+                                                bottomRight:
+                                                    Radius.circular(25.0),
+                                                topLeft: Radius.circular(0.0),
+                                                topRight: Radius.circular(0.0),
+                                              ),
+                                              border: Border.all(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            child: custom_widgets.ChewiePlusMac(
+                                              videoUrl:
+                                                  'https://www.connectio.com.au/grateful/newOn/2.webm',
+                                            ),
+                                          ),
                                         ),
+                                      ),
                                     ],
                                   ),
                                   Align(

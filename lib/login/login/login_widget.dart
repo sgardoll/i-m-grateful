@@ -462,7 +462,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   Expanded(
                                                     flex: 2,
                                                     child: Text(
-                                                      'Or Sign-In With',
+                                                      'Or sign-in ',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style:
@@ -695,6 +695,44 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 color: FlutterFlowTheme.of(context).primaryText,
                               ),
                       elevation: 2.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(25.0),
+                    ),
+                  ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent('LOGIN_PAGE_REGISTER_BTN_ON_TAP');
+                      logFirebaseEvent('Button_navigate_to');
+
+                      context.pushNamed(
+                        'Welcome_Onboard',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 200),
+                          ),
+                        },
+                      );
+                    },
+                    text: 'Register',
+                    options: FFButtonOptions(
+                      width: 100.0,
+                      height: 40.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Outfit',
+                                color: FlutterFlowTheme.of(context).accent3,
+                              ),
+                      elevation: 6.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
