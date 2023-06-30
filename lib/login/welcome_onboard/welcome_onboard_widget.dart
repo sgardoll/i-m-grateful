@@ -36,9 +36,9 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         BlurEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
-          duration: 100.ms,
-          begin: Offset(-10.0, 10.0),
-          end: Offset(5.0, 5.0),
+          duration: 600.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -88,9 +88,9 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         BlurEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
-          duration: 100.ms,
-          begin: Offset(-10.0, 10.0),
-          end: Offset(5.0, 5.0),
+          duration: 300.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -140,9 +140,9 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         BlurEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
-          duration: 100.ms,
-          begin: Offset(-10.0, 10.0),
-          end: Offset(5.0, 5.0),
+          duration: 300.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -186,15 +186,14 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
       ],
     ),
     'imageOnPageLoadAnimation4': AnimationInfo(
-      loop: true,
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         BlurEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
-          duration: 100.ms,
-          begin: Offset(-10.0, 10.0),
-          end: Offset(5.0, 5.0),
+          duration: 300.ms,
+          begin: Offset(10.0, 10.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -306,14 +305,10 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                       ).animateOnPageLoad(animationsMap[
                                           'imageOnPageLoadAnimation1']!),
                                     ),
-                                    if (responsiveVisibility(
-                                      context: context,
-                                      phone: false,
-                                      tablet: false,
-                                      tabletLandscape: false,
-                                      desktop: false,
-                                    ))
-                                      FlutterFlowVideoPlayer(
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.0, -1.0),
+                                      child: FlutterFlowVideoPlayer(
                                         path:
                                             'https://www.connectio.com.au/grateful/newOn/4.webm',
                                         videoType: VideoType.network,
@@ -326,6 +321,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                         allowFullScreen: false,
                                         allowPlaybackSpeedMenu: false,
                                       ),
+                                    ),
                                     Align(
                                       alignment:
                                           AlignmentDirectional(0.0, -1.0),
@@ -491,15 +487,18 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                     ).animateOnPageLoad(animationsMap[
                                         'imageOnPageLoadAnimation2']!),
                                   ),
-                                  FlutterFlowVideoPlayer(
-                                    path:
-                                        'https://www.connectio.com.au/grateful/newOn/2.webm',
-                                    videoType: VideoType.network,
-                                    autoPlay: true,
-                                    looping: true,
-                                    showControls: false,
-                                    allowFullScreen: false,
-                                    allowPlaybackSpeedMenu: false,
+                                  Align(
+                                    alignment: AlignmentDirectional(0.0, -1.0),
+                                    child: FlutterFlowVideoPlayer(
+                                      path:
+                                          'https://www.connectio.com.au/grateful/newOn/2.webm',
+                                      videoType: VideoType.network,
+                                      autoPlay: true,
+                                      looping: true,
+                                      showControls: false,
+                                      allowFullScreen: false,
+                                      allowPlaybackSpeedMenu: false,
+                                    ),
                                   ),
                                   Align(
                                     alignment: AlignmentDirectional(0.0, -1.0),
@@ -653,15 +652,18 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                     ).animateOnPageLoad(animationsMap[
                                         'imageOnPageLoadAnimation3']!),
                                   ),
-                                  FlutterFlowVideoPlayer(
-                                    path:
-                                        'https://www.connectio.com.au/grateful/newOn/3.webm',
-                                    videoType: VideoType.network,
-                                    autoPlay: true,
-                                    looping: true,
-                                    showControls: false,
-                                    allowFullScreen: false,
-                                    allowPlaybackSpeedMenu: false,
+                                  Align(
+                                    alignment: AlignmentDirectional(0.0, -1.0),
+                                    child: FlutterFlowVideoPlayer(
+                                      path:
+                                          'https://www.connectio.com.au/grateful/newOn/3.webm',
+                                      videoType: VideoType.network,
+                                      autoPlay: true,
+                                      looping: true,
+                                      showControls: false,
+                                      allowFullScreen: false,
+                                      allowPlaybackSpeedMenu: false,
+                                    ),
                                   ),
                                   Align(
                                     alignment: AlignmentDirectional(0.0, -1.0),
@@ -820,15 +822,19 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                     isAndroid || isiOS,
                                     false,
                                   ))
-                                    FlutterFlowVideoPlayer(
-                                      path:
-                                          'https://www.connectio.com.au/grateful/newOn/5.webm',
-                                      videoType: VideoType.network,
-                                      autoPlay: true,
-                                      looping: true,
-                                      showControls: false,
-                                      allowFullScreen: false,
-                                      allowPlaybackSpeedMenu: false,
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.0, -1.0),
+                                      child: FlutterFlowVideoPlayer(
+                                        path:
+                                            'https://www.connectio.com.au/grateful/newOn/5.webm',
+                                        videoType: VideoType.network,
+                                        autoPlay: true,
+                                        looping: true,
+                                        showControls: false,
+                                        allowFullScreen: false,
+                                        allowPlaybackSpeedMenu: false,
+                                      ),
                                     ),
                                   Align(
                                     alignment: AlignmentDirectional(0.0, -1.0),

@@ -29,7 +29,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   auto_size_text: 3.0.0
   cached_network_image: 3.2.1
-  chewie: ^1.5.0
+  chewie: 1.4.0
   cloud_firestore: 4.8.0
   cloud_firestore_platform_interface: 5.15.0
   cloud_firestore_web: 3.6.0
@@ -37,7 +37,6 @@ dependencies:
   cloud_functions_platform_interface: 5.4.2
   cloud_functions_web: 4.5.2
   csv: 5.0.1
-  dio: ^5.2.1+1
   dropdown_button2: 2.0.0
   easy_debounce: 2.0.1
   equatable: 2.0.5
@@ -132,7 +131,6 @@ dependencies:
   video_player: 2.6.0
   video_player_android: 2.4.3
   video_player_avfoundation: 2.4.2
-  video_player_macos: ^2.0.1
   video_player_platform_interface: 6.1.0
   video_player_web: 2.0.15
 
