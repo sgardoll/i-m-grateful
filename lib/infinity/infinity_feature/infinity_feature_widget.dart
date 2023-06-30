@@ -1,10 +1,16 @@
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/infinity/page_view_chewie/page_view_chewie_widget.dart';
+import '/infinity/key_selling_point/key_selling_point_widget.dart';
+import 'dart:ui';
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +29,31 @@ class InfinityFeatureWidget extends StatefulWidget {
   _InfinityFeatureWidgetState createState() => _InfinityFeatureWidgetState();
 }
 
-class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
+class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
+    with TickerProviderStateMixin {
   late InfinityFeatureModel _model;
+
+  final animationsMap = {
+    'containerOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeIn,
+          delay: 100.ms,
+          duration: 1200.ms,
+          begin: Offset(50.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeIn,
+          delay: 100.ms,
+          duration: 1200.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void setState(VoidCallback callback) {
@@ -111,11 +140,223 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget> {
               height: MediaQuery.sizeOf(context).height * 1.0,
               child: Stack(
                 children: [
-                  wrapWithModel(
-                    model: _model.pageViewChewieModel,
-                    updateCallback: () => setState(() {}),
-                    updateOnChange: true,
-                    child: PageViewChewieWidget(),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 180.0, 0.0, 0.0),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: MediaQuery.sizeOf(context).height * 1.0,
+                      child: Stack(
+                        children: [
+                          PageView(
+                            controller: _model.pageViewController ??=
+                                PageController(initialPage: 0),
+                            onPageChanged: (_) => setState(() {}),
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              Stack(
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      FlutterFlowVideoPlayer(
+                                        path: 'assets/videos/on2.webm',
+                                        videoType: VideoType.asset,
+                                        autoPlay: true,
+                                        looping: true,
+                                        showControls: false,
+                                        allowFullScreen: false,
+                                        allowPlaybackSpeedMenu: false,
+                                      ),
+                                    ],
+                                  ),
+                                  Align(
+                                    alignment: AlignmentDirectional(1.0, -1.0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 40.0, 16.0, 0.0),
+                                      child: Container(
+                                        width: 129.0,
+                                        height:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.25,
+                                        decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                        ),
+                                        child: Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
+                                          child: Builder(builder: (_) {
+                                            final child = wrapWithModel(
+                                              model:
+                                                  _model.keySellingPointModel1,
+                                              updateCallback: () =>
+                                                  setState(() {}),
+                                              child: KeySellingPointWidget(
+                                                heading: 'Insightful Journey',
+                                                copy:
+                                                    'Uncover deep insights from your entries and share your gratitude journey with our community',
+                                                icon: 'exp',
+                                              ),
+                                            );
+                                            if (true) {
+                                              return ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(25.0),
+                                                child: BackdropFilter(
+                                                  filter: ImageFilter.blur(
+                                                    sigmaX: 5.0,
+                                                    sigmaY: 5.0,
+                                                  ),
+                                                  child: child,
+                                                ),
+                                              );
+                                            }
+                                            return child;
+                                          }),
+                                        ),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'containerOnPageLoadAnimation']!),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Stack(
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      FlutterFlowVideoPlayer(
+                                        path: 'assets/videos/on3.webm',
+                                        videoType: VideoType.asset,
+                                        autoPlay: true,
+                                        looping: true,
+                                        showControls: false,
+                                        allowFullScreen: false,
+                                        allowPlaybackSpeedMenu: false,
+                                      ),
+                                    ],
+                                  ),
+                                  Align(
+                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    child: wrapWithModel(
+                                      model: _model.keySellingPointModel2,
+                                      updateCallback: () => setState(() {}),
+                                      child: KeySellingPointWidget(
+                                        heading: 'Boundless Gratitude',
+                                        copy:
+                                            'Store and revisit endless moments of joy and thankfulness',
+                                        icon: 'cal',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Stack(
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      FlutterFlowVideoPlayer(
+                                        path: 'assets/videos/on4.webm',
+                                        videoType: VideoType.asset,
+                                        autoPlay: true,
+                                        looping: true,
+                                        showControls: false,
+                                        allowFullScreen: false,
+                                        allowPlaybackSpeedMenu: false,
+                                      ),
+                                    ],
+                                  ),
+                                  Align(
+                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    child: wrapWithModel(
+                                      model: _model.keySellingPointModel3,
+                                      updateCallback: () => setState(() {}),
+                                      child: KeySellingPointWidget(
+                                        heading: 'Personalized Expression',
+                                        copy:
+                                            'Tailor your entries with unique styles that mirror your gratitude journey',
+                                        icon: 'sty',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Stack(
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      FlutterFlowVideoPlayer(
+                                        path: 'assets/videos/on5.webm',
+                                        videoType: VideoType.asset,
+                                        autoPlay: true,
+                                        looping: true,
+                                        showControls: false,
+                                        allowFullScreen: false,
+                                        allowPlaybackSpeedMenu: false,
+                                      ),
+                                    ],
+                                  ),
+                                  Align(
+                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    child: wrapWithModel(
+                                      model: _model.keySellingPointModel4,
+                                      updateCallback: () => setState(() {}),
+                                      child: KeySellingPointWidget(
+                                        heading: 'Endless Creativity',
+                                        copy:
+                                            'Generate new images until you find the perfect one that resonates with your feelings',
+                                        icon: 'reg',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional(0.0, -1.0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 16.0, 0.0, 16.0),
+                              child: smooth_page_indicator.SmoothPageIndicator(
+                                controller: _model.pageViewController ??=
+                                    PageController(initialPage: 0),
+                                count: 4,
+                                axisDirection: Axis.horizontal,
+                                onDotClicked: (i) async {
+                                  await _model.pageViewController!
+                                      .animateToPage(
+                                    i,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease,
+                                  );
+                                },
+                                effect:
+                                    smooth_page_indicator.ExpandingDotsEffect(
+                                  expansionFactor: 3.0,
+                                  spacing: 8.0,
+                                  radius: 16.0,
+                                  dotWidth: 16.0,
+                                  dotHeight: 12.0,
+                                  dotColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  activeDotColor:
+                                      FlutterFlowTheme.of(context).alternate,
+                                  paintStyle: PaintingStyle.fill,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   Align(
                     alignment: AlignmentDirectional(0.0, -1.0),
