@@ -26,9 +26,15 @@ class StylesRecord extends FirestoreRecord {
   String get image => _image ?? '';
   bool hasImage() => _image != null;
 
+  // "category" field.
+  List<String>? _category;
+  List<String> get category => _category ?? const [];
+  bool hasCategory() => _category != null;
+
   void _initializeFields() {
     _style = snapshotData['style'] as String?;
     _image = snapshotData['image'] as String?;
+    _category = getDataList(snapshotData['category']);
   }
 
   static CollectionReference get collection =>
@@ -83,11 +89,15 @@ class StylesRecordDocumentEquality implements Equality<StylesRecord> {
 
   @override
   bool equals(StylesRecord? e1, StylesRecord? e2) {
-    return e1?.style == e2?.style && e1?.image == e2?.image;
+    const listEquality = ListEquality();
+    return e1?.style == e2?.style &&
+        e1?.image == e2?.image &&
+        listEquality.equals(e1?.category, e2?.category);
   }
 
   @override
-  int hash(StylesRecord? e) => const ListEquality().hash([e?.style, e?.image]);
+  int hash(StylesRecord? e) =>
+      const ListEquality().hash([e?.style, e?.image, e?.category]);
 
   @override
   bool isValidKey(Object? o) => o is StylesRecord;

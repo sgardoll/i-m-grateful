@@ -3,11 +3,13 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +27,8 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
   late StyleChoiceModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
@@ -51,12 +55,24 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
         );
       }
     });
+
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        setState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
   }
 
   @override
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -73,9 +89,9 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: CachedNetworkImageProvider(
-              'https://www.connectio.com.au/grateful/4.png',
-            ),
+            image: Image.asset(
+              'assets/images/20dSplash.jpg',
+            ).image,
           ),
         ),
         child: SingleChildScrollView(
@@ -85,7 +101,12 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
             children: [
               Container(
                 width: MediaQuery.sizeOf(context).width * 1.0,
-                height: 170.0,
+                height: (isWeb
+                            ? MediaQuery.viewInsetsOf(context).bottom > 0
+                            : _isKeyboardVisible) ==
+                        true
+                    ? 100.0
+                    : 169.0,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -112,7 +133,7 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              'ART STYLE \nCHOICE',
+                              'ART STYLE \nSELECTION',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -261,8 +282,12 @@ class _StyleChoiceWidgetState extends State<StyleChoiceWidget> {
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).primary,
-                                  textStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Outfit',
+                                        fontSize: 10.0,
+                                      ),
                                   elevation: 2.0,
                                   borderSide: BorderSide(
                                     color: Colors.transparent,

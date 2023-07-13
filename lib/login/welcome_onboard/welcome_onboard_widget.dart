@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -30,7 +31,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final animationsMap = {
-    'imageOnPageLoadAnimation1': AnimationInfo(
+    'containerOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         BlurEffect(
@@ -82,13 +83,13 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         ),
       ],
     ),
-    'imageOnPageLoadAnimation2': AnimationInfo(
+    'imageOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         BlurEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
-          duration: 300.ms,
+          duration: 600.ms,
           begin: Offset(10.0, 10.0),
           end: Offset(0.0, 0.0),
         ),
@@ -134,13 +135,13 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         ),
       ],
     ),
-    'imageOnPageLoadAnimation3': AnimationInfo(
+    'imageOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         BlurEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
-          duration: 300.ms,
+          duration: 600.ms,
           begin: Offset(10.0, 10.0),
           end: Offset(0.0, 0.0),
         ),
@@ -185,13 +186,13 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         ),
       ],
     ),
-    'imageOnPageLoadAnimation4': AnimationInfo(
+    'imageOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         BlurEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
-          duration: 300.ms,
+          duration: 600.ms,
           begin: Offset(10.0, 10.0),
           end: Offset(0.0, 0.0),
         ),
@@ -291,36 +292,32 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                       FlutterFlowTheme.of(context).primaryBlack,
                                 ),
                                 child: Stack(
+                                  alignment: AlignmentDirectional(0.0, -1.0),
                                   children: [
                                     Align(
                                       alignment:
                                           AlignmentDirectional(0.0, -1.0),
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            'https://www.connectio.com.au/grateful/newOn/4.jpg',
+                                      child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
                                                 1.0,
-                                        fit: BoxFit.fitWidth,
+                                        height:
+                                            MediaQuery.sizeOf(context).height *
+                                                1.0,
+                                        child: custom_widgets.ChewieVideo(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1.0,
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              1.0,
+                                          videoUrl:
+                                              'https://www.connectio.com.au/grateful/newOn/4.webm',
+                                          imageUrl:
+                                              'https://www.connectio.com.au/grateful/newOn/4.jpg',
+                                        ),
                                       ).animateOnPageLoad(animationsMap[
-                                          'imageOnPageLoadAnimation1']!),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(0.0, -1.0),
-                                      child: FlutterFlowVideoPlayer(
-                                        path:
-                                            'https://www.connectio.com.au/grateful/newOn/4.webm',
-                                        videoType: VideoType.network,
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        autoPlay: true,
-                                        looping: true,
-                                        showControls: false,
-                                        allowFullScreen: false,
-                                        allowPlaybackSpeedMenu: false,
-                                      ),
+                                          'containerOnPageLoadAnimation']!),
                                     ),
                                     Align(
                                       alignment:
@@ -474,18 +471,24 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                 color:
                                     FlutterFlowTheme.of(context).primaryBlack,
                               ),
+                              alignment: AlignmentDirectional(0.0, -1.0),
                               child: Stack(
+                                alignment: AlignmentDirectional(0.0, -1.0),
                                 children: [
                                   Align(
                                     alignment: AlignmentDirectional(0.0, -1.0),
                                     child: CachedNetworkImage(
+                                      fadeInDuration:
+                                          Duration(milliseconds: 500),
+                                      fadeOutDuration:
+                                          Duration(milliseconds: 500),
                                       imageUrl:
                                           'https://www.connectio.com.au/grateful/newOn/2.jpg',
                                       width: MediaQuery.sizeOf(context).width *
                                           1.0,
                                       fit: BoxFit.fitWidth,
                                     ).animateOnPageLoad(animationsMap[
-                                        'imageOnPageLoadAnimation2']!),
+                                        'imageOnPageLoadAnimation1']!),
                                   ),
                                   Align(
                                     alignment: AlignmentDirectional(0.0, -1.0),
@@ -632,170 +635,190 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                 ],
                               ),
                             ),
-                            Container(
-                              width: MediaQuery.sizeOf(context).width * 1.0,
-                              height: MediaQuery.sizeOf(context).height * 1.0,
-                              decoration: BoxDecoration(
-                                color:
-                                    FlutterFlowTheme.of(context).customColor6,
-                              ),
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, -1.0),
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          'https://www.connectio.com.au/grateful/newOn/3.jpg',
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
-                                      fit: BoxFit.cover,
-                                    ).animateOnPageLoad(animationsMap[
-                                        'imageOnPageLoadAnimation3']!),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, -1.0),
-                                    child: FlutterFlowVideoPlayer(
-                                      path:
-                                          'https://www.connectio.com.au/grateful/newOn/3.webm',
-                                      videoType: VideoType.network,
-                                      autoPlay: true,
-                                      looping: true,
-                                      showControls: false,
-                                      allowFullScreen: false,
-                                      allowPlaybackSpeedMenu: false,
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, -1.0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 50.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
+                            Align(
+                              alignment: AlignmentDirectional(0.0, -1.0),
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                height: MediaQuery.sizeOf(context).height * 1.0,
+                                decoration: BoxDecoration(
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor6,
+                                ),
+                                child: Stack(
+                                  alignment: AlignmentDirectional(0.0, -1.0),
+                                  children: [
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.0, -1.0),
+                                      child: CachedNetworkImage(
+                                        fadeInDuration:
+                                            Duration(milliseconds: 500),
+                                        fadeOutDuration:
+                                            Duration(milliseconds: 500),
+                                        imageUrl:
+                                            'https://www.connectio.com.au/grateful/newOn/3.jpg',
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
                                                 1.0,
-                                            height: 200.0,
-                                            decoration: BoxDecoration(),
-                                            child: Padding(
+                                        fit: BoxFit.cover,
+                                      ).animateOnPageLoad(animationsMap[
+                                          'imageOnPageLoadAnimation2']!),
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.0, -1.0),
+                                      child: FlutterFlowVideoPlayer(
+                                        path:
+                                            'https://www.connectio.com.au/grateful/newOn/3.webm',
+                                        videoType: VideoType.network,
+                                        autoPlay: true,
+                                        looping: true,
+                                        showControls: false,
+                                        allowFullScreen: false,
+                                        allowPlaybackSpeedMenu: false,
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.0, -1.0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 50.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  1.0,
+                                              height: 200.0,
+                                              decoration: BoxDecoration(),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 16.0, 0.0, 0.0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Text(
+                                                      'Illuminate',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineLarge
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Aldo',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                fontSize: 65.0,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'textOnPageLoadAnimation5']!),
+                                                    Flexible(
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    16.0,
+                                                                    8.0,
+                                                                    16.0,
+                                                                    0.0),
+                                                        child: AutoSizeText(
+                                                          'Revisit your gratitude entries, rekindling positive memories and reinforcing your optimism, anytime.',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          maxLines: 5,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .titleMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Outfit',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .lineColor,
+                                                              ),
+                                                        ).animateOnPageLoad(
+                                                            animationsMap[
+                                                                'textOnPageLoadAnimation6']!),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 16.0, 0.0, 0.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  Text(
-                                                    'Illuminate',
-                                                    textAlign: TextAlign.center,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .headlineLarge
-                                                        .override(
-                                                          fontFamily: 'Aldo',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                          fontSize: 65.0,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                                  ).animateOnPageLoad(animationsMap[
-                                                      'textOnPageLoadAnimation5']!),
-                                                  Flexible(
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  16.0,
-                                                                  8.0,
-                                                                  16.0,
-                                                                  0.0),
-                                                      child: AutoSizeText(
-                                                        'Revisit your gratitude entries, rekindling positive memories and reinforcing your optimism, anytime.',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        maxLines: 5,
-                                                        style:
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  logFirebaseEvent(
+                                                      'WELCOME_ONBOARD_PAGE_NextButton_ON_TAP');
+                                                  logFirebaseEvent(
+                                                      'NextButton_page_view');
+                                                  await _model
+                                                      .pageViewController
+                                                      ?.nextPage(
+                                                    duration: Duration(
+                                                        milliseconds: 300),
+                                                    curve: Curves.ease,
+                                                  );
+                                                },
+                                                text: 'Next',
+                                                options: FFButtonOptions(
+                                                  width: 150.0,
+                                                  height: 40.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Outfit',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .lineColor,
-                                                                ),
-                                                      ).animateOnPageLoad(
-                                                          animationsMap[
-                                                              'textOnPageLoadAnimation6']!),
-                                                    ),
+                                                                .accent3,
+                                                        fontSize: 14.0,
+                                                      ),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 0.0,
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 16.0, 0.0, 0.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                logFirebaseEvent(
-                                                    'WELCOME_ONBOARD_PAGE_NextButton_ON_TAP');
-                                                logFirebaseEvent(
-                                                    'NextButton_page_view');
-                                                await _model.pageViewController
-                                                    ?.nextPage(
-                                                  duration: Duration(
-                                                      milliseconds: 300),
-                                                  curve: Curves.ease,
-                                                );
-                                              },
-                                              text: 'Next',
-                                              options: FFButtonOptions(
-                                                width: 150.0,
-                                                height: 40.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .accent3,
-                                                          fontSize: 14.0,
-                                                        ),
-                                                borderSide: BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 0.0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          40.0),
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(40.0),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             Container(
@@ -806,17 +829,22 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                     FlutterFlowTheme.of(context).primaryBlack,
                               ),
                               child: Stack(
+                                alignment: AlignmentDirectional(0.0, -1.0),
                                 children: [
                                   Align(
                                     alignment: AlignmentDirectional(0.0, -1.0),
                                     child: CachedNetworkImage(
+                                      fadeInDuration:
+                                          Duration(milliseconds: 500),
+                                      fadeOutDuration:
+                                          Duration(milliseconds: 500),
                                       imageUrl:
                                           'https://www.connectio.com.au/grateful/newOn/5.jpg',
                                       width: MediaQuery.sizeOf(context).width *
                                           1.0,
                                       fit: BoxFit.cover,
                                     ).animateOnPageLoad(animationsMap[
-                                        'imageOnPageLoadAnimation4']!),
+                                        'imageOnPageLoadAnimation3']!),
                                   ),
                                   if (valueOrDefault<bool>(
                                     isAndroid || isiOS,

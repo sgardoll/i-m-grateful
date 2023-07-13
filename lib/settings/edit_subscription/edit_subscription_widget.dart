@@ -63,7 +63,7 @@ class _EditSubscriptionWidgetState extends State<EditSubscriptionWidget> {
           },
         ),
         title: Text(
-          'Edit Subscription Settings',
+          'Edit Subscription',
           style: FlutterFlowTheme.of(context).headlineMedium,
         ),
         actions: [],

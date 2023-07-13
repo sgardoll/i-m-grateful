@@ -3,9 +3,11 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,6 +26,8 @@ class _LoginWidgetState extends State<LoginWidget> {
   late LoginModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
@@ -31,6 +35,15 @@ class _LoginWidgetState extends State<LoginWidget> {
     _model = createModel(context, () => LoginModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Login'});
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        setState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
+
     _model.emailController ??= TextEditingController();
     _model.passwordController ??= TextEditingController();
   }
@@ -39,6 +52,9 @@ class _LoginWidgetState extends State<LoginWidget> {
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -55,9 +71,9 @@ class _LoginWidgetState extends State<LoginWidget> {
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: CachedNetworkImageProvider(
-              'https://www.connectio.com.au/grateful/4.png',
-            ),
+            image: Image.asset(
+              'assets/images/20dSplash.jpg',
+            ).image,
           ),
         ),
         child: Column(
@@ -69,9 +85,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 10.0,
-                    height: 169.0,
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 100),
+                    curve: Curves.easeInOut,
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: (isWeb
+                                ? MediaQuery.viewInsetsOf(context).bottom > 0
+                                : _isKeyboardVisible) ==
+                            true
+                        ? 100.0
+                        : 169.0,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
@@ -92,6 +115,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Flexible(
@@ -112,7 +136,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 ),
                               ),
                             ),
-                            Expanded(
+                            Flexible(
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 0.0, 0.0),
@@ -459,10 +483,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     MainAxisAlignment
                                                         .spaceEvenly,
                                                 children: [
-                                                  Expanded(
+                                                  Flexible(
                                                     flex: 2,
                                                     child: Text(
-                                                      'Or sign-in ',
+                                                      'or sign-in with',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style:
@@ -671,7 +695,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       logFirebaseEvent('Button_navigate_to');
 
                       context.pushNamed(
-                        'Welcome_Onboard',
+                        'ChangePassword',
                         extra: <String, dynamic>{
                           kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,

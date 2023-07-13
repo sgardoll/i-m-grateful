@@ -73,3 +73,17 @@ int frequencyInDays(String dropdownChoice) {
       return 0; // return 0 if the input is not recognized
   }
 }
+
+LatLng calculateCentroid(List<String> points) {
+  double latitude = 0;
+  double longitude = 0;
+
+  points.forEach((point) {
+    LatLng latLng =
+        LatLng(jsonDecode(point)['latitude'], jsonDecode(point)['longitude']);
+    latitude += latLng.latitude;
+    longitude += latLng.longitude;
+  });
+
+  return LatLng(latitude / points.length, longitude / points.length);
+}

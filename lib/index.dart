@@ -25,3 +25,5 @@ export '/pages/fullscreen_image/fullscreen_image_widget.dart'
 export '/pages/edit_item/edit_item_widget.dart' show EditItemWidget;
 export '/infin_cat_elements/infin_cat_elements_widget.dart'
     show InfinCatElementsWidget;
+export '/insight1/insight1_widget.dart' show Insight1Widget;
+export '/insight2/insight2_widget.dart' show Insight2Widget;

@@ -215,6 +215,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'infinCatElements',
               requireAuth: true,
               builder: (context, params) => InfinCatElementsWidget(),
+            ),
+            FFRoute(
+              name: 'Insight1',
+              path: 'insight1',
+              requireAuth: true,
+              builder: (context, params) => Insight1Widget(),
+            ),
+            FFRoute(
+              name: 'Insight2',
+              path: 'insight2',
+              requireAuth: true,
+              builder: (context, params) => Insight2Widget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -398,14 +410,10 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: Color(0xFF5DEEFA),
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/12-splash.jpg',
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: MediaQuery.sizeOf(context).height * 1.0,
-                      fit: BoxFit.cover,
-                    ),
+                  color: Colors.transparent,
+                  child: Image.asset(
+                    'assets/images/20aSplash.jpg',
+                    fit: BoxFit.cover,
                   ),
                 )
               : PushNotificationsHandler(child: page);

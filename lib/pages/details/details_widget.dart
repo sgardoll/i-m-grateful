@@ -167,6 +167,8 @@ class _DetailsWidgetState extends State<DetailsWidget>
                     ),
                     transitionOnUserGestures: true,
                     child: CachedNetworkImage(
+                      fadeInDuration: Duration(milliseconds: 500),
+                      fadeOutDuration: Duration(milliseconds: 500),
                       imageUrl: valueOrDefault<String>(
                         detailsItemRecord.mainImage,
                         'https://www.connectio.com.au/grateful/loading.png',

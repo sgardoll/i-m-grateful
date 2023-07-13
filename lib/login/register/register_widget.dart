@@ -6,9 +6,11 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'dart:async';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,6 +29,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   late RegisterModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
@@ -34,6 +38,15 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     _model = createModel(context, () => RegisterModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Register'});
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        setState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
+
     _model.fullNameController ??= TextEditingController();
     _model.emailController ??= TextEditingController();
     _model.passwordController ??= TextEditingController();
@@ -44,6 +57,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -82,18 +98,25 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://www.connectio.com.au/grateful/6.png',
-                ),
+                image: Image.asset(
+                  'assets/images/20dSplash.jpg',
+                ).image,
               ),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 100),
+                  curve: Curves.easeInOut,
                   width: MediaQuery.sizeOf(context).width * 10.0,
-                  height: 169.0,
+                  height: (isWeb
+                              ? MediaQuery.viewInsetsOf(context).bottom > 0
+                              : _isKeyboardVisible) ==
+                          true
+                      ? 100.0
+                      : 169.0,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
@@ -604,13 +627,12 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   0.0, 16.0, 0.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Expanded(
                                     flex: 2,
                                     child: Text(
-                                      'Or Sign-Up With',
+                                      'or sign-up with',
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .titleMedium

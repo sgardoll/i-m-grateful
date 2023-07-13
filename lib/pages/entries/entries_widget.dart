@@ -16,6 +16,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:octo_image/octo_image.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'entries_model.dart';
@@ -419,6 +420,225 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                 ),
                               ),
                             ),
+                          if (valueOrDefault<bool>(
+                            entriesItemRecordList
+                                    .where((e) =>
+                                        valueOrDefault<bool>(
+                                          e.status == 'Started',
+                                          false,
+                                        ) &&
+                                        ((int timestamp) {
+                                          return DateTime.now().isAfter(DateTime
+                                                  .fromMillisecondsSinceEpoch(
+                                                      timestamp)
+                                              .add(Duration(minutes: 2)));
+                                        }(e.timestamp!.millisecondsSinceEpoch)))
+                                    .toList()
+                                    .length >=
+                                1,
+                            false,
+                          ))
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                elevation: 4.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Container(
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
+                                  height: 38.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context).accent4,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Align(
+                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 0.0, 16.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Icon(
+                                            Icons.device_unknown_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            size: 24.0,
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 0.0, 8.0, 0.0),
+                                              child: Text(
+                                                'There was an error',
+                                                maxLines: 3,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Raleway',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              logFirebaseEvent(
+                                                  'ENTRIES_PAGE_RETRY_BTN_ON_TAP');
+                                              logFirebaseEvent(
+                                                  'Button_update_widget_state');
+                                              _model.itemText =
+                                                  entriesItemRecordList
+                                                      .where((e) =>
+                                                          e.status == 'Started')
+                                                      .toList()
+                                                      .map((e) => e.itemText)
+                                                      .toList()
+                                                      .cast<String>();
+                                              _model.itemRefs =
+                                                  entriesItemRecordList
+                                                      .where((e) =>
+                                                          e.status == 'Started')
+                                                      .toList()
+                                                      .map((e) => e.reference)
+                                                      .toList()
+                                                      .cast<
+                                                          DocumentReference>();
+                                              logFirebaseEvent(
+                                                  'Button_backend_call');
+
+                                              await entriesItemRecordList
+                                                  .where((e) =>
+                                                      e.reference ==
+                                                      _model.itemRefs.first)
+                                                  .toList()
+                                                  .first
+                                                  .reference
+                                                  .update({
+                                                'itemText': FieldValue.delete(),
+                                                'status': FieldValue.delete(),
+                                              });
+                                              logFirebaseEvent(
+                                                  'Button_backend_call');
+
+                                              await entriesItemRecordList
+                                                  .where((e) =>
+                                                      e.reference ==
+                                                      _model.itemRefs.first)
+                                                  .toList()
+                                                  .first
+                                                  .reference
+                                                  .update(createItemRecordData(
+                                                    itemText:
+                                                        entriesItemRecordList
+                                                            .where((e) =>
+                                                                e.reference ==
+                                                                _model.itemRefs
+                                                                    .first)
+                                                            .toList()
+                                                            .first
+                                                            .itemText,
+                                                  ));
+                                            },
+                                            text: 'Retry',
+                                            options: FFButtonOptions(
+                                              height: 24.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                      ),
+                                              elevation: 2.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(25.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 0.0, 0.0, 0.0),
+                                            child: Material(
+                                              color: Colors.transparent,
+                                              elevation: 2.0,
+                                              shape: const CircleBorder(),
+                                              child: Container(
+                                                width: 24.0,
+                                                height: 24.0,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.transparent,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'ENTRIES_PAGE_Icon_w739oklr_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Icon_backend_call');
+                                                    await entriesItemRecordList
+                                                        .where((e) =>
+                                                            e.reference ==
+                                                            _model
+                                                                .itemRefs.first)
+                                                        .toList()
+                                                        .first
+                                                        .reference
+                                                        .delete();
+                                                  },
+                                                  child: Icon(
+                                                    Icons.cancel_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryBackground,
+                                                    size: 24.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           Builder(
                             builder: (context) {
                               final started = entriesItemRecordList
@@ -679,6 +899,10 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                                                               8.0),
                                                                       child:
                                                                           CachedNetworkImage(
+                                                                        fadeInDuration:
+                                                                            Duration(milliseconds: 500),
+                                                                        fadeOutDuration:
+                                                                            Duration(milliseconds: 500),
                                                                         imageUrl:
                                                                             'https://www.connectio.com.au/grateful/loading.png',
                                                                         width:
@@ -1285,6 +1509,10 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                                                               8.0),
                                                                       child:
                                                                           CachedNetworkImage(
+                                                                        fadeInDuration:
+                                                                            Duration(milliseconds: 500),
+                                                                        fadeOutDuration:
+                                                                            Duration(milliseconds: 500),
                                                                         imageUrl:
                                                                             valueOrDefault<String>(
                                                                           itemsItem
@@ -1950,6 +2178,10 @@ class _EntriesWidgetState extends State<EntriesWidget> {
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
                                             child: CachedNetworkImage(
+                                              fadeInDuration:
+                                                  Duration(milliseconds: 500),
+                                              fadeOutDuration:
+                                                  Duration(milliseconds: 500),
                                               imageUrl: valueOrDefault<String>(
                                                 itemsGridItem.mainImage,
                                                 'https://www.connectio.com.au/grateful/loading.png',

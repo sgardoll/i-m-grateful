@@ -343,6 +343,21 @@ class FFAppState extends ChangeNotifier {
   void clearStylePrefCache() => _stylePrefManager.clear();
   void clearStylePrefCacheKey(String? uniqueKey) =>
       _stylePrefManager.clearRequest(uniqueKey);
+
+  final _insightsQueryManager = StreamRequestManager<List<InsightsRecord>>();
+  Stream<List<InsightsRecord>> insightsQuery({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<List<InsightsRecord>> Function() requestFn,
+  }) =>
+      _insightsQueryManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearInsightsQueryCache() => _insightsQueryManager.clear();
+  void clearInsightsQueryCacheKey(String? uniqueKey) =>
+      _insightsQueryManager.clearRequest(uniqueKey);
 }
 
 LatLng? _latLngFromString(String? val) {

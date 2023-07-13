@@ -175,6 +175,10 @@ class _ImageSelfieWidgetState extends State<ImageSelfieWidget> {
                                                         BorderRadius.circular(
                                                             25.0),
                                                     child: CachedNetworkImage(
+                                                      fadeInDuration: Duration(
+                                                          milliseconds: 500),
+                                                      fadeOutDuration: Duration(
+                                                          milliseconds: 500),
                                                       imageUrl: valueOrDefault<
                                                           String>(
                                                         widget.imageSelfie,

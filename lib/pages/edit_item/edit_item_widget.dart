@@ -43,20 +43,7 @@ class _EditItemWidgetState extends State<EditItemWidget>
   LatLng? currentUserLocationValue;
 
   final animationsMap = {
-    'checkAnimationOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'checkAnimationOnPageLoadAnimation2': AnimationInfo(
+    'checkAnimationOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         VisibilityEffect(duration: 1.ms),
@@ -290,19 +277,19 @@ class _EditItemWidgetState extends State<EditItemWidget>
                                       logFirebaseEvent(
                                           'EDIT_ITEM_PAGE_Image_ON_TAP');
                                       if (valueOrDefault<bool>(
-                                        _model.uploadedFileUrl1 != null &&
-                                            _model.uploadedFileUrl1 != '',
+                                        _model.uploadedFileUrl != null &&
+                                            _model.uploadedFileUrl != '',
                                         false,
                                       )) {
                                         logFirebaseEvent(
                                             'Image_clear_uploaded_data');
                                         setState(() {
-                                          _model.isDataUploading1 = false;
-                                          _model.uploadedLocalFile1 =
+                                          _model.isDataUploading = false;
+                                          _model.uploadedLocalFile =
                                               FFUploadedFile(
                                                   bytes:
                                                       Uint8List.fromList([]));
-                                          _model.uploadedFileUrl1 = '';
+                                          _model.uploadedFileUrl = '';
                                         });
                                       } else if (editItemItemRecord
                                                   .uploadedImages.image !=
@@ -346,7 +333,7 @@ class _EditItemWidgetState extends State<EditItemWidget>
                                                 validateFileFormat(
                                                     m.storagePath, context))) {
                                           setState(() =>
-                                              _model.isDataUploading1 = true);
+                                              _model.isDataUploading = true);
                                           var selectedUploadedFiles =
                                               <FFUploadedFile>[];
 
@@ -384,16 +371,16 @@ class _EditItemWidgetState extends State<EditItemWidget>
                                           } finally {
                                             ScaffoldMessenger.of(context)
                                                 .hideCurrentSnackBar();
-                                            _model.isDataUploading1 = false;
+                                            _model.isDataUploading = false;
                                           }
                                           if (selectedUploadedFiles.length ==
                                                   selectedMedia.length &&
                                               downloadUrls.length ==
                                                   selectedMedia.length) {
                                             setState(() {
-                                              _model.uploadedLocalFile1 =
+                                              _model.uploadedLocalFile =
                                                   selectedUploadedFiles.first;
-                                              _model.uploadedFileUrl1 =
+                                              _model.uploadedFileUrl =
                                                   downloadUrls.first;
                                             });
                                             showUploadMessage(
@@ -409,8 +396,8 @@ class _EditItemWidgetState extends State<EditItemWidget>
                                     },
                                     text: valueOrDefault<String>(
                                       () {
-                                        if (_model.uploadedFileUrl1 != null &&
-                                            _model.uploadedFileUrl1 != '') {
+                                        if (_model.uploadedFileUrl != null &&
+                                            _model.uploadedFileUrl != '') {
                                           return 'Remove';
                                         } else if (editItemItemRecord
                                                     .uploadedImages.image !=
@@ -429,11 +416,11 @@ class _EditItemWidgetState extends State<EditItemWidget>
                                       Icons.insert_photo_rounded,
                                       color: valueOrDefault<Color>(
                                         () {
-                                          if (_model.uploadedFileUrl1 != null &&
-                                              _model.uploadedFileUrl1 != '') {
+                                          if (_model.uploadedFileUrl != null &&
+                                              _model.uploadedFileUrl != '') {
                                             return FlutterFlowTheme.of(context)
                                                 .tertiary;
-                                          } else if (_model.isDataUploading1) {
+                                          } else if (_model.isDataUploading) {
                                             return Colors.transparent;
                                           } else if (editItemItemRecord
                                                       .uploadedImages.image !=
@@ -468,9 +455,9 @@ class _EditItemWidgetState extends State<EditItemWidget>
                                             fontFamily: 'Outfit',
                                             color: valueOrDefault<Color>(
                                               () {
-                                                if (_model.uploadedFileUrl1 !=
+                                                if (_model.uploadedFileUrl !=
                                                         null &&
-                                                    _model.uploadedFileUrl1 !=
+                                                    _model.uploadedFileUrl !=
                                                         '') {
                                                   return FlutterFlowTheme.of(
                                                           context)
@@ -500,8 +487,8 @@ class _EditItemWidgetState extends State<EditItemWidget>
                                       borderSide: BorderSide(
                                         color: () {
                                           if (valueOrDefault<bool>(
-                                            _model.uploadedFileUrl1 != null &&
-                                                _model.uploadedFileUrl1 != '',
+                                            _model.uploadedFileUrl != null &&
+                                                _model.uploadedFileUrl != '',
                                             false,
                                           )) {
                                             return FlutterFlowTheme.of(context)
@@ -524,224 +511,22 @@ class _EditItemWidgetState extends State<EditItemWidget>
                                     ),
                                     showLoadingIndicator: false,
                                   ),
-                                  if (_model.isDataUploading1)
+                                  if (_model.isDataUploading)
                                     Align(
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             4.0, 4.0, 0.0, 0.0),
                                         child: wrapWithModel(
-                                          model: _model.checkAnimationModel1,
+                                          model: _model.checkAnimationModel,
                                           updateCallback: () => setState(() {}),
                                           child: CheckAnimationWidget(),
                                         ).animateOnPageLoad(animationsMap[
-                                            'checkAnimationOnPageLoadAnimation1']!),
+                                            'checkAnimationOnPageLoadAnimation']!),
                                       ),
                                     ),
                                 ],
                               ),
-                            ),
-                            Stack(
-                              children: [
-                                FFButtonWidget(
-                                  onPressed: () async {
-                                    logFirebaseEvent(
-                                        'EDIT_ITEM_PAGE_Selfie_ON_TAP');
-                                    if (valueOrDefault<bool>(
-                                      _model.uploadedFileUrl2 != null &&
-                                          _model.uploadedFileUrl2 != '',
-                                      false,
-                                    )) {
-                                      logFirebaseEvent(
-                                          'Selfie_clear_uploaded_data');
-                                      setState(() {
-                                        _model.isDataUploading2 = false;
-                                        _model.uploadedLocalFile2 =
-                                            FFUploadedFile(
-                                                bytes: Uint8List.fromList([]));
-                                        _model.uploadedFileUrl2 = '';
-                                      });
-                                    } else if (editItemItemRecord
-                                                .uploadedImages.selfie !=
-                                            null &&
-                                        editItemItemRecord
-                                                .uploadedImages.selfie !=
-                                            '') {
-                                      logFirebaseEvent('Selfie_backend_call');
-
-                                      await editItemItemRecord.reference
-                                          .update(createItemRecordData(
-                                        uploadedImages:
-                                            createUploadedImageUrlsStruct(
-                                          fieldValues: {
-                                            'selfie': FieldValue.delete(),
-                                          },
-                                          clearUnsetFields: false,
-                                        ),
-                                      ));
-                                    } else {
-                                      logFirebaseEvent(
-                                          'Selfie_upload_media_to_firebase');
-                                      final selectedMedia =
-                                          await selectMediaWithSourceBottomSheet(
-                                        context: context,
-                                        maxWidth: 512.00,
-                                        maxHeight: 1024.00,
-                                        imageQuality: 90,
-                                        allowPhoto: true,
-                                        includeDimensions: true,
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                        textColor: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        pickerFontFamily: 'Outfit',
-                                      );
-                                      if (selectedMedia != null &&
-                                          selectedMedia.every((m) =>
-                                              validateFileFormat(
-                                                  m.storagePath, context))) {
-                                        setState(() =>
-                                            _model.isDataUploading2 = true);
-                                        var selectedUploadedFiles =
-                                            <FFUploadedFile>[];
-
-                                        var downloadUrls = <String>[];
-                                        try {
-                                          showUploadMessage(
-                                            context,
-                                            'Uploading file...',
-                                            showLoading: true,
-                                          );
-                                          selectedUploadedFiles = selectedMedia
-                                              .map((m) => FFUploadedFile(
-                                                    name: m.storagePath
-                                                        .split('/')
-                                                        .last,
-                                                    bytes: m.bytes,
-                                                    height:
-                                                        m.dimensions?.height,
-                                                    width: m.dimensions?.width,
-                                                    blurHash: m.blurHash,
-                                                  ))
-                                              .toList();
-
-                                          downloadUrls = (await Future.wait(
-                                            selectedMedia.map(
-                                              (m) async => await uploadData(
-                                                  m.storagePath, m.bytes),
-                                            ),
-                                          ))
-                                              .where((u) => u != null)
-                                              .map((u) => u!)
-                                              .toList();
-                                        } finally {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          _model.isDataUploading2 = false;
-                                        }
-                                        if (selectedUploadedFiles.length ==
-                                                selectedMedia.length &&
-                                            downloadUrls.length ==
-                                                selectedMedia.length) {
-                                          setState(() {
-                                            _model.uploadedLocalFile2 =
-                                                selectedUploadedFiles.first;
-                                            _model.uploadedFileUrl2 =
-                                                downloadUrls.first;
-                                          });
-                                          showUploadMessage(
-                                              context, 'Success!');
-                                        } else {
-                                          setState(() {});
-                                          showUploadMessage(
-                                              context, 'Failed to upload data');
-                                          return;
-                                        }
-                                      }
-                                    }
-                                  },
-                                  text: valueOrDefault<String>(
-                                    _model.uploadedFileUrl2 != null &&
-                                            _model.uploadedFileUrl2 != ''
-                                        ? 'Remove'
-                                        : 'Selfie',
-                                    'Selfie',
-                                  ),
-                                  icon: Icon(
-                                    Icons.face_retouching_natural,
-                                    color: valueOrDefault<Color>(
-                                      () {
-                                        if (_model.uploadedFileUrl2 != null &&
-                                            _model.uploadedFileUrl2 != '') {
-                                          return FlutterFlowTheme.of(context)
-                                              .tertiary;
-                                        } else if (_model.isDataUploading2) {
-                                          return Colors.transparent;
-                                        } else {
-                                          return FlutterFlowTheme.of(context)
-                                              .primaryText;
-                                        }
-                                      }(),
-                                      FlutterFlowTheme.of(context).primaryText,
-                                    ),
-                                    size: 20.0,
-                                  ),
-                                  options: FFButtonOptions(
-                                    height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 0.0, 8.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          color: valueOrDefault<Color>(
-                                            _model.uploadedFileUrl2 != null &&
-                                                    _model.uploadedFileUrl2 !=
-                                                        ''
-                                                ? FlutterFlowTheme.of(context)
-                                                    .tertiary
-                                                : FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                          ),
-                                        ),
-                                    elevation: 2.0,
-                                    borderSide: BorderSide(
-                                      color: valueOrDefault<bool>(
-                                        _model.uploadedFileUrl2 != null &&
-                                            _model.uploadedFileUrl2 != '',
-                                        false,
-                                      )
-                                          ? FlutterFlowTheme.of(context)
-                                              .tertiary
-                                          : Color(0x00000000),
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(25.0),
-                                  ),
-                                  showLoadingIndicator: false,
-                                ),
-                                if (_model.isDataUploading2)
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4.0, 4.0, 0.0, 0.0),
-                                      child: wrapWithModel(
-                                        model: _model.checkAnimationModel2,
-                                        updateCallback: () => setState(() {}),
-                                        child: CheckAnimationWidget(),
-                                      ).animateOnPageLoad(animationsMap[
-                                          'checkAnimationOnPageLoadAnimation2']!),
-                                    ),
-                                  ),
-                              ],
                             ),
                             FFButtonWidget(
                               onPressed: () async {
@@ -1211,18 +996,10 @@ class _EditItemWidgetState extends State<EditItemWidget>
                                 'EDIT_ITEM_PAGE_CANCEL_BTN_ON_TAP');
                             logFirebaseEvent('Button_clear_uploaded_data');
                             setState(() {
-                              _model.isDataUploading1 = false;
-                              _model.uploadedLocalFile1 =
+                              _model.isDataUploading = false;
+                              _model.uploadedLocalFile =
                                   FFUploadedFile(bytes: Uint8List.fromList([]));
-                              _model.uploadedFileUrl1 = '';
-                            });
-
-                            logFirebaseEvent('Button_clear_uploaded_data');
-                            setState(() {
-                              _model.isDataUploading2 = false;
-                              _model.uploadedLocalFile2 =
-                                  FFUploadedFile(bytes: Uint8List.fromList([]));
-                              _model.uploadedFileUrl2 = '';
+                              _model.uploadedFileUrl = '';
                             });
 
                             logFirebaseEvent('Button_navigate_back');
@@ -1280,8 +1057,7 @@ class _EditItemWidgetState extends State<EditItemWidget>
                                 location: _model.addLocation,
                                 timestamp: _model.datePicked2,
                                 uploadedImages: createUploadedImageUrlsStruct(
-                                  image: _model.uploadedFileUrl1,
-                                  selfie: _model.uploadedFileUrl2,
+                                  image: _model.uploadedFileUrl,
                                   clearUnsetFields: false,
                                 ),
                                 itemText: _model.itemTextController.text,

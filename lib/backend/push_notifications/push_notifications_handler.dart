@@ -79,14 +79,10 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
   @override
   Widget build(BuildContext context) => _loading
       ? Container(
-          color: Color(0xFF5DEEFA),
-          child: Center(
-            child: Image.asset(
-              'assets/images/12-splash.jpg',
-              width: MediaQuery.sizeOf(context).width * 1.0,
-              height: MediaQuery.sizeOf(context).height * 1.0,
-              fit: BoxFit.cover,
-            ),
+          color: Colors.transparent,
+          child: Image.asset(
+            'assets/images/20aSplash.jpg',
+            fit: BoxFit.cover,
           ),
         )
       : widget.child;
@@ -148,6 +144,8 @@ final parametersBuilderMap =
         },
       ),
   'infinCatElements': ParameterData.none(),
+  'Insight1': ParameterData.none(),
+  'Insight2': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

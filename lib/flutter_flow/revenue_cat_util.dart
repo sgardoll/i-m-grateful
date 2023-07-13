@@ -41,6 +41,10 @@ Future initialize(
       await loadCustomerInfo();
       await loadOfferings();
     }
+
+    Purchases.addCustomerInfoUpdateListener((info) {
+      customerInfo = info;
+    });
   } on Exception catch (e) {
     // This should happen only in the web run mode.
     print("RevenueCat initialization failed: $e");

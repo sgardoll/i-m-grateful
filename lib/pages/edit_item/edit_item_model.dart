@@ -38,20 +38,13 @@ class EditItemModel extends FlutterFlowModel {
   // State field(s) for itemText widget.
   TextEditingController? itemTextController;
   String? Function(BuildContext, String?)? itemTextControllerValidator;
-  bool isDataUploading1 = false;
-  FFUploadedFile uploadedLocalFile1 =
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl1 = '';
+  String uploadedFileUrl = '';
 
   // Model for CheckAnimation component.
-  late CheckAnimationModel checkAnimationModel1;
-  bool isDataUploading2 = false;
-  FFUploadedFile uploadedLocalFile2 =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl2 = '';
-
-  // Model for CheckAnimation component.
-  late CheckAnimationModel checkAnimationModel2;
+  late CheckAnimationModel checkAnimationModel;
   // Stores action output result for [Bottom Sheet - artStyle] action in Button widget.
   String? updatedStyle;
   DateTime? datePicked1;
@@ -62,14 +55,12 @@ class EditItemModel extends FlutterFlowModel {
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    checkAnimationModel1 = createModel(context, () => CheckAnimationModel());
-    checkAnimationModel2 = createModel(context, () => CheckAnimationModel());
+    checkAnimationModel = createModel(context, () => CheckAnimationModel());
   }
 
   void dispose() {
     itemTextController?.dispose();
-    checkAnimationModel1.dispose();
-    checkAnimationModel2.dispose();
+    checkAnimationModel.dispose();
   }
 
   /// Action blocks are added here.

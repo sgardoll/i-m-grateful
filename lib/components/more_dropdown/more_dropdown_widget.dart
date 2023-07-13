@@ -124,7 +124,7 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                       return Padding(
                         padding: MediaQuery.viewInsetsOf(context),
                         child: FeedbackDropdownWidget(
-                          itemRef: widget.item!.reference,
+                          itemRef: widget.item?.reference,
                         ),
                       );
                     },
@@ -177,13 +177,13 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                   var feedbackRecordReference = FeedbackRecord.collection.doc();
                   await feedbackRecordReference.set({
                     ...createFeedbackRecordData(
-                      itemRef: widget.item!.reference,
+                      itemRef: widget.item?.reference,
                       userRef: currentUserReference,
                       feedback: 'Regenerated',
                     ),
                     'screenshots': [
                       valueOrDefault<String>(
-                        widget.item!.mainImage,
+                        widget.item?.mainImage,
                         '0',
                       )
                     ],
@@ -191,19 +191,19 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                   _model.addRegenerateAsFeedback =
                       FeedbackRecord.getDocumentFromData({
                     ...createFeedbackRecordData(
-                      itemRef: widget.item!.reference,
+                      itemRef: widget.item?.reference,
                       userRef: currentUserReference,
                       feedback: 'Regenerated',
                     ),
                     'screenshots': [
                       valueOrDefault<String>(
-                        widget.item!.mainImage,
+                        widget.item?.mainImage,
                         '0',
                       )
                     ],
                   }, feedbackRecordReference);
                   logFirebaseEvent('regenerate_update_widget_state');
-                  _model.itemText = widget.item!.itemText;
+                  _model.itemText = widget.item?.itemText;
                   logFirebaseEvent('regenerate_backend_call');
 
                   await widget.item!.reference.update({
@@ -287,19 +287,19 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                     'Details',
                     queryParameters: {
                       'itemRef': serializeParam(
-                        widget.item!.reference,
+                        widget.item?.reference,
                         ParamType.DocumentReference,
                       ),
                       'primary': serializeParam(
                         valueOrDefault<Color>(
-                          widget.item!.stable.colorPalettes.primaryColor,
+                          widget.item?.stable?.colorPalettes?.primaryColor,
                           FlutterFlowTheme.of(context).primary,
                         ),
                         ParamType.Color,
                       ),
                       'contrasting': serializeParam(
                         valueOrDefault<Color>(
-                          widget.item!.stable.colorPalettes.contrastingColor,
+                          widget.item?.stable?.colorPalettes?.contrastingColor,
                           FlutterFlowTheme.of(context).secondary,
                         ),
                         ParamType.Color,
@@ -307,11 +307,12 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                       'text': serializeParam(
                         Theme.of(context).brightness == Brightness.light
                             ? valueOrDefault<Color>(
-                                widget.item!.stable.colorPalettes.lightVibrant,
+                                widget
+                                    .item?.stable?.colorPalettes?.lightVibrant,
                                 FlutterFlowTheme.of(context).primaryBackground,
                               )
                             : valueOrDefault<Color>(
-                                widget.item!.stable.colorPalettes.darkVibrant,
+                                widget.item?.stable?.colorPalettes?.darkVibrant,
                                 FlutterFlowTheme.of(context).primaryBackground,
                               ),
                         ParamType.Color,
@@ -415,7 +416,7 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                     'EditItem',
                     queryParameters: {
                       'docRef': serializeParam(
-                        widget.item!.reference,
+                        widget.item?.reference,
                         ParamType.DocumentReference,
                       ),
                     }.withoutNulls,
@@ -457,7 +458,7 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                 ),
               ),
               if (valueOrDefault<bool>(
-                widget.item!.location != null,
+                widget.item?.location != null,
                 false,
               ))
                 InkWell(
@@ -522,8 +523,8 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                   ),
                 ),
               if (valueOrDefault<bool>(
-                widget.item!.uploadedImages.image != null &&
-                    widget.item!.uploadedImages.image != '',
+                widget.item?.uploadedImages?.image != null &&
+                    widget.item?.uploadedImages?.image != '',
                 false,
               ))
                 InkWell(
@@ -588,8 +589,8 @@ class _MoreDropdownWidgetState extends State<MoreDropdownWidget>
                   ),
                 ),
               if (valueOrDefault<bool>(
-                widget.item!.uploadedImages.selfie != null &&
-                    widget.item!.uploadedImages.selfie != '',
+                widget.item?.uploadedImages?.selfie != null &&
+                    widget.item?.uploadedImages?.selfie != '',
                 false,
               ))
                 InkWell(

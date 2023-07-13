@@ -434,184 +434,193 @@ class _NewItemWidgetState extends State<NewItemWidget>
                             ],
                           ),
                         ),
-                        Stack(
-                          children: [
-                            FFButtonWidget(
-                              onPressed: () async {
-                                logFirebaseEvent('NEW_ITEM_PAGE_Selfie_ON_TAP');
-                                if (valueOrDefault<bool>(
-                                  _model.uploadedFileUrl2 != null &&
-                                      _model.uploadedFileUrl2 != '',
-                                  false,
-                                )) {
+                        if (responsiveVisibility(
+                          context: context,
+                          phone: false,
+                          tablet: false,
+                          tabletLandscape: false,
+                          desktop: false,
+                        ))
+                          Stack(
+                            children: [
+                              FFButtonWidget(
+                                onPressed: () async {
                                   logFirebaseEvent(
-                                      'Selfie_clear_uploaded_data');
-                                  setState(() {
-                                    _model.isDataUploading2 = false;
-                                    _model.uploadedLocalFile2 = FFUploadedFile(
-                                        bytes: Uint8List.fromList([]));
-                                    _model.uploadedFileUrl2 = '';
-                                  });
-                                } else {
-                                  logFirebaseEvent(
-                                      'Selfie_upload_media_to_firebase');
-                                  final selectedMedia =
-                                      await selectMediaWithSourceBottomSheet(
-                                    context: context,
-                                    maxWidth: 512.00,
-                                    maxHeight: 1024.00,
-                                    imageQuality: 90,
-                                    allowPhoto: true,
-                                    includeDimensions: true,
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                    textColor: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    pickerFontFamily: 'Outfit',
-                                  );
-                                  if (selectedMedia != null &&
-                                      selectedMedia.every((m) =>
-                                          validateFileFormat(
-                                              m.storagePath, context))) {
-                                    setState(
-                                        () => _model.isDataUploading2 = true);
-                                    var selectedUploadedFiles =
-                                        <FFUploadedFile>[];
-
-                                    var downloadUrls = <String>[];
-                                    try {
-                                      showUploadMessage(
-                                        context,
-                                        'Uploading file...',
-                                        showLoading: true,
-                                      );
-                                      selectedUploadedFiles = selectedMedia
-                                          .map((m) => FFUploadedFile(
-                                                name: m.storagePath
-                                                    .split('/')
-                                                    .last,
-                                                bytes: m.bytes,
-                                                height: m.dimensions?.height,
-                                                width: m.dimensions?.width,
-                                                blurHash: m.blurHash,
-                                              ))
-                                          .toList();
-
-                                      downloadUrls = (await Future.wait(
-                                        selectedMedia.map(
-                                          (m) async => await uploadData(
-                                              m.storagePath, m.bytes),
-                                        ),
-                                      ))
-                                          .where((u) => u != null)
-                                          .map((u) => u!)
-                                          .toList();
-                                    } finally {
-                                      ScaffoldMessenger.of(context)
-                                          .hideCurrentSnackBar();
-                                      _model.isDataUploading2 = false;
-                                    }
-                                    if (selectedUploadedFiles.length ==
-                                            selectedMedia.length &&
-                                        downloadUrls.length ==
-                                            selectedMedia.length) {
-                                      setState(() {
-                                        _model.uploadedLocalFile2 =
-                                            selectedUploadedFiles.first;
-                                        _model.uploadedFileUrl2 =
-                                            downloadUrls.first;
-                                      });
-                                      showUploadMessage(context, 'Success!');
-                                    } else {
-                                      setState(() {});
-                                      showUploadMessage(
-                                          context, 'Failed to upload data');
-                                      return;
-                                    }
-                                  }
-                                }
-                              },
-                              text: valueOrDefault<String>(
-                                _model.uploadedFileUrl2 != null &&
-                                        _model.uploadedFileUrl2 != ''
-                                    ? 'Remove'
-                                    : 'Selfie',
-                                'Selfie',
-                              ),
-                              icon: Icon(
-                                Icons.face_retouching_natural,
-                                color: valueOrDefault<Color>(
-                                  () {
-                                    if (_model.uploadedFileUrl2 != null &&
-                                        _model.uploadedFileUrl2 != '') {
-                                      return FlutterFlowTheme.of(context)
-                                          .tertiary;
-                                    } else if (_model.isDataUploading2) {
-                                      return Colors.transparent;
-                                    } else {
-                                      return FlutterFlowTheme.of(context)
-                                          .primaryText;
-                                    }
-                                  }(),
-                                  FlutterFlowTheme.of(context).primaryText,
-                                ),
-                                size: 20.0,
-                              ),
-                              options: FFButtonOptions(
-                                height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    8.0, 0.0, 8.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Outfit',
-                                      color: valueOrDefault<Color>(
-                                        _model.uploadedFileUrl2 != null &&
-                                                _model.uploadedFileUrl2 != ''
-                                            ? FlutterFlowTheme.of(context)
-                                                .tertiary
-                                            : FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                        FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                    ),
-                                elevation: 2.0,
-                                borderSide: BorderSide(
-                                  color: valueOrDefault<bool>(
+                                      'NEW_ITEM_PAGE_Selfie_ON_TAP');
+                                  if (valueOrDefault<bool>(
                                     _model.uploadedFileUrl2 != null &&
                                         _model.uploadedFileUrl2 != '',
                                     false,
-                                  )
-                                      ? FlutterFlowTheme.of(context).tertiary
-                                      : Color(0x00000000),
-                                  width: 2.0,
+                                  )) {
+                                    logFirebaseEvent(
+                                        'Selfie_clear_uploaded_data');
+                                    setState(() {
+                                      _model.isDataUploading2 = false;
+                                      _model.uploadedLocalFile2 =
+                                          FFUploadedFile(
+                                              bytes: Uint8List.fromList([]));
+                                      _model.uploadedFileUrl2 = '';
+                                    });
+                                  } else {
+                                    logFirebaseEvent(
+                                        'Selfie_upload_media_to_firebase');
+                                    final selectedMedia =
+                                        await selectMediaWithSourceBottomSheet(
+                                      context: context,
+                                      maxWidth: 512.00,
+                                      maxHeight: 1024.00,
+                                      imageQuality: 90,
+                                      allowPhoto: true,
+                                      includeDimensions: true,
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                      textColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      pickerFontFamily: 'Outfit',
+                                    );
+                                    if (selectedMedia != null &&
+                                        selectedMedia.every((m) =>
+                                            validateFileFormat(
+                                                m.storagePath, context))) {
+                                      setState(
+                                          () => _model.isDataUploading2 = true);
+                                      var selectedUploadedFiles =
+                                          <FFUploadedFile>[];
+
+                                      var downloadUrls = <String>[];
+                                      try {
+                                        showUploadMessage(
+                                          context,
+                                          'Uploading file...',
+                                          showLoading: true,
+                                        );
+                                        selectedUploadedFiles = selectedMedia
+                                            .map((m) => FFUploadedFile(
+                                                  name: m.storagePath
+                                                      .split('/')
+                                                      .last,
+                                                  bytes: m.bytes,
+                                                  height: m.dimensions?.height,
+                                                  width: m.dimensions?.width,
+                                                  blurHash: m.blurHash,
+                                                ))
+                                            .toList();
+
+                                        downloadUrls = (await Future.wait(
+                                          selectedMedia.map(
+                                            (m) async => await uploadData(
+                                                m.storagePath, m.bytes),
+                                          ),
+                                        ))
+                                            .where((u) => u != null)
+                                            .map((u) => u!)
+                                            .toList();
+                                      } finally {
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentSnackBar();
+                                        _model.isDataUploading2 = false;
+                                      }
+                                      if (selectedUploadedFiles.length ==
+                                              selectedMedia.length &&
+                                          downloadUrls.length ==
+                                              selectedMedia.length) {
+                                        setState(() {
+                                          _model.uploadedLocalFile2 =
+                                              selectedUploadedFiles.first;
+                                          _model.uploadedFileUrl2 =
+                                              downloadUrls.first;
+                                        });
+                                        showUploadMessage(context, 'Success!');
+                                      } else {
+                                        setState(() {});
+                                        showUploadMessage(
+                                            context, 'Failed to upload data');
+                                        return;
+                                      }
+                                    }
+                                  }
+                                },
+                                text: valueOrDefault<String>(
+                                  _model.uploadedFileUrl2 != null &&
+                                          _model.uploadedFileUrl2 != ''
+                                      ? 'Remove'
+                                      : 'Selfie',
+                                  'Selfie',
                                 ),
-                                borderRadius: BorderRadius.circular(25.0),
-                              ),
-                              showLoadingIndicator: false,
-                            ),
-                            if (_model.isDataUploading2)
-                              Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Padding(
+                                icon: Icon(
+                                  Icons.face_retouching_natural,
+                                  color: valueOrDefault<Color>(
+                                    () {
+                                      if (_model.uploadedFileUrl2 != null &&
+                                          _model.uploadedFileUrl2 != '') {
+                                        return FlutterFlowTheme.of(context)
+                                            .tertiary;
+                                      } else if (_model.isDataUploading2) {
+                                        return Colors.transparent;
+                                      } else {
+                                        return FlutterFlowTheme.of(context)
+                                            .primaryText;
+                                      }
+                                    }(),
+                                    FlutterFlowTheme.of(context).primaryText,
+                                  ),
+                                  size: 20.0,
+                                ),
+                                options: FFButtonOptions(
+                                  height: 40.0,
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      4.0, 4.0, 0.0, 0.0),
-                                  child: wrapWithModel(
-                                    model: _model.checkAnimationModel2,
-                                    updateCallback: () => setState(() {}),
-                                    child: CheckAnimationWidget(),
-                                  ).animateOnPageLoad(animationsMap[
-                                      'checkAnimationOnPageLoadAnimation2']!),
+                                      8.0, 0.0, 8.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Outfit',
+                                        color: valueOrDefault<Color>(
+                                          _model.uploadedFileUrl2 != null &&
+                                                  _model.uploadedFileUrl2 != ''
+                                              ? FlutterFlowTheme.of(context)
+                                                  .tertiary
+                                              : FlutterFlowTheme.of(context)
+                                                  .primaryText,
+                                          FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                  elevation: 2.0,
+                                  borderSide: BorderSide(
+                                    color: valueOrDefault<bool>(
+                                      _model.uploadedFileUrl2 != null &&
+                                          _model.uploadedFileUrl2 != '',
+                                      false,
+                                    )
+                                        ? FlutterFlowTheme.of(context).tertiary
+                                        : Color(0x00000000),
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(25.0),
                                 ),
+                                showLoadingIndicator: false,
                               ),
-                          ],
-                        ),
+                              if (_model.isDataUploading2)
+                                Align(
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4.0, 4.0, 0.0, 0.0),
+                                    child: wrapWithModel(
+                                      model: _model.checkAnimationModel2,
+                                      updateCallback: () => setState(() {}),
+                                      child: CheckAnimationWidget(),
+                                    ).animateOnPageLoad(animationsMap[
+                                        'checkAnimationOnPageLoadAnimation2']!),
+                                  ),
+                                ),
+                            ],
+                          ),
                         FFButtonWidget(
                           onPressed: () async {
                             logFirebaseEvent(
@@ -751,11 +760,15 @@ class _NewItemWidgetState extends State<NewItemWidget>
                                     textAlign: TextAlign.start,
                                     maxLines: 3,
                                     style: FlutterFlowTheme.of(context)
-                                        .titleSmall
+                                        .titleMedium
                                         .override(
                                           fontFamily: 'Outfit',
-                                          color: FFAppState().primary,
-                                          fontWeight: FontWeight.normal,
+                                          color: valueOrDefault<Color>(
+                                            FFAppState().primary,
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                          fontWeight: FontWeight.w600,
                                         ),
                                   ),
                                 ),

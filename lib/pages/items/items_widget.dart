@@ -45,7 +45,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
             usersRecord.where('uid', isEqualTo: currentUserUid),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
-      if (_model.queryUser!.style == null || _model.queryUser!.style == '') {
+      if (_model.queryUser?.style == null || _model.queryUser?.style == '') {
         logFirebaseEvent('Items_navigate_to');
 
         context.goNamed(
@@ -58,8 +58,8 @@ class _ItemsWidgetState extends State<ItemsWidget> {
             ),
           },
         );
-      } else if (_model.queryUser!.gender == null ||
-          _model.queryUser!.gender == '') {
+      } else if (_model.queryUser?.gender == null ||
+          _model.queryUser?.gender == '') {
         logFirebaseEvent('Items_navigate_to');
 
         context.goNamed(
@@ -222,6 +222,8 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(0.0),
                               child: CachedNetworkImage(
+                                fadeInDuration: Duration(milliseconds: 500),
+                                fadeOutDuration: Duration(milliseconds: 500),
                                 imageUrl: valueOrDefault<String>(
                                   pageViewItemRecord.mainImage,
                                   'https://www.connectio.com.au/grateful/loading.png',

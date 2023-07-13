@@ -407,7 +407,11 @@ class _ArtStyleWidgetState extends State<ArtStyleWidget> {
                                                       .primary,
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        fontSize: 10.0,
+                                                      ),
                                               elevation: 2.0,
                                               borderSide: BorderSide(
                                                 color: Colors.transparent,

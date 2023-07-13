@@ -193,43 +193,47 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                         child: Align(
                                           alignment:
                                               AlignmentDirectional(0.0, 0.0),
-                                          child: Builder(builder: (_) {
-                                            final child = Visibility(
-                                              visible: responsiveVisibility(
-                                                context: context,
-                                                phone: false,
-                                                tablet: false,
-                                                tabletLandscape: false,
-                                                desktop: false,
-                                              ),
-                                              child: wrapWithModel(
-                                                model: _model
-                                                    .keySellingPointModel1,
-                                                updateCallback: () =>
-                                                    setState(() {}),
-                                                child: KeySellingPointWidget(
-                                                  heading: 'Insightful Journey',
-                                                  copy:
-                                                      'Uncover deep insights from your entries and share your gratitude journey with our community',
-                                                  icon: 'exp',
+                                          child: Builder(
+                                            builder: (_) {
+                                              final child = Visibility(
+                                                visible: responsiveVisibility(
+                                                  context: context,
+                                                  phone: false,
+                                                  tablet: false,
+                                                  tabletLandscape: false,
+                                                  desktop: false,
                                                 ),
-                                              ),
-                                            );
-                                            if (true) {
-                                              return ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(25.0),
-                                                child: BackdropFilter(
-                                                  filter: ImageFilter.blur(
-                                                    sigmaX: 5.0,
-                                                    sigmaY: 5.0,
+                                                child: wrapWithModel(
+                                                  model: _model
+                                                      .keySellingPointModel1,
+                                                  updateCallback: () =>
+                                                      setState(() {}),
+                                                  child: KeySellingPointWidget(
+                                                    heading:
+                                                        'Insightful Journey',
+                                                    copy:
+                                                        'Uncover deep insights from your entries and share your gratitude journey with our community',
+                                                    icon: 'exp',
                                                   ),
-                                                  child: child,
                                                 ),
                                               );
-                                            }
-                                            return child;
-                                          }),
+                                              if (true) {
+                                                return ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25.0),
+                                                  child: BackdropFilter(
+                                                    filter: ImageFilter.blur(
+                                                      sigmaX: 5.0,
+                                                      sigmaY: 5.0,
+                                                    ),
+                                                    child: child,
+                                                  ),
+                                                );
+                                              }
+                                              return child;
+                                            },
+                                          ),
                                         ),
                                       ).animateOnPageLoad(animationsMap[
                                           'containerOnPageLoadAnimation']!),
@@ -642,7 +646,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                                     4.0,
                                                                     0.0),
                                                         child: Text(
-                                                          '6',
+                                                          '1',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -658,7 +662,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                       ),
                                                     ),
                                                     Text(
-                                                      'months',
+                                                      'month',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -683,7 +687,7 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                               .bodySmall,
                                                     ),
                                                     TextSpan(
-                                                      text: '\$29.99',
+                                                      text: '\$4.99',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -702,21 +706,6 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                       .bodyMedium,
                                                 ),
                                                 textAlign: TextAlign.center,
-                                              ),
-                                              Text(
-                                                'Save x%',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .tertiary,
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
                                               ),
                                               Theme(
                                                 data: ThemeData(
@@ -941,21 +930,6 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                           fontSize: 12.0,
                                                         ),
                                               ),
-                                              Text(
-                                                'Save x%',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .tertiary,
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                              ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
@@ -1002,216 +976,6 @@ class _InfinityFeatureWidgetState extends State<InfinityFeatureWidget>
                                                             'INFINITY_FEATURE_Checkbox-12mth_ON_TOGGL');
                                                         logFirebaseEvent(
                                                             'Checkbox-12mth_update_widget_state');
-                                                        setState(() {
-                                                          _model.numMonths =
-                                                              '6';
-                                                        });
-                                                      }
-                                                    },
-                                                    activeColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .accent3,
-                                                    checkColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .alternate,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      4.0, 0.0, 0.0, 0.0),
-                                  child: Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    height: 145.0,
-                                    decoration: BoxDecoration(
-                                      color: valueOrDefault<Color>(
-                                        _model.numMonths == '6'
-                                            ? FlutterFlowTheme.of(context)
-                                                .alternate
-                                            : FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                        FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                      ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 4.0,
-                                          color: FlutterFlowTheme.of(context)
-                                              .warning,
-                                          offset: Offset(0.0, 2.0),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(25.0),
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        width: 2.0,
-                                      ),
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  1.0,
-                                          height: 30.0,
-                                          decoration: BoxDecoration(
-                                            color: Colors.transparent,
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(0.0),
-                                              bottomRight: Radius.circular(0.0),
-                                              topLeft: Radius.circular(25.0),
-                                              topRight: Radius.circular(25.0),
-                                            ),
-                                            border: Border.all(
-                                              color: Colors.transparent,
-                                              width: 2.0,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 4.0, 0.0, 4.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, -1.0),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    4.0,
-                                                                    0.0),
-                                                        child: Text(
-                                                          '1',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                fontSize: 24.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'month',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Outfit',
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Text(
-                                                '\$X  / month',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          fontSize: 12.0,
-                                                        ),
-                                              ),
-                                              Text(
-                                                ' ',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Outfit',
-                                                      color: Colors.transparent,
-                                                      fontSize: 12.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        4.0, 4.0, 4.0, 4.0),
-                                                child: Theme(
-                                                  data: ThemeData(
-                                                    checkboxTheme:
-                                                        CheckboxThemeData(
-                                                      visualDensity:
-                                                          VisualDensity
-                                                              .standard,
-                                                      materialTapTargetSize:
-                                                          MaterialTapTargetSize
-                                                              .padded,
-                                                      shape: CircleBorder(),
-                                                    ),
-                                                    unselectedWidgetColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondaryText,
-                                                  ),
-                                                  child: Checkbox(
-                                                    value: _model
-                                                            .checkbox1mthValue ??=
-                                                        _model.numMonths == '1'
-                                                            ? true
-                                                            : false,
-                                                    onChanged:
-                                                        (newValue) async {
-                                                      setState(() => _model
-                                                              .checkbox1mthValue =
-                                                          newValue!);
-                                                      if (newValue!) {
-                                                        logFirebaseEvent(
-                                                            'INFINITY_FEATURE_Checkbox-1mth_ON_TOGGLE');
-                                                        logFirebaseEvent(
-                                                            'Checkbox-1mth_update_widget_state');
-                                                        setState(() {
-                                                          _model.numMonths =
-                                                              '1';
-                                                        });
-                                                      } else {
-                                                        logFirebaseEvent(
-                                                            'INFINITY_FEATURE_Checkbox-1mth_ON_TOGGLE');
-                                                        logFirebaseEvent(
-                                                            'Checkbox-1mth_update_widget_state');
                                                         setState(() {
                                                           _model.numMonths =
                                                               '6';

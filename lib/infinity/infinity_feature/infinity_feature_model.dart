@@ -25,6 +25,7 @@ class InfinityFeatureModel extends FlutterFlowModel {
 
   // State field(s) for PageView widget.
   PageController? pageViewController;
+
   int get pageViewCurrentIndex => pageViewController != null &&
           pageViewController!.hasClients &&
           pageViewController!.page != null
@@ -42,8 +43,6 @@ class InfinityFeatureModel extends FlutterFlowModel {
   bool? checkbox6mthValue;
   // State field(s) for Checkbox-12mth widget.
   bool? checkbox12mthValue;
-  // State field(s) for Checkbox-1mth widget.
-  bool? checkbox1mthValue;
 
   /// Initialization and disposal methods.
 

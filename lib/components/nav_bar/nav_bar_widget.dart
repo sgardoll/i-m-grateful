@@ -330,53 +330,111 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 onPressed: () async {
                                   logFirebaseEvent(
                                       'NAV_BAR_COMP_Explore_ON_TAP');
-                                  logFirebaseEvent('Explore_revenue_cat');
-                                  final isEntitled =
-                                      await revenue_cat.isEntitled('Unlimited');
-                                  if (isEntitled == null) {
-                                    return;
-                                  } else if (!isEntitled) {
-                                    await revenue_cat.loadOfferings();
-                                  }
+                                  logFirebaseEvent('Explore_navigate_to');
 
-                                  if (isEntitled) {
-                                    logFirebaseEvent('Explore_navigate_to');
-
-                                    context.pushNamed(
-                                      'Explore',
-                                      extra: <String, dynamic>{
-                                        kTransitionInfoKey: TransitionInfo(
-                                          hasTransition: true,
-                                          transitionType:
-                                              PageTransitionType.fade,
-                                        ),
-                                      },
-                                    );
-                                  } else {
-                                    logFirebaseEvent('Explore_bottom_sheet');
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      isDismissible: false,
-                                      enableDrag: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child: InfinityFeatureWidget(
-                                            premiumFeature: 'Explore',
-                                          ),
-                                        );
-                                      },
-                                    ).then((value) => setState(() {}));
-                                  }
+                                  context.pushNamed('Explore');
                                 },
                               ),
                             ),
                           ],
                         ),
                       ),
+                      if (responsiveVisibility(
+                        context: context,
+                        phone: false,
+                        tablet: false,
+                        tabletLandscape: false,
+                        desktop: false,
+                      ))
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 30.0, 0.0, 0.0),
+                                child: FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30.0,
+                                  borderWidth: 1.0,
+                                  buttonSize: 50.0,
+                                  fillColor: valueOrDefault<Color>(
+                                    widget.activePage == 'Explore'
+                                        ? Color(0x4C616161)
+                                        : Colors.transparent,
+                                    Colors.transparent,
+                                  ),
+                                  hoverColor: Color(0x4C616161),
+                                  hoverIconColor: valueOrDefault<Color>(
+                                    widget.activePage == 'Explore'
+                                        ? FFAppState().lightVibrant
+                                        : FFAppState().darkVibrant,
+                                    FlutterFlowTheme.of(context).accent3,
+                                  ),
+                                  icon: Icon(
+                                    Icons.image_search_rounded,
+                                    color: valueOrDefault<Color>(
+                                      widget.activePage == 'Explore'
+                                          ? FlutterFlowTheme.of(context)
+                                              .secondaryBackground
+                                          : FlutterFlowTheme.of(context)
+                                              .secondary,
+                                      FlutterFlowTheme.of(context).secondary,
+                                    ),
+                                    size: 24.0,
+                                  ),
+                                  onPressed: () async {
+                                    logFirebaseEvent(
+                                        'NAV_BAR_COMP_Explore_ON_TAP');
+                                    logFirebaseEvent('Explore_revenue_cat');
+                                    final isEntitled = await revenue_cat
+                                        .isEntitled('Unlimited');
+                                    if (isEntitled == null) {
+                                      return;
+                                    } else if (!isEntitled) {
+                                      await revenue_cat.loadOfferings();
+                                    }
+
+                                    if (isEntitled) {
+                                      logFirebaseEvent('Explore_navigate_to');
+
+                                      context.pushNamed(
+                                        'Explore',
+                                        extra: <String, dynamic>{
+                                          kTransitionInfoKey: TransitionInfo(
+                                            hasTransition: true,
+                                            transitionType:
+                                                PageTransitionType.fade,
+                                          ),
+                                        },
+                                      );
+                                    } else {
+                                      logFirebaseEvent('Explore_bottom_sheet');
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        isDismissible: false,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child: InfinityFeatureWidget(
+                                              premiumFeature: 'Explore',
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => setState(() {}));
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       Expanded(
                         flex: 1,
                         child: Column(
