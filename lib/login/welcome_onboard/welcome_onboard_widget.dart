@@ -282,106 +282,83 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                               PageController(initialPage: 0),
                           scrollDirection: Axis.horizontal,
                           children: [
-                            Align(
+                            Stack(
                               alignment: AlignmentDirectional(0.0, -1.0),
-                              child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                height: MediaQuery.sizeOf(context).height * 1.0,
-                                decoration: BoxDecoration(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryBlack,
-                                ),
-                                child: Stack(
+                              children: [
+                                Align(
                                   alignment: AlignmentDirectional(0.0, -1.0),
-                                  children: [
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(0.0, -1.0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                1.0,
-                                        child: custom_widgets.ChewieVideo(
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  1.0,
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
+                                  child: Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 1.0,
+                                    child: custom_widgets.ChewieVideo(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          1.0,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
                                               1.0,
-                                          videoUrl:
-                                              'https://www.connectio.com.au/grateful/newOn/4.webm',
-                                          imageUrl:
-                                              'https://www.connectio.com.au/grateful/newOn/4.jpg',
-                                        ),
-                                      ).animateOnPageLoad(animationsMap[
-                                          'containerOnPageLoadAnimation']!),
+                                      videoUrl:
+                                          'https://www.connectio.com.au/grateful/newOn/4.webm',
+                                      imageUrl:
+                                          'https://www.connectio.com.au/grateful/newOn/4.jpg',
                                     ),
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(0.0, -1.0),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 50.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 1.0),
-                                              child: Container(
-                                                width:
-                                                    MediaQuery.sizeOf(context)
-                                                            .width *
-                                                        1.0,
-                                                height: 200.0,
-                                                decoration: BoxDecoration(),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: [
-                                                    Text(
-                                                      'Mindful',
+                                  ).animateOnPageLoad(animationsMap[
+                                      'containerOnPageLoadAnimation']!),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(0.0, -1.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 50.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 1.0),
+                                          child: Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                1.0,
+                                            height: 200.0,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Text(
+                                                  'Mindful',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .headlineLarge
+                                                      .override(
+                                                        fontFamily: 'Aldo',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        fontSize: 65.0,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                                ).animateOnPageLoad(animationsMap[
+                                                    'textOnPageLoadAnimation1']!),
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(16.0, 8.0,
+                                                                16.0, 0.0),
+                                                    child: AutoSizeText(
+                                                      'Embrace mindfulness effortlessly, taking moments each day to acknowledge and appreciate your blessings.',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      maxLines: 5,
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .headlineLarge
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Aldo',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                fontSize: 65.0,
-                                                                useGoogleFonts:
-                                                                    false,
-                                                              ),
-                                                    ).animateOnPageLoad(
-                                                        animationsMap[
-                                                            'textOnPageLoadAnimation1']!),
-                                                    Flexible(
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    16.0,
-                                                                    8.0,
-                                                                    16.0,
-                                                                    0.0),
-                                                        child: AutoSizeText(
-                                                          'Embrace mindfulness effortlessly, taking moments each day to acknowledge and appreciate your blessings.',
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          maxLines: 5,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
                                                               .titleMedium
                                                               .override(
                                                                 fontFamily:
@@ -390,53 +367,51 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                                         context)
                                                                     .lineColor,
                                                               ),
-                                                        ).animateOnPageLoad(
-                                                            animationsMap[
-                                                                'textOnPageLoadAnimation2']!),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'textOnPageLoadAnimation2']!),
+                                                  ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Padding(
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 16.0, 0.0, 0.0),
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                logFirebaseEvent(
+                                                    'WELCOME_ONBOARD_PAGE_NextButton_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'NextButton_page_view');
+                                                await _model.pageViewController
+                                                    ?.nextPage(
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease,
+                                                );
+                                              },
+                                              text: 'Next',
+                                              options: FFButtonOptions(
+                                                width: 150.0,
+                                                height: 40.0,
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 16.0, 0.0, 0.0),
-                                                child: FFButtonWidget(
-                                                  onPressed: () async {
-                                                    logFirebaseEvent(
-                                                        'WELCOME_ONBOARD_PAGE_NextButton_ON_TAP');
-                                                    logFirebaseEvent(
-                                                        'NextButton_page_view');
-                                                    await _model
-                                                        .pageViewController
-                                                        ?.nextPage(
-                                                      duration: Duration(
-                                                          milliseconds: 300),
-                                                      curve: Curves.ease,
-                                                    );
-                                                  },
-                                                  text: 'Next',
-                                                  options: FFButtonOptions(
-                                                    width: 150.0,
-                                                    height: 40.0,
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    iconPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
+                                                        0.0, 0.0, 0.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
                                                         .primary,
-                                                    textStyle: FlutterFlowTheme
-                                                            .of(context)
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
                                                         .titleSmall
                                                         .override(
                                                           fontFamily: 'Outfit',
@@ -445,24 +420,21 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                                               .accent3,
                                                           fontSize: 14.0,
                                                         ),
-                                                    borderSide: BorderSide(
-                                                      color: Colors.transparent,
-                                                      width: 0.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            40.0),
-                                                  ),
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 0.0,
                                                 ),
+                                                borderRadius:
+                                                    BorderRadius.circular(40.0),
                                               ),
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                             Container(
                               width: MediaQuery.sizeOf(context).width * 1.0,
