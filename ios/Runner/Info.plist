@@ -69,6 +69,8 @@
     <string>In order to add location tags to your entry, this app requires permission to access your location</string>
 	<key>PermissionGroupNotification</key>
     <string>In order to send scheduled reminders, this app requires notification access</string>
+	<key>NSLocalNetworkUsageDescription</key>
+    <string>This app requires access to the network to stream video content.</string>
     <key>UIBackgroundModes</key>
     <array>
         <string>fetch</string>

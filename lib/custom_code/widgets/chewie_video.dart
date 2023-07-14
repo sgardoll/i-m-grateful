@@ -33,21 +33,37 @@ class ChewieVideo extends StatefulWidget {
 
 class _ChewieVideoState extends State<ChewieVideo> {
   late final VideoPlayerController _videoPlayerController;
-  late ChewieController _chewieController;
+  ChewieController? _chewieController;
   bool _isVideoInitialized = false;
+
+  double aspectRatio = 0.0;
 
   @override
   void initState() {
     super.initState();
-    _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
-    _videoPlayerController.initialize().then((_) {
-      setState(() {
-        _isVideoInitialized = true;
+    _videoPlayerController = VideoPlayerController.network(widget.videoUrl)
+      ..initialize().then((_) {
+        setState(() {
+          _isVideoInitialized = true;
+        });
+      })
+      ..addListener(() {
+        if (_videoPlayerController.value.hasError) {
+          print(
+              "Video player had an error: ${_videoPlayerController.value.errorDescription}");
+        }
       });
-    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    aspectRatio =
+        MediaQuery.of(context).size.width / MediaQuery.of(context).size.height;
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
+      aspectRatio: aspectRatio,
       autoPlay: true,
       looping: true,
       allowFullScreen: false,
@@ -64,6 +80,16 @@ class _ChewieVideoState extends State<ChewieVideo> {
     );
   }
 
+  Widget _buildChewie() {
+    if (_chewieController != null) {
+      return Chewie(
+        controller: _chewieController!,
+      );
+    } else {
+      return Container();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,20 +97,18 @@ class _ChewieVideoState extends State<ChewieVideo> {
       height: widget.height,
       child: _isVideoInitialized
           ? FittedBox(
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                child: Chewie(
-                  controller: _chewieController,
-                ),
+                child: _buildChewie(),
               ),
             )
           : Image.network(
               widget.imageUrl, // Use the image URL parameter
-              fit: BoxFit.cover,
-              width: widget.width,
-              height: widget.height,
+              fit: BoxFit.contain,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
             ),
     );
   }
@@ -92,7 +116,7 @@ class _ChewieVideoState extends State<ChewieVideo> {
   @override
   void dispose() {
     _videoPlayerController.dispose();
-    _chewieController.dispose();
+    _chewieController?.dispose();
     super.dispose();
   }
 }

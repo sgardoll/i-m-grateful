@@ -29,18 +29,6 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final animationsMap = {
-    'containerOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        BlurEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(10.0, 10.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
     'textOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
@@ -81,7 +69,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         ),
       ],
     ),
-    'containerOnPageLoadAnimation2': AnimationInfo(
+    'containerOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         BlurEffect(
@@ -133,7 +121,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         ),
       ],
     ),
-    'containerOnPageLoadAnimation3': AnimationInfo(
+    'containerOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         BlurEffect(
@@ -184,7 +172,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
         ),
       ],
     ),
-    'containerOnPageLoadAnimation4': AnimationInfo(
+    'containerOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         BlurEffect(
@@ -290,7 +278,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                         MediaQuery.sizeOf(context).width * 1.0,
                                     height:
                                         MediaQuery.sizeOf(context).height * 1.0,
-                                    child: custom_widgets.ChewieVideo(
+                                    child: custom_widgets.VlcVideo(
                                       width: MediaQuery.sizeOf(context).width *
                                           1.0,
                                       height:
@@ -299,10 +287,9 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                       videoUrl:
                                           'https://www.connectio.com.au/grateful/newOn/4.webm',
                                       imageUrl:
-                                          'https://www.connectio.com.au/grateful/newOn/4.jpg',
+                                          'https://www.connectio.com.au/grateful/newOn/4.webm',
                                     ),
-                                  ).animateOnPageLoad(animationsMap[
-                                      'containerOnPageLoadAnimation1']!),
+                                  ),
                                 ),
                                 Align(
                                   alignment: AlignmentDirectional(0.0, -1.0),
@@ -456,7 +443,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                           'https://www.connectio.com.au/grateful/newOn/2.jpg',
                                     ),
                                   ).animateOnPageLoad(animationsMap[
-                                      'containerOnPageLoadAnimation2']!),
+                                      'containerOnPageLoadAnimation1']!),
                                 ),
                                 Align(
                                   alignment: AlignmentDirectional(0.0, -1.0),
@@ -605,7 +592,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                           'https://www.connectio.com.au/grateful/newOn/3.jpg',
                                     ),
                                   ).animateOnPageLoad(animationsMap[
-                                      'containerOnPageLoadAnimation3']!),
+                                      'containerOnPageLoadAnimation2']!),
                                 ),
                                 Align(
                                   alignment: AlignmentDirectional(0.0, -1.0),
@@ -755,7 +742,7 @@ class _WelcomeOnboardWidgetState extends State<WelcomeOnboardWidget>
                                           'https://www.connectio.com.au/grateful/newOn/5.jpg',
                                     ),
                                   ).animateOnPageLoad(animationsMap[
-                                      'containerOnPageLoadAnimation4']!),
+                                      'containerOnPageLoadAnimation3']!),
                                 ),
                                 Align(
                                   alignment: AlignmentDirectional(0.0, -1.0),
